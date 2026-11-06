@@ -24,8 +24,6 @@ fun FirstRecordingPage(
     app: RambleApp,
     capture: TrialCapture,
     job: Recording?,
-    connected: Boolean,
-    onTranscript: () -> Unit,
 ) {
     val text by
         produceState("", job?.id, job?.state) {
@@ -46,6 +44,15 @@ fun FirstRecordingPage(
         appText(if (saved) R.string.first_recording_ready_title else R.string.first_recording_title),
         style = MaterialTheme.typography.headlineLarge,
     )
+    if (saved) {
+        Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surface) {
+            androidx.compose.foundation.text.selection.SelectionContainer {
+                Text(text, Modifier.fillMaxWidth().padding(20.dp),
+                    style = MaterialTheme.typography.bodyLarge)
+            }
+        }
+        return
+    }
     if (job == null) {
         TranscriptionLanguagePicker(app.settings)
         Text(
@@ -131,49 +138,10 @@ fun FirstRecordingPage(
                 Text(message, fontSize = 17.sp)
             }
         }
-        if (saved) {
-            Text(text, style = MaterialTheme.typography.bodyLarge)
-            Text(
-                appText(R.string.ui_your_recordings_8510c13),
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-            )
-            Card(
-                onClick = onTranscript,
-                colors =
-                    CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                shape = RoundedCornerShape(20.dp),
-            ) {
-                Row(
-                    Modifier.fillMaxWidth().padding(18.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    Icon(Icons.Outlined.Mic, null)
-                    Column {
-                        Text(job.title, fontWeight = FontWeight.SemiBold)
-                        Text(
-                            appText(R.string.ui_first_transcript_731ec00),
-                            color = MaterialTheme.colorScheme.secondary,
-                        )
-                    }
-                }
-            }
-            Text(
-                if (connected)
-                    appText(R.string.ui_from_now_on_new_recordings_in_your_connected__ac291ef)
-                else
-                    appText(R.string.ui_your_first_transcript_is_here_connect_your_ph_6e2036a)
-            )
-            if (job.driveState == "uploaded")
-                Text(
-                    appText(R.string.ui_your_ai_assistants_connected_to_drive_can_fin_7af09d6),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-        } else
-            Text(
-                appText(if (paused) R.string.paused_recording_help else R.string.pending_recording_help),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+        Text(
+            appText(if (paused) R.string.paused_recording_help else R.string.pending_recording_help),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 

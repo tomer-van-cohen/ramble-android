@@ -13,4 +13,4 @@ fi
 if ! "$SDK/cmdline-tools/latest/bin/avdmanager" list avd | rg -q 'Name: Ramble_Google_API_35'; then
   printf 'no\n' | "$SDK/cmdline-tools/latest/bin/avdmanager" create avd -n Ramble_Google_API_35 -k "$IMAGE" --device pixel_6
 fi
-exec "$SDK/emulator/emulator" -avd Ramble_Google_API_35 -port 5556 -no-snapshot -no-audio -no-boot-anim -gpu swiftshader_indirect "$@"
+exec "$SDK/emulator/emulator" -avd Ramble_Google_API_35 -port 5556 -no-snapshot -no-boot-anim -gpu swiftshader_indirect "$@"

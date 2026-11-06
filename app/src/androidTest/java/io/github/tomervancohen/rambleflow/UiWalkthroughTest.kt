@@ -101,7 +101,7 @@ class UiWalkthroughTest {
         io { app.database.queue().recording(saved); LocalExport(app,app.database).file(id).apply { parentFile?.mkdirs(); writeText("My first recording\n\nHello to all my AI agents. I'm here!") } }
         app.settings.trialRecording=id
         render(7); waitText("Hello to all my AI agents."); shot("15-first-transcript-ready")
-        click("Set up quick recording"); shot("16-quick-recording-pixel")
+        click("Continue"); shot("16-quick-recording-pixel")
         click("Continue"); assertEquals(10,app.settings.step); shot("17-home-after-onboarding")
         render(8,"Samsung"); shot("18-quick-recording-samsung")
         render(8,"Xiaomi"); shot("19-quick-recording-xiaomi")

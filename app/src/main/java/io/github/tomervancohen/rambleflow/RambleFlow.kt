@@ -652,7 +652,7 @@ fun RambleFlow(app: RambleApp, device: RecorderDevice = RecorderDevice.current()
                             revision++
                         }
                     trialJob?.state == "saved" ->
-                        Action(appText(R.string.ui_set_up_quick_recording_33d6a89)) {
+                        Action(appText(R.string.ui_continue_51df566)) {
                             if (isSetup) go(8) else screen = "guide"
                         }
                     trialJob != null -> {
@@ -676,7 +676,12 @@ fun RambleFlow(app: RambleApp, device: RecorderDevice = RecorderDevice.current()
                         beginTrial()
                     }
                 }
-                Action(
+                if (trialJob?.state == "saved") {
+                    Action(appText(R.string.ui_record_again_05a3b5f), secondary = true) {
+                        trialRecorder.reset()
+                        revision++
+                    }
+                } else Action(
                     when {
                         trialCapture.mode == "recording" -> appText(R.string.ui_cancel_1fa68c8)
                         trialJob?.state == "saved" -> appText(R.string.ui_go_to_home_10d9f47)
@@ -1207,11 +1212,7 @@ fun RambleFlow(app: RambleApp, device: RecorderDevice = RecorderDevice.current()
                         app,
                         trialCapture,
                         trialJob,
-                        sources.any { it.enabled && it.kind in readableSources },
-                    ) {
-                        selected = trialJob
-                        screen = "detail"
-                    }
+                    )
                 }
                 "recording-live" -> {
                     val capture by QuickRecordService.status.collectAsState()

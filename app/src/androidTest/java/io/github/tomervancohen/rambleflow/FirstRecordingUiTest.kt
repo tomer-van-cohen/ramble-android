@@ -121,11 +121,11 @@ class FirstRecordingUiTest {
         }
         assertEquals(1, calls.get())
         rule
-            .onNode(hasText("Set up quick recording") or hasText("הגדרת הקלטה מהירה"))
+            .onNode(hasText("Continue") or hasText("המשך"))
             .assertIsDisplayed()
         shot("success")
         rule
-            .onNode(hasText("Set up quick recording") or hasText("הגדרת הקלטה מהירה"))
+            .onNode(hasText("Continue") or hasText("המשך"))
             .performClick()
         rule
             .onNode(hasText("Quick recording, for next time") or hasText("הקלטה מהירה, לפעם הבאה"))
