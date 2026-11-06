@@ -71,7 +71,7 @@ class DriveSettingsUiTest {
         rule.onNodeWithText("עברית").performClick()
         assertFalse(app.settings.promptEnglish)
         rule.onNodeWithContentDescription("Back").performClick()
-        rule.onNode(hasText("App language:", substring = true)).performClick()
+        rule.onNodeWithText("App language").performScrollTo().performClick()
         rule.onNodeWithText("עברית").performClick()
         rule.waitUntil(8000) {
             rule.onAllNodesWithText("הכול במקום אחד").fetchSemanticsNodes().isNotEmpty()

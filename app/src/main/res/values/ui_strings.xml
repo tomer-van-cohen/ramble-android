@@ -321,4 +321,10 @@
     <string name="drive_services_unavailable">Google Play services are currently unavailable. Wait for them to finish updating, or check their status in Android settings.</string>
     <string name="drive_services_enable">Enable Google Play services</string>
     <string name="clear_api_key">Clear API key</string>
+    <string name="quick_setup_title">Record faster</string>
+    <string name="quick_setup_pixel">Open Ramble with two taps on the back of your phone.</string>
+    <string name="quick_setup_samsung">Open Ramble with a double-press of the side button.</string>
+    <string name="quick_setup_home">Add a recording shortcut to your Home screen.</string>
+    <string name="quick_setup_not_now">Not now</string>
+    <string name="auto_transcription_help">New recordings are transcribed automatically.</string>
 </resources>

@@ -89,7 +89,7 @@ class FirstRecordingUiTest {
     fun actualCaptureStopTranscriptListThenQuickSetup() {
         rule.onNode(hasText("Record") or hasText("הקלטה")).assertIsDisplayed()
         rule
-            .onNode(hasText("Quick recording, for next time") or hasText("הקלטה מהירה, לפעם הבאה"))
+            .onNode(hasText("Record faster") or hasText("מקליטים מהר יותר"))
             .assertDoesNotExist()
         shot("ready")
         rule.onNode(hasText("Record") or hasText("הקלטה")).performClick()
@@ -128,10 +128,10 @@ class FirstRecordingUiTest {
             .onNode(hasText("Continue") or hasText("המשך"))
             .performClick()
         rule
-            .onNode(hasText("Quick recording, for next time") or hasText("הקלטה מהירה, לפעם הבאה"))
+            .onNode(hasText("Record faster") or hasText("מקליטים מהר יותר"))
             .assertExists()
         shot("guide")
-        rule.onNode(hasText("Continue") or hasText("המשך") or hasText("Done") or hasText("סיום")).assertIsDisplayed().performClick()
+        rule.onNode(hasText("Not now") or hasText("לא עכשיו") or hasText("Done") or hasText("סיום")).assertIsDisplayed().performClick()
         assertEquals(10, app.settings.step)
         rule
             .onNode(hasContentDescription("Settings") or hasContentDescription("הגדרות"))

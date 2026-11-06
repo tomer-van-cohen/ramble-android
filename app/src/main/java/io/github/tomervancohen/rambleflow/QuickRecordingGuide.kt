@@ -12,7 +12,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun QuickRecordingGuide(device: RecorderDevice) {
+fun QuickRecordingGuide(device: RecorderDevice, compact: Boolean = false) {
+    if (compact) {
+        Text(appText(R.string.quick_setup_title), style = MaterialTheme.typography.headlineLarge)
+        Text(appText(when (device.family) {
+            RecorderFamily.PIXEL -> R.string.quick_setup_pixel
+            RecorderFamily.SAMSUNG -> R.string.quick_setup_samsung
+            else -> R.string.quick_setup_home
+        }))
+        if (device.family in setOf(RecorderFamily.PIXEL, RecorderFamily.SAMSUNG)) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                listOf(
+                    appText(if (device.family == RecorderFamily.PIXEL) R.string.ui_turn_on_quick_tap_2a11452 else R.string.ui_turn_on_double_press_4012cef),
+                    appText(R.string.ui_choose_open_app_ramble_587fb95),
+                ).forEach { Text("• $it") }
+            }
+        }
+        return
+    }
     if (device.family == RecorderFamily.SAMSUNG) {
         SamsungRecordingShortcut()
         return

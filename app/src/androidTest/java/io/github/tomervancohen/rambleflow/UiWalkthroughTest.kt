@@ -102,7 +102,7 @@ class UiWalkthroughTest {
         app.settings.trialRecording=id
         render(7); waitText("Hello to all my AI agents."); shot("15-first-transcript-ready")
         click("Continue"); shot("16-quick-recording-pixel")
-        click("Continue"); assertEquals(10,app.settings.step); shot("17-home-after-onboarding")
+        click("Not now"); assertEquals(10,app.settings.step); shot("17-home-after-onboarding")
         render(8,"Samsung"); shot("18-quick-recording-samsung")
         render(8,"Xiaomi"); shot("19-quick-recording-xiaomi")
         render(3,"Xiaomi"); shot("20-folder-access-xiaomi")
@@ -136,7 +136,7 @@ class UiWalkthroughTest {
         for((i,job) in jobs.withIndex()) { waitText(job.title);rule.onNodeWithTag("recording-${job.id}").performClick();shot("${27+i}-detail-${job.state}");back() }
         settings();shot("31-settings-top")
         rule.onNodeWithText("No Ramble server.",substring=true).performScrollTo();shot("32-settings-bottom")
-        settings();rule.onNodeWithText("App language:",substring=true).performClick();shot("33-app-language-menu")
+        settings();rule.onNodeWithText("App language").performScrollTo().performClick();shot("33-app-language-menu")
         automation.executeShellCommand("input keyevent 4").close()
         openSetting("Transcription language");shot("34-settings-transcription-language");click("Cancel")
         openSetting("Local transcripts");shot("35-local-transcripts")
@@ -155,8 +155,8 @@ class UiWalkthroughTest {
         automation.executeShellCommand("input keyevent 4").close()
         openSetting("Quick recording");shot("47-settings-quick-recording")
         openSetting("Try a recording");shot("48-settings-recording-trial")
-        openSetting("License");shot("49-license-top")
-        rule.onRoot().performTouchInput { swipeUp() };rule.mainClock.advanceTimeBy(500);shot("50-license-more")
+        settings();rule.onNodeWithText("License").assertDoesNotExist()
+        rule.onNodeWithText("App language").performScrollTo();shot("49-settings-language")
         settings();rule.onNodeWithTag("auto-transcription-switch").performClick();assertFalse(app.settings.paused)
         rule.onNodeWithTag("auto-transcription-switch").performClick();assertTrue(app.settings.paused)
         rule.mainClock.autoAdvance = false

@@ -701,13 +701,19 @@ fun RambleFlow(app: RambleApp, device: RecorderDevice = RecorderDevice.current()
                 if (device.family in setOf(RecorderFamily.SAMSUNG, RecorderFamily.PIXEL)) {
                     Action(appText(R.string.ui_set_up_shortcut_5f551f6)) { openQuickRecordingSettings() }
                 }
+                if (!isSetup) {
                 Action(appText(R.string.ui_add_quick_settings_tile_320848c), secondary = device.family in setOf(RecorderFamily.SAMSUNG, RecorderFamily.PIXEL)) {
                     QuickRecordingAccess.addTile(context) { message -> notice = message }
                 }
                 Action(appText(R.string.ui_add_to_home_screen_f5eb116), secondary = true) {
                     if (!QuickRecordingAccess.pin(context)) notice = appText(R.string.ui_long_press_ramble_and_choose_record_or_use_th_a8a8004)
                 }
-                Action(if (quickSettingsOpened) appText(R.string.ui_done_ae30c54) else appText(R.string.ui_continue_51df566), secondary = true) {
+                } else if (device.family !in setOf(RecorderFamily.SAMSUNG, RecorderFamily.PIXEL)) {
+                    Action(appText(R.string.ui_add_to_home_screen_f5eb116)) {
+                        if (!QuickRecordingAccess.pin(context)) notice = appText(R.string.ui_long_press_ramble_and_choose_record_or_use_th_a8a8004)
+                    }
+                }
+                Action(if (quickSettingsOpened) appText(R.string.ui_done_ae30c54) else appText(if (isSetup) R.string.quick_setup_not_now else R.string.ui_continue_51df566), secondary = true) {
                     if (isSetup) finish() else screen = "settings"
                 }
             }
@@ -1226,7 +1232,7 @@ fun RambleFlow(app: RambleApp, device: RecorderDevice = RecorderDevice.current()
                 }
                 "8",
                 "guide" -> {
-                    QuickRecordingGuide(device)
+                    QuickRecordingGuide(device, compact = isSetup)
                 }
                 "quickcheck" -> {
                     Text(

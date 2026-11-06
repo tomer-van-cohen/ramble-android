@@ -321,4 +321,10 @@
     <string name="drive_services_unavailable">שירותי Google Play אינם זמינים כרגע. המתינו לסיום העדכון שלהם או בדקו את מצבם בהגדרות Android.</string>
     <string name="drive_services_enable">הפעלת שירותי Google Play</string>
     <string name="clear_api_key">מחיקת המפתח</string>
+    <string name="quick_setup_title">מקליטים מהר יותר</string>
+    <string name="quick_setup_pixel">פותחים את Ramble בשתי נקישות על גב הטלפון.</string>
+    <string name="quick_setup_samsung">פותחים את Ramble בלחיצה כפולה על כפתור הצד.</string>
+    <string name="quick_setup_home">מוסיפים קיצור להקלטה למסך הבית.</string>
+    <string name="quick_setup_not_now">לא עכשיו</string>
+    <string name="auto_transcription_help">הקלטות חדשות מתומללות אוטומטית.</string>
 </resources>

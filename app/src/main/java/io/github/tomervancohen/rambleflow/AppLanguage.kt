@@ -34,9 +34,9 @@ fun AppLanguagePicker(activity: Activity, settings: Settings) {
     var expanded by remember { mutableStateOf(false) }
     val options = listOf("" to appText(R.string.ui_phone_language_5bc1fa5), "en" to "English", "he" to "עברית")
     Box {
-        TextButton(onClick = { expanded = true }) {
-            Text(appText(R.string.ui_app_language_0f6939c) + ": " +
-                (options.find { it.first == settings.appLanguage }?.second ?: "English"))
+        RowLink(appText(R.string.ui_app_language_0f6939c),
+            options.find { it.first == settings.appLanguage }?.second ?: "English") {
+            expanded = true
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             options.forEach { (code, label) ->

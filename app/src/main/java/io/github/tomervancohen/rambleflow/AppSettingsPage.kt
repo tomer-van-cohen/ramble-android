@@ -35,7 +35,12 @@ internal fun AppSettingsPage(activity: ComponentActivity, settings: Settings, on
                         style = MaterialTheme.typography.headlineLarge,
                     )
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                        Text(appText(R.string.ui_auto_transcription_489cf86), Modifier.weight(1f))
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(appText(R.string.ui_auto_transcription_489cf86))
+                            Text(appText(R.string.auto_transcription_help),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
                         Switch(
                             !settings.paused,
                             {
@@ -44,8 +49,6 @@ internal fun AppSettingsPage(activity: ComponentActivity, settings: Settings, on
                             modifier = Modifier.testTag("auto-transcription-switch"),
                         )
                     }
-                    AppLanguagePicker(activity, settings)
-                    RowLink(appText(R.string.ui_license_d52ecf4), "PolyForm Noncommercial") { onNavigate("license") }
                     RowLink(appText(R.string.ui_transcription_provider_c2ef7e2), settings.provider) {
                         onNavigate("provider")
                     }
@@ -98,5 +101,6 @@ internal fun AppSettingsPage(activity: ComponentActivity, settings: Settings, on
                         fontSize = 15.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
+                    AppLanguagePicker(activity, settings)
 
 }

@@ -48,10 +48,8 @@ class TranscriptionSettingsUiTest {
         File(app.cacheDir,"home-full-updated.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG,100,it) }
         bitmap.recycle()
         rule.onNodeWithTag("auto-transcription-status").performClick()
-        rule.onNodeWithText("License").performScrollTo().performClick()
-        rule.onNodeWithText("PolyForm Noncommercial 1.0.0").assertIsDisplayed()
-        rule.onNodeWithText("Required Notice: Copyright (c) 2026 Tomer Cohen", substring = true).assertIsDisplayed()
-        rule.onNodeWithContentDescription("Back").performClick()
+        rule.onNodeWithText("License").assertDoesNotExist()
+        rule.onNodeWithText("New recordings are transcribed automatically.").assertIsDisplayed()
         rule.onNodeWithTag("auto-transcription-switch").assertIsOn().performScrollTo().performClick()
         rule.runOnIdle { assertTrue(app.settings.paused); assertTrue(Settings(app).paused) }
         rule.onNodeWithContentDescription("Back").performClick()
