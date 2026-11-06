@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_1_open_the_provider_website_and_create_an_acc_2c53c0e" formatted="false">1. פתחו את אתר הספק וצרו חשבון.\n2. בחרו יצירת API key.\n3. חזרו לכאן והדביקו את המפתח.</string>
+    <string name="ui_a_key_is_already_saved_54f2514" formatted="false">כבר יש מפתח שמור</string>
+    <string name="ui_access_needed_2d3b115" formatted="false">נדרשת גישה מחדש</string>
+    <string name="ui_add_a_folder_to_get_started_a0b931c" formatted="false">הוסיפו תיקייה כדי להתחיל.</string>
+    <string name="ui_add_folder_ff55ec8" formatted="false">הוספת תיקייה</string>
+    <string name="ui_add_or_replace_your_api_key_to_resume_the_rem_0c0489f" formatted="false">הוסיפו או החליפו מפתח API כדי להמשיך מהחלק שטרם תומלל.</string>
+    <string name="ui_add_quick_settings_tile_320848c" formatted="false">הוספה להגדרות המהירות</string>
+    <string name="ui_add_ramble_record_by_editing_quick_settings_b11e890" formatted="false">הוסיפו Ramble Record דרך עריכת ההגדרות המהירות.</string>
+    <string name="ui_add_to_home_screen_f5eb116" formatted="false">הוספה למסך הבית</string>
+    <string name="ui_added_ef5682a" formatted="false">"נוסף "</string>
+    <string name="ui_ai_assistant_instructions_74db7f0" formatted="false">הנחיות לעוזר ה-AI</string>
+    <string name="ui_allow_access_to_sound_recorder_inside_miui_if_9facebe" formatted="false">אשרו את תיקיית sound_recorder שבתוך MIUI. אם ההקלטות אינן נגישות, ייצאו אותן מהמקליט לתיקייה שתבחרו כאן.</string>
+    <string name="ui_allow_microphone_access_to_record_here_you_ca_5800d07" formatted="false">כדי להקליט כאן, צריך לאשר גישה למיקרופון. אפשר גם לדלג.</string>
+    <string name="ui_allow_recording_access_1e4da6d" formatted="false">מתן גישה להקלטות</string>
+    <string name="ui_already_transcribed_b4729a4" formatted="false">כבר תומלל</string>
+    <string name="ui_also_saved_in_google_drive_a4c4b6c" formatted="false">נשמר גם ב-Google Drive</string>
+    <string name="ui_api_key_needs_attention_7c4c6f5" formatted="false">צריך לתקן את המפתח</string>
+    <string name="ui_app_language_0f6939c" formatted="false">שפת האפליקציה</string>
+    <string name="ui_audio_files_found_new_recordings_will_be_dete_5f4a32f" formatted="false">• זוהו קבצי אודיו.\n• הקלטות חדשות יזוהו אוטומטית.</string>
+    <string name="ui_audio_goes_only_to_your_provider_drive_receiv_b80e342" formatted="false">אודיו נשלח לספק התמלול בלבד. ל-Drive נשלח טקסט. אין שרת Ramble.</string>
+    <string name="ui_audio_will_go_to_your_selected_transcription__072f7a0" formatted="false">האודיו יישלח לספק התמלול שבחרתם. התמלול יישמר ביעדים שהגדרתם.</string>
+    <string name="ui_auto_detect_336eeed" formatted="false">זיהוי אוטומטי</string>
+    <string name="ui_auto_transcription_489cf86" formatted="false">תמלול אוטומטי</string>
+    <string name="ui_auto_transcription_is_paused_a74e044" formatted="false">התמלול האוטומטי מושהה</string>
+    <string name="ui_auto_transcription_on_f3330ce" formatted="false">תמלול אוטומטי פעיל</string>
+    <string name="ui_awaiting_access_8bbb027" formatted="false">ממתין לגישה</string>
+    <string name="ui_back_f855790" formatted="false">חזרה</string>
+    <string name="ui_back_to_key_a19a070" formatted="false">חזרה למפתח</string>
+    <string name="ui_background_recording_ad4afe5" formatted="false">הקלטה ברקע</string>
+    <string name="ui_both_recording_sources_are_connected_e24db4c" formatted="false">שני מקורות ההקלטה מחוברים.</string>
+    <string name="ui_bring_your_own_key_2ac255b" formatted="false">מביאים מפתח משלכם</string>
+    <string name="ui_call_recordings_d244ee2" formatted="false">הקלטות שיחות</string>
+    <string name="ui_cancel_1fa68c8" formatted="false">ביטול</string>
+    <string name="ui_change_folder_555b8f5" formatted="false">החלפת תיקייה</string>
+    <string name="ui_change_folder_c5c5fec" formatted="false">שינוי תיקייה</string>
+    <string name="ui_check_for_new_recordings_3dbdbc6" formatted="false">בדיקת הקלטות חדשות</string>
+    <string name="ui_check_that_it_works_7b63b41" formatted="false">בודקים שזה עובד</string>
+    <string name="ui_check_that_you_copied_the_entire_key_then_pas_d51cdb3" formatted="false">בדקו שהעתקתם את כולו ונסו להדביק שוב.</string>
+    <string name="ui_checking_your_key_4299568" formatted="false">בודקים את המפתח…</string>
+    <string name="ui_choose_a_drive_folder_75ff22b" formatted="false">בחירת תיקייה ב-Drive</string>
+    <string name="ui_choose_a_folder_6b65afe" formatted="false">בחירת תיקייה אחרת</string>
+    <string name="ui_choose_another_folder_58c9c1c" formatted="false">בחירת תיקייה אחרת</string>
+    <string name="ui_choose_open_app_ramble_587fb95" formatted="false">בחרו פתיחת אפליקציה ← Ramble</string>
+    <string name="ui_choose_open_app_voice_recorder_9a13abd" formatted="false">בחרו פתיחת אפליקציה ← מקליט קול</string>
+    <string name="ui_choose_record_or_add_a_shortcut_to_your_home__a956de4" formatted="false">בחרו הקלטה, או הוסיפו קיצור למסך הבית</string>
+    <string name="ui_choose_start_recording_if_available_920f634" formatted="false">בחרו התחלת הקלטה, אם מופיע</string>
+    <string name="ui_clear_completed_audio_af5f5f2" formatted="false">ניקוי אודיו שתומלל</string>
+    <string name="ui_close_2873260" formatted="false">סגירה</string>
+    <string name="ui_coming_soon_no_key_needed_0006635" formatted="false">בקרוב — בלי צורך במפתח</string>
+    <string name="ui_connect_drive_so_your_ai_assistant_can_find_y_95473ec" formatted="false">חברו Drive כדי שעוזר ה-AI שלכם יוכל למצוא את התמלולים.</string>
+    <string name="ui_connect_google_drive_f4d37b8" formatted="false">חיבור Google Drive</string>
+    <string name="ui_connect_the_other_folder_or_continue_with_the_5ba1390" formatted="false">אפשר לחבר גם את התיקייה הנוספת, או להמשיך עם מה שמחובר.</string>
+    <string name="ui_connected_f479903" formatted="false">מחובר</string>
+    <string name="ui_connection_cancelled_try_again_when_you_re_re_f25da53" formatted="false">החיבור בוטל. אפשר לנסות שוב כשתרצו.</string>
+    <string name="ui_continue_51df566" formatted="false">המשך</string>
+    <string name="ui_continue_later_ce8721f" formatted="false">להמשיך אחר כך</string>
+    <string name="ui_copied_e67845b" formatted="false">הועתק</string>
+    <string name="ui_copy_5d3eebd" formatted="false">העתקה</string>
+    <string name="ui_copy_for_your_assistant_b112590" formatted="false">להעתקה לעוזר שלכם</string>
+    <string name="ui_copy_text_04d0d96" formatted="false">העתקת הטקסט</string>
+    <string name="ui_copy_this_to_your_ai_assistant_3d63901" formatted="false">העתיקו את ההנחיות לעוזר ה־AI שלכם.</string>
+    <string name="ui_couldn_t_access_drive_check_the_connection_an_0b28fd7" formatted="false">לא הצלחנו לגשת ל-Drive. בדקו את החיבור ונסו שוב.</string>
+    <string name="ui_couldn_t_check_your_key_ce55d0b" formatted="false">לא הצלחנו לבדוק את המפתח</string>
+    <string name="ui_couldn_t_open_settings_open_them_from_your_ph_5700da0" formatted="false">לא הצלחנו לפתוח את ההגדרות. פתחו אותן דרך הטלפון.</string>
+    <string name="ui_couldn_t_reach_google_check_your_internet_con_d9d52bf" formatted="false">לא הצלחנו להתחבר ל־Google. בדקו את חיבור האינטרנט ונסו שוב.</string>
+    <string name="ui_couldn_t_read_this_audio_return_to_the_call_a_2174881" formatted="false">לא ניתן לקרוא את האודיו. חזרו לשיחה ונסו לשתף שוב קובץ אודיו נתמך.</string>
+    <string name="ui_couldn_t_record_5bf9e1d" formatted="false">לא הצלחנו להקליט</string>
+    <string name="ui_couldn_t_save_the_recording_please_try_again_06369e8" formatted="false">לא הצלחנו לשמור את ההקלטה. אפשר לנסות שוב.</string>
+    <string name="ui_couldn_t_save_your_key_try_pasting_again_ea558f6" formatted="false">לא הצלחנו לשמור את המפתח. נסו להדביק שוב.</string>
+    <string name="ui_create_and_use_folder_48d62db" formatted="false">יצירת תיקייה ושימוש בה</string>
+    <string name="ui_custom_folder_e068357" formatted="false">תיקייה שבחרתם</string>
+    <string name="ui_delete_4d8629a" formatted="false">מחיקה</string>
+    <string name="ui_delete_recording_c62182e" formatted="false">מחיקת ההקלטה</string>
+    <string name="ui_delete_this_recording_49aa6f3" formatted="false">למחוק את ההקלטה?</string>
+    <string name="ui_didn_t_work_open_settings_again_or_record_as__04a5ffd" formatted="false">לא עבד? אפשר לפתוח שוב את ההגדרות, או פשוט להקליט כרגיל מהמקליט.</string>
+    <string name="ui_disconnect_drive_e1596bc" formatted="false">ניתוק Drive</string>
+    <string name="ui_done_ae30c54" formatted="false">סיום</string>
+    <string name="ui_double_press_4b8a7bd" formatted="false">לחיצה כפולה</string>
+    <string name="ui_everything_in_one_place_094435f" formatted="false">הכול במקום אחד</string>
+    <string name="ui_existing_files_stay_where_they_are_0c152d1" formatted="false">קבצים שכבר נשמרו יישארו במקומם.</string>
+    <string name="ui_existing_recording_b22f5bb" formatted="false">הקלטה קודמת</string>
+    <string name="ui_find_your_recordings_c76d6a3" formatted="false">נמצא את ההקלטות שלכם</string>
+    <string name="ui_first_recording_53935cd" formatted="false">הקלטה ראשונה</string>
+    <string name="ui_first_recording_e0228ab" formatted="false">ההקלטה הראשונה שלכם</string>
+    <string name="ui_first_transcript_731ec00" formatted="false">תמלול ראשון ✓</string>
+    <string name="ui_fix_api_key_332dc00" formatted="false">תיקון המפתח</string>
+    <string name="ui_fix_dff6353" formatted="false">תיקון</string>
+    <string name="ui_folder_access_needs_attention_1e640ac" formatted="false">בדקו גישה לתיקיות</string>
+    <string name="ui_folder_connected_f218ffa" formatted="false">התיקייה מחוברת</string>
+    <string name="ui_folders_a421041" formatted="false">תיקיות</string>
+    <string name="ui_folders_available_to_ramble_you_can_also_crea_048b465" formatted="false">תיקיות זמינות ל-Ramble. אפשר גם ליצור תיקייה חדשה.</string>
+    <string name="ui_for_a_recorded_call_open_the_call_in_phone_hi_c89b5a8" formatted="false">• פתחו הקלטת שיחה ב־Phone, או הקלטה במקליט של Google.\n• לחצו על שיתוף ← Ramble, ואז על ״תמלול״.\n• משתפים כל הקלטה בנפרד. אין צורך בהרשאת תיקייה.</string>
+    <string name="ui_for_direct_recording_use_the_record_shortcut__8162d42" formatted="false">להקלטה ישירה, השתמשו בקיצור ההקלטה או באריח ההגדרות המהירות.</string>
+    <string name="ui_free_up_space_on_your_phone_we_ll_retry_autom_c8e3d2b" formatted="false">פנו מקום בטלפון. ננסה שוב אוטומטית וההתקדמות נשמרת.</string>
+    <string name="ui_from_now_on_new_recordings_in_your_connected__ac291ef" formatted="false">מעכשיו, הקלטות חדשות מהמקורות שחיברתם יתומללו ויופיעו כאן אוטומטית.</string>
+    <string name="ui_get_a_key_in_a_few_steps_96b0d58" formatted="false">מפתח בכמה צעדים</string>
+    <string name="ui_get_started_6f5b4d5" formatted="false">בואו נתחיל</string>
+    <string name="ui_go_to_home_10d9f47" formatted="false">למסך הראשי</string>
+    <string name="ui_google_didn_t_complete_the_connection_try_aga_08bd154" formatted="false">Google לא השלימה את החיבור. נסו שוב ואשרו את הגישה ל־Drive.</string>
+    <string name="ui_google_drive_connected_b1ae97e" formatted="false">Google Drive מחובר</string>
+    <string name="ui_google_play_services_on_this_phone_can_t_conn_06c93af" formatted="false">שירותי Google במכשיר לא מאפשרים עדיין את החיבור. עדכנו את Google Play services דרך חנות Play ונסו שוב.</string>
+    <string name="ui_high_quality_transcription_usage_based_pricin_f1aac75" formatted="false">תמלול איכותי · תשלום לפי שימוש</string>
+    <string name="ui_historical_recording_not_uploaded_cf8a57c" formatted="false">הקלטה מהעבר — לא נשלחת</string>
+    <string name="ui_in_the_settings_that_open_11e3c83" formatted="false">במסך ההגדרות שייפתח</string>
+    <string name="ui_interrupted_recording_0395f22" formatted="false">הקלטה שנקטעה</string>
+    <string name="ui_keep_it_or_enter_a_replacement_52dbe36" formatted="false">אפשר להמשיך איתו או להדביק מפתח חדש.</string>
+    <string name="ui_keep_original_audio_32fac61" formatted="false">שמירת אודיו מקורי</string>
+    <string name="ui_leaving_the_app_cancelled_the_unsaved_recordi_1253bf4" formatted="false">ההקלטה בוטלה כשיצאתם מהאפליקציה. אפשר לנסות שוב.</string>
+    <string name="ui_let_ramble_transcribe_5c866b7" formatted="false">Ramble מתמלל בשבילכם</string>
+    <string name="ui_let_s_try_again_0cd5374" formatted="false">רגע, נבדוק שוב</string>
+    <string name="ui_license_d52ecf4" formatted="false">רישיון ושימוש</string>
+    <string name="ui_local_transcripts_85107af" formatted="false">שמירה בטלפון</string>
+    <string name="ui_long_press_ramble_and_choose_record_or_use_th_a8a8004" formatted="false">לחצו לחיצה ארוכה על Ramble ובחרו הקלטה, או השתמשו בכפתור המיקרופון באפליקציה.</string>
+    <string name="ui_long_press_the_ramble_icon_7e7d0e9" formatted="false">לחצו לחיצה ארוכה על האייקון של Ramble</string>
+    <string name="ui_message_6e340b9" formatted="false"></string>
+    <string name="ui_microphone_access_needed_35dcee0" formatted="false">נדרשת גישה למיקרופון</string>
+    <string name="ui_microphone_level_5da562e" formatted="false">עוצמת מיקרופון</string>
+    <string name="ui_more_info_pricing_79003d6" formatted="false">מידע ומחירים</string>
+    <string name="ui_more_information_21fd399" formatted="false">מידע נוסף</string>
+    <string name="ui_needs_attention_ff2f815" formatted="false">נדרש טיפול</string>
+    <string name="ui_new_folder_name_a0989df" formatted="false">שם לתיקייה חדשה</string>
+    <string name="ui_new_transcripts_are_saved_here_b1de520" formatted="false">תמלולים חדשים יישמרו כאן.</string>
+    <string name="ui_no_audio_was_sent_we_ll_retry_when_the_connec_ecb0456" formatted="false">האודיו לא נשלח. ננסה שוב כשהחיבור יחזור.</string>
+    <string name="ui_no_clear_speech_was_detected_check_your_micro_04ed201" formatted="false">לא נקלט דיבור ברור. בדקו את המיקרופון ונסו שוב — גם משפט קצר מספיק.</string>
+    <string name="ui_no_recordings_yet_you_re_all_set_new_recordin_9f93684" formatted="false">• אין כאן הקלטות עדיין — הכול מוכן.\n• הקלטות חדשות יזוהו אוטומטית.</string>
+    <string name="ui_no_system_button_mapping_needed_gesture_optio_72685fb" formatted="false">הקיצור עובד בלי מיפוי כפתורי מערכת. אפשרויות התנועות משתנות בין דגמי Xiaomi. אם ההקלטה נעצרת ברקע, אפשרו פעילות ברקע בהגדרות הסוללה של Ramble.</string>
+    <string name="ui_noncommercial_use_under_the_license_terms_the_53209f5" formatted="false">שימוש לא מסחרי לפי תנאי הרישיון. אין חובה כללית לפרסם את קוד השינויים שלכם.</string>
+    <string name="ui_not_connected_ff066a3" formatted="false">לא מחובר</string>
+    <string name="ui_not_enough_audio_was_saved_record_for_a_few_s_4caafab" formatted="false">לא נשמר מספיק אודיו. הקליטו כמה שניות ונסו שוב.</string>
+    <string name="ui_off_bc61b8e" formatted="false">כבוי</string>
+    <string name="ui_on_1185607" formatted="false">פעיל</string>
+    <string name="ui_on_phones_with_quick_tap_your_phone_may_need__2a595f9" formatted="false">במכשירים שתומכים ב־Quick Tap. ייתכן שצריך לפתוח את הנעילה.</string>
+    <string name="ui_open_app_e9d0fe1" formatted="false">פתיחת אפליקציה</string>
+    <string name="ui_open_folder_in_drive_141acb3" formatted="false">פתיחת התיקייה ב-Drive</string>
+    <string name="ui_open_google_drive_01e0330" formatted="false">פתיחה ב-Google Drive</string>
+    <string name="ui_open_in_drive_53aa754" formatted="false">פתיחה ב-Drive</string>
+    <string name="ui_open_provider_website_c6cd642" formatted="false">פתיחת האתר</string>
+    <string name="ui_open_quick_settings_edit_then_add_ramble_reco_7f34a85" formatted="false">פתחו הגדרות מהירות ← עריכה, והוסיפו Ramble Record.</string>
+    <string name="ui_open_settings_again_fe95363" formatted="false">פתיחת ההגדרות שוב</string>
+    <string name="ui_optional_shortcut_6c503e7" formatted="false">קיצור דרך · אופציונלי</string>
+    <string name="ui_paste_7e01771" formatted="false">הדבקה</string>
+    <string name="ui_phone_call_47c6b93" formatted="false">שיחת טלפון</string>
+    <string name="ui_phone_calls_c414f29" formatted="false">הקלטות שיחות</string>
+    <string name="ui_phone_language_5bc1fa5" formatted="false">לפי הטלפון</string>
+    <string name="ui_preparing_audio_5695a06" formatted="false">מכינים את האודיו</string>
+    <string name="ui_preparing_audio_821fc84" formatted="false">מכינים את האודיו…</string>
+    <string name="ui_preparing_your_transcript_92f460a" formatted="false">מכינים את התמלול…</string>
+    <string name="ui_processing_c4760c8" formatted="false">בתהליך…</string>
+    <string name="ui_processing_stopped_after_an_error_retry_the_r_861863c" formatted="false">התמלול נעצר עקב תקלה. אפשר לנסות שוב את החלק שטרם הושלם.</string>
+    <string name="ui_quick_recording_462793f" formatted="false">הקלטה מהירה</string>
+    <string name="ui_quick_recording_for_next_time_41c1c4c" formatted="false">הקלטה מהירה, לפעם הבאה</string>
+    <string name="ui_quickly_press_the_side_button_twice_if_your_r_0e2166c" formatted="false">לחצו פעמיים, מהר, על הכפתור בצד הטלפון. אם המקליט נפתח, הכול מוכן.</string>
+    <string name="ui_ramble_automatically_turns_your_recordings_in_8e0ebb8" formatted="false">Ramble הופכת את ההקלטות שלכם להקשר שה־AI שלכם יכול להשתמש בו — אוטומטית.</string>
+    <string name="ui_ramble_background_recording_8f16e31" formatted="false">Ramble · הקלטה ברקע</string>
+    <string name="ui_ramble_is_recording_413b770" formatted="false">Ramble מקליטה</string>
+    <string name="ui_ramble_is_recording_tap_to_open_recording_con_7e317ce" formatted="false">Ramble מקליטה, לחצו לפתיחת פקדי ההקלטה</string>
+    <string name="ui_ramble_on_your_side_button_e0f16ce" formatted="false">Ramble בכפתור הצד</string>
+    <string name="ui_ramble_record_is_in_quick_settings_88f5794" formatted="false">Ramble Record זמין בהגדרות המהירות.</string>
+    <string name="ui_ramble_record_shortcut_or_quick_settings_d4a4a39" formatted="false">Ramble · קיצור הקלטה או הגדרות מהירות</string>
+    <string name="ui_ramble_s_private_audio_and_transcript_will_be_19e729b" formatted="false">האודיו והתמלול הפרטיים של Ramble יימחקו. קובצי המקור והייצוא בטלפון או ב־Drive יישארו במקומם.</string>
+    <string name="ui_recommended_free_tier_available_cd6bf52" formatted="false">מומלץ · יש מסלול חינמי עם מגבלת שימוש</string>
+    <string name="ui_record_08a8c66" formatted="false">הקלטה</string>
+    <string name="ui_record_again_05a3b5f" formatted="false">להקליט שוב</string>
+    <string name="ui_record_here_or_add_audio_to_your_connected_fo_6757869" formatted="false">הקליטו כאן, או הוסיפו אודיו לתיקיות שחיברתם.</string>
+    <string name="ui_recording_access_48f80c4" formatted="false">מתן הרשאות</string>
+    <string name="ui_recording_cancelled_nothing_was_sent_b0893a6" formatted="false">ההקלטה בוטלה ולא נשלחה.</string>
+    <string name="ui_recording_in_progress_2d5ec0c" formatted="false">הקלטה פעילה</string>
+    <string name="ui_recording_needs_attention_3503a05" formatted="false">צריך לבדוק את ההקלטה</string>
+    <string name="ui_recording_saved_your_transcript_will_appear_h_a1fab96" formatted="false">ההקלטה נשמרה. התמלול יופיע כאן.</string>
+    <string name="ui_recording_sources_68d3a41" formatted="false">מקורות ההקלטה</string>
+    <string name="ui_recording_sources_c3353a9" formatted="false">תיקיות ההקלטות</string>
+    <string name="ui_recording_was_interrupted_its_audio_was_kept__42bb1c9" formatted="false">ההקלטה נקטעה והאודיו נשמר. אפשר לנסות לשחזר או למחוק אותה. קובץ שלא הושלם עלול להיות בלתי ניתן לשחזור.</string>
+    <string name="ui_recordings_8f44160" formatted="false">הקלטות</string>
+    <string name="ui_recover_and_transcribe_ac94b26" formatted="false">שחזור ותמלול</string>
+    <string name="ui_recovered_recording_25d9129" formatted="false">הקלטה ששוחזרה</string>
+    <string name="ui_reload_folders_fe8446c" formatted="false">טעינה מחדש</string>
+    <string name="ui_remove_7d27e80" formatted="false">הסרה</string>
+    <string name="ui_requires_google_drive_feba960" formatted="false">צריך Google Drive</string>
+    <string name="ui_retry_transcription_a577582" formatted="false">ניסיון נוסף</string>
+    <string name="ui_retrying_later_528d8fe" formatted="false">ניסיון חוזר בהמשך</string>
+    <string name="ui_review_possible_duplicate_charge_9b0e48c" formatted="false">נדרש אישור לניסיון נוסף</string>
+    <string name="ui_review_this_attempt_before_sending_again_b64e5e0" formatted="false">צריך לבדוק את הניסיון לפני שליחה נוספת</string>
+    <string name="ui_review_transcription_7e398bd" formatted="false">בדיקת התמלול</string>
+    <string name="ui_save_f622d3a" formatted="false">שמירה</string>
+    <string name="ui_save_only_on_this_phone_06718d7" formatted="false">שמירה רק בטלפון</string>
+    <string name="ui_saved_a64d43e" formatted="false">נשמר</string>
+    <string name="ui_saved_drive_f3d7363" formatted="false">נשמר · Drive</string>
+    <string name="ui_saved_locally_drive_pending_9eb8db4" formatted="false">נשמר בטלפון · מחכה ל-Drive</string>
+    <string name="ui_saved_on_phone_0edd0a8" formatted="false">נשמר בטלפון</string>
+    <string name="ui_saved_on_phone_and_drive_d720701" formatted="false">נשמר בטלפון וב-Drive</string>
+    <string name="ui_saved_on_your_phone_67c68af" formatted="false">נשמר בטלפון</string>
+    <string name="ui_saved_on_your_phone_and_in_google_drive_730736c" formatted="false">נשמר בטלפון וב-Google Drive ✓</string>
+    <string name="ui_saved_on_your_phone_c4be7eb" formatted="false">נשמר בטלפון ✓</string>
+    <string name="ui_saved_on_your_phone_drive_upload_pending_1b52cc6" formatted="false">נשמר בטלפון · ההעלאה ל-Drive ממתינה</string>
+    <string name="ui_saving_75cb326" formatted="false">שמירה</string>
+    <string name="ui_saving_8d4c7f0" formatted="false">שומרים…</string>
+    <string name="ui_say_hi_to_your_ai_0a76b76" formatted="false">תגידו שלום ל־AI שלכם</string>
+    <string name="ui_selected_0b1ba11" formatted="false">נבחרה</string>
+    <string name="ui_set_up_quick_recording_33d6a89" formatted="false">הגדרת הקלטה מהירה</string>
+    <string name="ui_set_up_ramble_1224fe1" formatted="false">הגדרת Ramble</string>
+    <string name="ui_set_up_shortcut_5f551f6" formatted="false">הגדרת קיצור הדרך</string>
+    <string name="ui_set_up_your_transcription_provider_first_then_de17462" formatted="false">השלימו קודם את הגדרת ספק התמלול, ואז שתפו שוב את ההקלטה.</string>
+    <string name="ui_set_your_side_button_to_ramble_double_press_t_4a3e560" formatted="false">בחרו ב־Ramble לכפתור הצד. שתי לחיצות פותחות את האפליקציה; לחצו על המיקרופון כדי להקליט.</string>
+    <string name="ui_settings_7e3c1bd" formatted="false">הגדרות</string>
+    <string name="ui_settings_system_gestures_quick_tap_8cf09df" formatted="false">הגדרות ← מערכת ← תנועות ← Quick Tap</string>
+    <string name="ui_share_24de8ee" formatted="false">שיתוף</string>
+    <string name="ui_share_a_recording_with_ramble_41f422a" formatted="false">משתפים הקלטה עם Ramble</string>
+    <string name="ui_shared_recording_145c6cc" formatted="false">הקלטה ששיתפתם</string>
+    <string name="ui_skip_23a36fc" formatted="false">דילוג</string>
+    <string name="ui_skip_recording_723f296" formatted="false">לדלג על ההקלטה</string>
+    <string name="ui_skipped_ba4d944" formatted="false">דולג</string>
+    <string name="ui_skipped_f088064" formatted="false">דילגתם על ההקלטה</string>
+    <string name="ui_start_a_recording_7b04882" formatted="false">להתחיל הקלטה?</string>
+    <string name="ui_starting_2ff22c8" formatted="false">מתחילים…</string>
+    <string name="ui_stop_and_save_becc0e8" formatted="false">עצירה ושמירה</string>
+    <string name="ui_stop_f77e388" formatted="false">עצירה</string>
+    <string name="ui_storage_space_needed_cff7b36" formatted="false">נדרש מקום פנוי</string>
+    <string name="ui_storage_space_needed_your_progress_is_saved_41c0a86" formatted="false">נדרש מקום פנוי. ההתקדמות נשמרת.</string>
+    <string name="ui_talk_freely_your_ai_stays_in_the_loop_6719342" formatted="false">דברו חופשי.\nה־AI שלכם נשאר בתמונה.</string>
+    <string name="ui_tap_allow_recording_access_next_tap_use_this__2b3e2d8" formatted="false">• לחצו על ״מתן גישה להקלטות״.\n• במסך הבא: ״שימוש בתיקייה הזו״ (Use this folder).\n• אין צורך להיכנס לתת־תיקיות.</string>
+    <string name="ui_tap_once_to_record_again_to_stop_fd2d31d" formatted="false">לחצו פעם אחת להקלטה, ושוב לעצירה</string>
+    <string name="ui_tap_paste_922f9f6" formatted="false">לחצו על הדבקה</string>
+    <string name="ui_tap_record_and_say_93a1fed" formatted="false">לחצו על הקלטה ואמרו:</string>
+    <string name="ui_tap_stop_to_save_your_recording_a1fe4ae" formatted="false">לעצירה ולשמירה, לחצו עצירה</string>
+    <string name="ui_the_new_key_will_be_used_for_the_remaining_un_84cb7a6" formatted="false">המפתח החדש ישמש רק לחלקים שעדיין לא תומללו.</string>
+    <string name="ui_the_provider_may_already_have_processed_a_chu_287c797" formatted="false">ייתכן שהספק כבר עיבד חלק מההקלטה. ניסיון נוסף עלול לחייב שוב.</string>
+    <string name="ui_the_provider_rejected_this_request_check_the__e4a3d4c" formatted="false">הספק דחה את הבקשה. בדקו את הקובץ ואת הגדרות הספק לפני ניסיון נוסף.</string>
+    <string name="ui_the_same_recorder_is_inside_ramble_stop_from__93187d9" formatted="false">אותו מקליט גם מתוך Ramble. אפשר לעצור מההתראה גם כשהמסך נעול.</string>
+    <string name="ui_this_applies_to_new_recordings_existing_trans_a8fc2c4" formatted="false">השינוי חל על הקלטות חדשות. תמלולים קיימים לא מועברים או נמחקים.</string>
+    <string name="ui_this_file_was_not_finalized_and_couldn_t_be_r_962928c" formatted="false">הקובץ לא הושלם ולא הצלחנו לשחזר אותו. הוא נשמר עד שתבחרו למחוק.</string>
+    <string name="ui_this_is_my_first_ever_recording_hello_to_all__8ce490d" formatted="false">״זו ההקלטה הראשונה שלי. שלום לכל עוזרי ה־AI שלי. אני כאן!״</string>
+    <string name="ui_this_key_didn_t_work_6ac29b0" formatted="false">המפתח לא עובד</string>
+    <string name="ui_this_recording_is_queued_you_can_return_later_b0d45f4" formatted="false">ההקלטה בתור. אפשר לחזור מאוחר יותר.</string>
+    <string name="ui_this_version_of_ramble_isn_t_registered_corre_4c72858" formatted="false">הגרסה הזו של Ramble אינה רשומה נכון ב־Google. עדכנו את האפליקציה או פנו לתמיכה.</string>
+    <string name="ui_transcribe_5c07ff5" formatted="false">תמלול</string>
+    <string name="ui_transcribe_phone_call_recordings_f3e1a77" formatted="false">תמלול הקלטות שיחות</string>
+    <string name="ui_transcribe_shared_audio_95496b1" formatted="false">תמלול הקלטה ששיתפתם</string>
+    <string name="ui_transcribe_voice_memos_e981fa3" formatted="false">תמלול הקלטות קול</string>
+    <string name="ui_transcribing_11c367b" formatted="false">מתמלל עכשיו</string>
+    <string name="ui_transcribing_7b67bab" formatted="false">מתמלל…</string>
+    <string name="ui_transcribing_f800f8e" formatted="false">מתמללים…</string>
+    <string name="ui_transcribing_your_recording_9e5aa1a" formatted="false">מתמללים את ההקלטה שלכם…</string>
+    <string name="ui_transcript_folder_ca727d0" formatted="false">תיקיית התמלולים</string>
+    <string name="ui_transcript_ready_792bf46" formatted="false">תמלול מוכן</string>
+    <string name="ui_transcription_key_needed_bec4da1" formatted="false">נדרש מפתח תמלול</string>
+    <string name="ui_transcription_language_b47c15e" formatted="false">שפת תמלול</string>
+    <string name="ui_transcription_paused_9d8f35b" formatted="false">התמלול מושהה</string>
+    <string name="ui_transcription_provider_c2ef7e2" formatted="false">ספק התמלול</string>
+    <string name="ui_transcription_provider_fc1dfb9" formatted="false">ספק תמלול</string>
+    <string name="ui_transcription_stopped_review_it_to_try_again_e64b87a" formatted="false">התמלול נעצר. אפשר לבדוק ולנסות שוב.</string>
+    <string name="ui_try_a_recording_55b91c5" formatted="false">ניסיון הקלטה</string>
+    <string name="ui_try_again_96eaf84" formatted="false">לנסות שוב</string>
+    <string name="ui_try_again_a8e3285" formatted="false">נסו שוב</string>
+    <string name="ui_try_your_first_recording_0deff5f" formatted="false">בואו ננסה: הקלטה ראשונה</string>
+    <string name="ui_turn_on_447a7dd" formatted="false">להפעיל</string>
+    <string name="ui_turn_on_double_press_4012cef" formatted="false">הפעילו לחיצה כפולה</string>
+    <string name="ui_turn_on_quick_tap_2a11452" formatted="false">הפעילו Quick Tap</string>
+    <string name="ui_two_taps_on_the_back_open_ramble_tap_the_micr_9b5eddc" formatted="false">שתי הקשות על גב הטלפון פותחות את Ramble. לחצו על המיקרופון להקלטה.</string>
+    <string name="ui_update_google_play_services_b89d591" formatted="false">עדכון שירותי Google</string>
+    <string name="ui_upload_on_wi_fi_only_4d70051" formatted="false">העלאה ב-Wi-Fi בלבד</string>
+    <string name="ui_use_default_downloads_171fe5a" formatted="false">ברירת מחדל: Downloads</string>
+    <string name="ui_voice_memos_79db403" formatted="false">הקלטות קול</string>
+    <string name="ui_voice_recorder_6c23f5b" formatted="false">מקליט הקול</string>
+    <string name="ui_voice_recordings_0d8b2a0" formatted="false">הקלטות קול</string>
+    <string name="ui_wait_for_active_processing_to_finish_then_try_63ea4c9" formatted="false">המתינו לסיום העיבוד הפעיל ונסו שוב.</string>
+    <string name="ui_waiting_2a654ae" formatted="false">ממתין…</string>
+    <string name="ui_waiting_for_connection_7cca616" formatted="false">ממתין לחיבור</string>
+    <string name="ui_waiting_for_connection_no_audio_sent_ccdd09f" formatted="false">ממתינים לחיבור — האודיו לא נשלח</string>
+    <string name="ui_waiting_for_connection_no_audio_was_sent_85a3020" formatted="false">ממתינים לחיבור. האודיו לא נשלח.</string>
+    <string name="ui_waiting_for_provider_limit_092ec40" formatted="false">ממתינים למגבלת הספק</string>
+    <string name="ui_waiting_for_storage_space_9f5a98a" formatted="false">ממתינים למקום פנוי</string>
+    <string name="ui_waiting_for_the_recording_to_finish_saving_8df9fd7" formatted="false">מחכה לשמירה הסופית של ההקלטה</string>
+    <string name="ui_waiting_for_transcription_f969478" formatted="false">מחכה לתמלול</string>
+    <string name="ui_what_s_on_your_mind_35ba4f0" formatted="false">מחשבה ראשונה?</string>
+    <string name="ui_when_off_private_audio_copies_are_removed_aft_f0c674b" formatted="false">כשכבוי, עותקי האודיו הפרטיים יוסרו אחרי שמירת תמלול. הקלטות שטרם הושלמו וקובצי המקור נשמרים.</string>
+    <string name="ui_where_to_save_new_transcripts_a2c239c" formatted="false">איפה לשמור תמלולים חדשים?</string>
+    <string name="ui_who_will_transcribe_45b4972" formatted="false">מי יתמלל את ההקלטות?</string>
+    <string name="ui_you_can_close_the_app_and_record_as_usual_new_6ffccb2" formatted="false">אפשר לסגור את האפליקציה ולהקליט כרגיל. נבדוק להקלטות חדשות בערך כל רבע שעה, לפעמים יותר.</string>
+    <string name="ui_you_can_switch_apps_or_lock_your_phone_6147ef6" formatted="false">אפשר לעבור לאפליקציה אחרת או לנעול את הטלפון.</string>
+    <string name="ui_you_re_all_set_95bc22a" formatted="false">הכול מוכן</string>
+    <string name="ui_you_re_ready_to_continue_2e2387e" formatted="false">אפשר להמשיך.</string>
+    <string name="ui_your_ai_assistants_connected_to_drive_can_fin_7af09d6" formatted="false">עוזרי ה-AI שמחוברים ל-Drive שלכם יכולים למצוא גם את התמלול הזה.</string>
+    <string name="ui_your_api_key_needs_attention_2dbbef2" formatted="false">צריך לתקן את מפתח ה-API</string>
+    <string name="ui_your_chosen_folder_c4e0e6f" formatted="false">בתיקייה שבחרתם</string>
+    <string name="ui_your_first_transcript_is_here_connect_your_ph_6e2036a" formatted="false">התמלול הראשון שלכם כאן. כדי לקלוט גם הקלטות מהמקליט של הטלפון, חברו את התיקייה שלו בהגדרות.</string>
+    <string name="ui_your_key_is_encrypted_on_this_phone_audio_goe_b1aecf2" formatted="false">המפתח נשמר מוצפן בטלפון. האודיו נשלח ישירות לספק שבחרתם.</string>
+    <string name="ui_your_key_is_saved_securely_awaiting_verificat_47cbc43" formatted="false">המפתח נשמר מוצפן וממתין לאימות. התחברו לאינטרנט ונסו שוב.</string>
+    <string name="ui_your_key_works_6cbf015" formatted="false">המפתח עובד ✓</string>
+    <string name="ui_your_provider_asked_us_to_wait_we_ll_retry_au_d42fc78" formatted="false">ממתינים למגבלת הספק. ננסה שוב אוטומטית.</string>
+    <string name="ui_your_recordings_8510c13" formatted="false">ההקלטות שלכם</string>
+    <string name="ui_your_transcript_9fed024" formatted="false">התמלול שלכם</string>
+    <string name="first_recording_title">ההקלטה הראשונה שלכם</string>
+    <string name="first_recording_ready_title">ההקלטה הראשונה שלכם, מוכנה</string>
+    <string name="recording_seconds">מקליטים · %1$d שנ׳</string>
+    <string name="paused_recording_help">ההקלטה נשמרה. הפעילו תמלול אוטומטי בהגדרות כדי להמשיך.</string>
+    <string name="pending_recording_help">אפשר לצאת ולחזור — ההתקדמות נשמרת. נמשיך אוטומטית.</string>
+    <string name="attention_count">%1$d דורשות טיפול</string>
+    <string name="processing_count">%1$d בתהליך</string>
+    <string name="folder_options">אפשרויות לתיקייה %1$s</string>
+    <string name="get_provider_key">השגת API key ב-%1$s</string>
+    <string name="provider_key_title">מפתח API מ-%1$s</string>
+    <string name="progress_step">שלב %1$d מתוך 4</string>
+    <string name="cleared_audio_count">ניקינו עותקי אודיו של %1$d הקלטות שהושלמו.</string>
+    <string name="cannot_open_link">לא ניתן לפתוח את הקישור</string>
+    <string name="key_rejected_help">המפתח לא התקבל. בדקו אותו ונסו שוב.</string>
+    <string name="folder_access_needed">נדרשת גישה לתיקייה.</string>
+    <string name="action_incomplete">הפעולה לא הושלמה. בדקו חיבור והרשאות ונסו שוב.</string>
+    <string name="folder_not_found">לא הצלחנו לקרוא את התיקייה. בחרו תיקייה נגישה ונסו שוב.</string>
+    <string name="folder_access_cancelled">לא ניתנה גישה. אפשר לנסות שוב.</string>
+    <string name="folder_not_writable">לא ניתן לכתוב לתיקייה שבחרתם.</string>
+    <string name="copied_message">הועתק</string>
+    <string name="api_key_label">מפתח API</string>
+    <string name="app_recording_title">הקלטה %1$s</string>
+    <string name="phone_recording_source">הקלטת Ramble</string>
+    <string name="my_first_recording_title">ההקלטה הראשונה שלי</string>
+    <string name="unsupported_audio_help">ההקלטה חורגת מתקציב העיבוד המקומי או משתמשת בפורמט שאינו נתמך. פצלו אותה לקבצים קצרים יותר או ייצאו לפורמט אודיו נתמך.</string>
+    <string name="drive_services_missing">שירותי Google Play חסרים במכשיר הזה. כדי לחבר את Drive באמולטור, יש להשתמש באמולטור עם Google Play.</string>
+    <string name="drive_services_disabled">שירותי Google Play מושבתים. הפעילו אותם ואז נסו שוב לחבר את Drive.</string>
+    <string name="drive_services_unavailable">שירותי Google Play אינם זמינים כרגע. המתינו לסיום העדכון שלהם או בדקו את מצבם בהגדרות Android.</string>
+    <string name="drive_services_enable">הפעלת שירותי Google Play</string>
+    <string name="clear_api_key">מחיקת המפתח</string>
+</resources>

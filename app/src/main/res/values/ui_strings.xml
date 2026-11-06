@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_1_open_the_provider_website_and_create_an_acc_2c53c0e" formatted="false">1. Open the provider website and create an account.\n2. Create an API key.\n3. Return here and paste it.</string>
+    <string name="ui_a_key_is_already_saved_54f2514" formatted="false">A key is already saved</string>
+    <string name="ui_access_needed_2d3b115" formatted="false">Access needed</string>
+    <string name="ui_add_a_folder_to_get_started_a0b931c" formatted="false">Add a folder to get started.</string>
+    <string name="ui_add_folder_ff55ec8" formatted="false">Add folder</string>
+    <string name="ui_add_or_replace_your_api_key_to_resume_the_rem_0c0489f" formatted="false">Add or replace your API key to resume the remaining transcription.</string>
+    <string name="ui_add_quick_settings_tile_320848c" formatted="false">Add Quick Settings tile</string>
+    <string name="ui_add_ramble_record_by_editing_quick_settings_b11e890" formatted="false">Add Ramble Record by editing Quick Settings.</string>
+    <string name="ui_add_to_home_screen_f5eb116" formatted="false">Add to Home screen</string>
+    <string name="ui_added_ef5682a" formatted="false">"Added "</string>
+    <string name="ui_ai_assistant_instructions_74db7f0" formatted="false">AI assistant instructions</string>
+    <string name="ui_allow_access_to_sound_recorder_inside_miui_if_9facebe" formatted="false">Allow access to sound_recorder inside MIUI. If recordings are not accessible, export them from Recorder to a folder you select here.</string>
+    <string name="ui_allow_microphone_access_to_record_here_you_ca_5800d07" formatted="false">Allow microphone access to record here. You can also skip.</string>
+    <string name="ui_allow_recording_access_1e4da6d" formatted="false">Allow recording access</string>
+    <string name="ui_already_transcribed_b4729a4" formatted="false">Already transcribed</string>
+    <string name="ui_also_saved_in_google_drive_a4c4b6c" formatted="false">Also saved in Google Drive</string>
+    <string name="ui_api_key_needs_attention_7c4c6f5" formatted="false">API key needs attention</string>
+    <string name="ui_app_language_0f6939c" formatted="false">App language</string>
+    <string name="ui_audio_files_found_new_recordings_will_be_dete_5f4a32f" formatted="false">• Audio files found.\n• New recordings will be detected automatically.</string>
+    <string name="ui_audio_goes_only_to_your_provider_drive_receiv_b80e342" formatted="false">Audio goes only to your provider. Drive receives text. No Ramble server.</string>
+    <string name="ui_audio_will_go_to_your_selected_transcription__072f7a0" formatted="false">Audio will go to your selected transcription provider. The transcript will be saved to your configured destinations.</string>
+    <string name="ui_auto_detect_336eeed" formatted="false">Auto detect</string>
+    <string name="ui_auto_transcription_489cf86" formatted="false">Auto-transcription</string>
+    <string name="ui_auto_transcription_is_paused_a74e044" formatted="false">Auto-transcription is paused</string>
+    <string name="ui_auto_transcription_on_f3330ce" formatted="false">Auto-transcription on</string>
+    <string name="ui_awaiting_access_8bbb027" formatted="false">Awaiting access</string>
+    <string name="ui_back_f855790" formatted="false">Back</string>
+    <string name="ui_back_to_key_a19a070" formatted="false">Back to key</string>
+    <string name="ui_background_recording_ad4afe5" formatted="false">Background recording</string>
+    <string name="ui_both_recording_sources_are_connected_e24db4c" formatted="false">Both recording sources are connected.</string>
+    <string name="ui_bring_your_own_key_2ac255b" formatted="false">Bring your own key</string>
+    <string name="ui_call_recordings_d244ee2" formatted="false">Call recordings</string>
+    <string name="ui_cancel_1fa68c8" formatted="false">Cancel</string>
+    <string name="ui_change_folder_555b8f5" formatted="false">Change folder</string>
+    <string name="ui_change_folder_c5c5fec" formatted="false">Change folder</string>
+    <string name="ui_check_for_new_recordings_3dbdbc6" formatted="false">Check for new recordings</string>
+    <string name="ui_check_that_it_works_7b63b41" formatted="false">Check that it works</string>
+    <string name="ui_check_that_you_copied_the_entire_key_then_pas_d51cdb3" formatted="false">Check that you copied the entire key, then paste again.</string>
+    <string name="ui_checking_your_key_4299568" formatted="false">Checking your key…</string>
+    <string name="ui_choose_a_drive_folder_75ff22b" formatted="false">Choose a Drive folder</string>
+    <string name="ui_choose_a_folder_6b65afe" formatted="false">Choose a folder</string>
+    <string name="ui_choose_another_folder_58c9c1c" formatted="false">Choose another folder</string>
+    <string name="ui_choose_open_app_ramble_587fb95" formatted="false">Choose Open app → Ramble</string>
+    <string name="ui_choose_open_app_voice_recorder_9a13abd" formatted="false">Choose Open app → Voice Recorder</string>
+    <string name="ui_choose_record_or_add_a_shortcut_to_your_home__a956de4" formatted="false">Choose Record, or add a shortcut to your Home screen</string>
+    <string name="ui_choose_start_recording_if_available_920f634" formatted="false">Choose Start recording, if available</string>
+    <string name="ui_clear_completed_audio_af5f5f2" formatted="false">Clear completed audio</string>
+    <string name="ui_close_2873260" formatted="false">Close</string>
+    <string name="ui_coming_soon_no_key_needed_0006635" formatted="false">Coming soon — no key needed</string>
+    <string name="ui_connect_drive_so_your_ai_assistant_can_find_y_95473ec" formatted="false">Connect Drive so your AI assistant can find your transcripts.</string>
+    <string name="ui_connect_google_drive_f4d37b8" formatted="false">Connect Google Drive</string>
+    <string name="ui_connect_the_other_folder_or_continue_with_the_5ba1390" formatted="false">Connect the other folder, or continue with the connected source.</string>
+    <string name="ui_connected_f479903" formatted="false">Connected</string>
+    <string name="ui_connection_cancelled_try_again_when_you_re_re_f25da53" formatted="false">Connection cancelled. Try again when you\'re ready.</string>
+    <string name="ui_continue_51df566" formatted="false">Continue</string>
+    <string name="ui_continue_later_ce8721f" formatted="false">Continue later</string>
+    <string name="ui_copied_e67845b" formatted="false">Copied</string>
+    <string name="ui_copy_5d3eebd" formatted="false">Copy</string>
+    <string name="ui_copy_for_your_assistant_b112590" formatted="false">Copy for your assistant</string>
+    <string name="ui_copy_text_04d0d96" formatted="false">Copy text</string>
+    <string name="ui_copy_this_to_your_ai_assistant_3d63901" formatted="false">Copy this to your AI assistant.</string>
+    <string name="ui_couldn_t_access_drive_check_the_connection_an_0b28fd7" formatted="false">Couldn\'t access Drive. Check the connection and try again.</string>
+    <string name="ui_couldn_t_check_your_key_ce55d0b" formatted="false">Couldn\'t check your key</string>
+    <string name="ui_couldn_t_open_settings_open_them_from_your_ph_5700da0" formatted="false">Couldn\'t open settings. Open them from your phone.</string>
+    <string name="ui_couldn_t_reach_google_check_your_internet_con_d9d52bf" formatted="false">Couldn\'t reach Google. Check your internet connection and try again.</string>
+    <string name="ui_couldn_t_read_this_audio_return_to_the_call_a_2174881" formatted="false">Couldn\'t read this audio. Return to the call and share a supported audio file again.</string>
+    <string name="ui_couldn_t_record_5bf9e1d" formatted="false">Couldn\'t record</string>
+    <string name="ui_couldn_t_save_the_recording_please_try_again_06369e8" formatted="false">Couldn\'t save the recording. Please try again.</string>
+    <string name="ui_couldn_t_save_your_key_try_pasting_again_ea558f6" formatted="false">Couldn\'t save your key. Try pasting again.</string>
+    <string name="ui_create_and_use_folder_48d62db" formatted="false">Create and use folder</string>
+    <string name="ui_custom_folder_e068357" formatted="false">Custom folder</string>
+    <string name="ui_delete_4d8629a" formatted="false">Delete</string>
+    <string name="ui_delete_recording_c62182e" formatted="false">Delete recording</string>
+    <string name="ui_delete_this_recording_49aa6f3" formatted="false">Delete this recording?</string>
+    <string name="ui_didn_t_work_open_settings_again_or_record_as__04a5ffd" formatted="false">Didn\'t work? Open settings again, or record as usual in your recorder.</string>
+    <string name="ui_disconnect_drive_e1596bc" formatted="false">Disconnect Drive</string>
+    <string name="ui_done_ae30c54" formatted="false">Done</string>
+    <string name="ui_double_press_4b8a7bd" formatted="false">Double press</string>
+    <string name="ui_everything_in_one_place_094435f" formatted="false">Everything in one place</string>
+    <string name="ui_existing_files_stay_where_they_are_0c152d1" formatted="false">Existing files stay where they are.</string>
+    <string name="ui_existing_recording_b22f5bb" formatted="false">Existing recording</string>
+    <string name="ui_find_your_recordings_c76d6a3" formatted="false">Find your recordings</string>
+    <string name="ui_first_recording_53935cd" formatted="false">First recording</string>
+    <string name="ui_first_recording_e0228ab" formatted="false">First recording</string>
+    <string name="ui_first_transcript_731ec00" formatted="false">First transcript ✓</string>
+    <string name="ui_fix_api_key_332dc00" formatted="false">Fix API key</string>
+    <string name="ui_fix_dff6353" formatted="false">Fix</string>
+    <string name="ui_folder_access_needs_attention_1e640ac" formatted="false">Folder access needs attention</string>
+    <string name="ui_folder_connected_f218ffa" formatted="false">Folder connected</string>
+    <string name="ui_folders_a421041" formatted="false">Folders</string>
+    <string name="ui_folders_available_to_ramble_you_can_also_crea_048b465" formatted="false">Folders available to Ramble. You can also create a new folder.</string>
+    <string name="ui_for_a_recorded_call_open_the_call_in_phone_hi_c89b5a8" formatted="false">• Open a recorded call in Phone, or audio in Google Recorder.\n• Tap Share → Ramble, then Transcribe.\n• Share each recording separately. No folder access needed.</string>
+    <string name="ui_for_direct_recording_use_the_record_shortcut__8162d42" formatted="false">For direct recording, use the Record shortcut or the Quick Settings tile.</string>
+    <string name="ui_free_up_space_on_your_phone_we_ll_retry_autom_c8e3d2b" formatted="false">Free up space on your phone. We\'ll retry automatically; your progress is saved.</string>
+    <string name="ui_from_now_on_new_recordings_in_your_connected__ac291ef" formatted="false">From now on, new recordings in your connected sources will be transcribed and appear here automatically.</string>
+    <string name="ui_get_a_key_in_a_few_steps_96b0d58" formatted="false">Get a key in a few steps</string>
+    <string name="ui_get_started_6f5b4d5" formatted="false">Get started</string>
+    <string name="ui_go_to_home_10d9f47" formatted="false">Go to home</string>
+    <string name="ui_google_didn_t_complete_the_connection_try_aga_08bd154" formatted="false">Google didn\'t complete the connection. Try again and approve Drive access.</string>
+    <string name="ui_google_drive_connected_b1ae97e" formatted="false">Google Drive connected</string>
+    <string name="ui_google_play_services_on_this_phone_can_t_conn_06c93af" formatted="false">Google Play services on this phone can\'t connect Drive yet. Update it in the Play Store, then try again.</string>
+    <string name="ui_high_quality_transcription_usage_based_pricin_f1aac75" formatted="false">High-quality transcription · Usage-based pricing</string>
+    <string name="ui_historical_recording_not_uploaded_cf8a57c" formatted="false">Historical recording — not uploaded</string>
+    <string name="ui_in_the_settings_that_open_11e3c83" formatted="false">In the settings that open</string>
+    <string name="ui_interrupted_recording_0395f22" formatted="false">Interrupted recording</string>
+    <string name="ui_keep_it_or_enter_a_replacement_52dbe36" formatted="false">Keep it or enter a replacement.</string>
+    <string name="ui_keep_original_audio_32fac61" formatted="false">Keep original audio</string>
+    <string name="ui_leaving_the_app_cancelled_the_unsaved_recordi_1253bf4" formatted="false">Leaving the app cancelled the unsaved recording. Try again when ready.</string>
+    <string name="ui_let_ramble_transcribe_5c866b7" formatted="false">Let Ramble transcribe</string>
+    <string name="ui_let_s_try_again_0cd5374" formatted="false">Let\'s try again</string>
+    <string name="ui_license_d52ecf4" formatted="false">License</string>
+    <string name="ui_local_transcripts_85107af" formatted="false">Local transcripts</string>
+    <string name="ui_long_press_ramble_and_choose_record_or_use_th_a8a8004" formatted="false">Long-press Ramble and choose Record, or use the microphone inside the app.</string>
+    <string name="ui_long_press_the_ramble_icon_7e7d0e9" formatted="false">Long-press the Ramble icon</string>
+    <string name="ui_message_6e340b9" formatted="false"></string>
+    <string name="ui_microphone_access_needed_35dcee0" formatted="false">Microphone access needed</string>
+    <string name="ui_microphone_level_5da562e" formatted="false">Microphone level</string>
+    <string name="ui_more_info_pricing_79003d6" formatted="false">More info &amp; pricing</string>
+    <string name="ui_more_information_21fd399" formatted="false">More information</string>
+    <string name="ui_needs_attention_ff2f815" formatted="false">Needs attention</string>
+    <string name="ui_new_folder_name_a0989df" formatted="false">New folder name</string>
+    <string name="ui_new_transcripts_are_saved_here_b1de520" formatted="false">New transcripts are saved here.</string>
+    <string name="ui_no_audio_was_sent_we_ll_retry_when_the_connec_ecb0456" formatted="false">No audio was sent. We\'ll retry when the connection is available.</string>
+    <string name="ui_no_clear_speech_was_detected_check_your_micro_04ed201" formatted="false">No clear speech was detected. Check your microphone and try again — a short sentence is enough.</string>
+    <string name="ui_no_recordings_yet_you_re_all_set_new_recordin_9f93684" formatted="false">• No recordings yet — you\'re all set.\n• New recordings will be detected automatically.</string>
+    <string name="ui_no_system_button_mapping_needed_gesture_optio_72685fb" formatted="false">No system-button mapping needed. Gesture options vary by Xiaomi model. If recording stops in the background, allow background activity in Ramble’s battery settings.</string>
+    <string name="ui_noncommercial_use_under_the_license_terms_the_53209f5" formatted="false">Noncommercial use under the license terms. There is no general requirement to publish your modified source.</string>
+    <string name="ui_not_connected_ff066a3" formatted="false">Not connected</string>
+    <string name="ui_not_enough_audio_was_saved_record_for_a_few_s_4caafab" formatted="false">Not enough audio was saved. Record for a few seconds and try again.</string>
+    <string name="ui_off_bc61b8e" formatted="false">Off</string>
+    <string name="ui_on_1185607" formatted="false">On</string>
+    <string name="ui_on_phones_with_quick_tap_your_phone_may_need__2a595f9" formatted="false">On phones with Quick Tap. Your phone may need to be unlocked.</string>
+    <string name="ui_open_app_e9d0fe1" formatted="false">Open app</string>
+    <string name="ui_open_folder_in_drive_141acb3" formatted="false">Open folder in Drive</string>
+    <string name="ui_open_google_drive_01e0330" formatted="false">Open Google Drive</string>
+    <string name="ui_open_in_drive_53aa754" formatted="false">Open in Drive</string>
+    <string name="ui_open_provider_website_c6cd642" formatted="false">Open provider website</string>
+    <string name="ui_open_quick_settings_edit_then_add_ramble_reco_7f34a85" formatted="false">Open Quick Settings → Edit, then add Ramble Record.</string>
+    <string name="ui_open_settings_again_fe95363" formatted="false">Open settings again</string>
+    <string name="ui_optional_shortcut_6c503e7" formatted="false">OPTIONAL SHORTCUT</string>
+    <string name="ui_paste_7e01771" formatted="false">Paste</string>
+    <string name="ui_phone_call_47c6b93" formatted="false">Phone call</string>
+    <string name="ui_phone_calls_c414f29" formatted="false">Phone calls</string>
+    <string name="ui_phone_language_5bc1fa5" formatted="false">Phone language</string>
+    <string name="ui_preparing_audio_5695a06" formatted="false">Preparing audio</string>
+    <string name="ui_preparing_audio_821fc84" formatted="false">Preparing audio…</string>
+    <string name="ui_preparing_your_transcript_92f460a" formatted="false">Preparing your transcript…</string>
+    <string name="ui_processing_c4760c8" formatted="false">Processing…</string>
+    <string name="ui_processing_stopped_after_an_error_retry_the_r_861863c" formatted="false">Processing stopped after an error. Retry the remaining unfinished work.</string>
+    <string name="ui_quick_recording_462793f" formatted="false">Quick recording</string>
+    <string name="ui_quick_recording_for_next_time_41c1c4c" formatted="false">Quick recording, for next time</string>
+    <string name="ui_quickly_press_the_side_button_twice_if_your_r_0e2166c" formatted="false">Quickly press the Side button twice. If your recorder opens, you\'re ready.</string>
+    <string name="ui_ramble_automatically_turns_your_recordings_in_8e0ebb8" formatted="false">Ramble automatically turns your recordings into context for your AI assistant.</string>
+    <string name="ui_ramble_background_recording_8f16e31" formatted="false">Ramble · Background recording</string>
+    <string name="ui_ramble_is_recording_413b770" formatted="false">Ramble is recording</string>
+    <string name="ui_ramble_is_recording_tap_to_open_recording_con_7e317ce" formatted="false">Ramble is recording. Tap to open recording controls</string>
+    <string name="ui_ramble_on_your_side_button_e0f16ce" formatted="false">Ramble, on your Side button.</string>
+    <string name="ui_ramble_record_is_in_quick_settings_88f5794" formatted="false">Ramble Record is in Quick Settings.</string>
+    <string name="ui_ramble_record_shortcut_or_quick_settings_d4a4a39" formatted="false">Ramble · Record shortcut or Quick Settings</string>
+    <string name="ui_ramble_s_private_audio_and_transcript_will_be_19e729b" formatted="false">Ramble\'s private audio and transcript will be removed. Original source files and exports on your phone or Drive stay in place.</string>
+    <string name="ui_recommended_free_tier_available_cd6bf52" formatted="false">Recommended · Free tier available</string>
+    <string name="ui_record_08a8c66" formatted="false">Record</string>
+    <string name="ui_record_again_05a3b5f" formatted="false">Record again</string>
+    <string name="ui_record_here_or_add_audio_to_your_connected_fo_6757869" formatted="false">Record here, or add audio to your connected folders.</string>
+    <string name="ui_recording_access_48f80c4" formatted="false">Recording access</string>
+    <string name="ui_recording_cancelled_nothing_was_sent_b0893a6" formatted="false">Recording cancelled. Nothing was sent.</string>
+    <string name="ui_recording_in_progress_2d5ec0c" formatted="false">Recording in progress</string>
+    <string name="ui_recording_needs_attention_3503a05" formatted="false">Recording needs attention</string>
+    <string name="ui_recording_saved_your_transcript_will_appear_h_a1fab96" formatted="false">Recording saved. Your transcript will appear here.</string>
+    <string name="ui_recording_sources_68d3a41" formatted="false">Recording sources</string>
+    <string name="ui_recording_sources_c3353a9" formatted="false">Recording sources</string>
+    <string name="ui_recording_was_interrupted_its_audio_was_kept__42bb1c9" formatted="false">Recording was interrupted; its audio was kept. Try recovering it or delete it. An unfinished file may not be recoverable.</string>
+    <string name="ui_recordings_8f44160" formatted="false">Recordings</string>
+    <string name="ui_recover_and_transcribe_ac94b26" formatted="false">Recover and transcribe</string>
+    <string name="ui_recovered_recording_25d9129" formatted="false">Recovered recording</string>
+    <string name="ui_reload_folders_fe8446c" formatted="false">Reload folders</string>
+    <string name="ui_remove_7d27e80" formatted="false">Remove</string>
+    <string name="ui_requires_google_drive_feba960" formatted="false">Requires Google Drive</string>
+    <string name="ui_retry_transcription_a577582" formatted="false">Retry transcription</string>
+    <string name="ui_retrying_later_528d8fe" formatted="false">Retrying later</string>
+    <string name="ui_review_possible_duplicate_charge_9b0e48c" formatted="false">Review possible duplicate charge</string>
+    <string name="ui_review_this_attempt_before_sending_again_b64e5e0" formatted="false">Review this attempt before sending again</string>
+    <string name="ui_review_transcription_7e398bd" formatted="false">Review transcription</string>
+    <string name="ui_save_f622d3a" formatted="false">Save</string>
+    <string name="ui_save_only_on_this_phone_06718d7" formatted="false">Save only on this phone</string>
+    <string name="ui_saved_a64d43e" formatted="false">Saved</string>
+    <string name="ui_saved_drive_f3d7363" formatted="false">Saved · Drive</string>
+    <string name="ui_saved_locally_drive_pending_9eb8db4" formatted="false">Saved locally · Drive pending</string>
+    <string name="ui_saved_on_phone_0edd0a8" formatted="false">Saved on phone</string>
+    <string name="ui_saved_on_phone_and_drive_d720701" formatted="false">Saved on phone and Drive</string>
+    <string name="ui_saved_on_your_phone_67c68af" formatted="false">Saved on your phone</string>
+    <string name="ui_saved_on_your_phone_and_in_google_drive_730736c" formatted="false">Saved on your phone and in Google Drive ✓</string>
+    <string name="ui_saved_on_your_phone_c4be7eb" formatted="false">Saved on your phone ✓</string>
+    <string name="ui_saved_on_your_phone_drive_upload_pending_1b52cc6" formatted="false">Saved on your phone · Drive upload pending</string>
+    <string name="ui_saving_75cb326" formatted="false">Saving</string>
+    <string name="ui_saving_8d4c7f0" formatted="false">Saving…</string>
+    <string name="ui_say_hi_to_your_ai_0a76b76" formatted="false">Say hi to your AI</string>
+    <string name="ui_selected_0b1ba11" formatted="false">Selected</string>
+    <string name="ui_set_up_quick_recording_33d6a89" formatted="false">Set up quick recording</string>
+    <string name="ui_set_up_ramble_1224fe1" formatted="false">Set up Ramble</string>
+    <string name="ui_set_up_shortcut_5f551f6" formatted="false">Set up shortcut</string>
+    <string name="ui_set_up_your_transcription_provider_first_then_de17462" formatted="false">Set up your transcription provider first, then share the recording again.</string>
+    <string name="ui_set_your_side_button_to_ramble_double_press_t_4a3e560" formatted="false">Set your Side button to Ramble. Double-press to open the app, then tap the microphone to record.</string>
+    <string name="ui_settings_7e3c1bd" formatted="false">Settings</string>
+    <string name="ui_settings_system_gestures_quick_tap_8cf09df" formatted="false">Settings → System → Gestures → Quick Tap</string>
+    <string name="ui_share_24de8ee" formatted="false">Share</string>
+    <string name="ui_share_a_recording_with_ramble_41f422a" formatted="false">Share a recording with Ramble</string>
+    <string name="ui_shared_recording_145c6cc" formatted="false">Shared recording</string>
+    <string name="ui_skip_23a36fc" formatted="false">Skip</string>
+    <string name="ui_skip_recording_723f296" formatted="false">Skip recording</string>
+    <string name="ui_skipped_ba4d944" formatted="false">Skipped</string>
+    <string name="ui_skipped_f088064" formatted="false">Skipped</string>
+    <string name="ui_start_a_recording_7b04882" formatted="false">Start a recording?</string>
+    <string name="ui_starting_2ff22c8" formatted="false">Starting…</string>
+    <string name="ui_stop_and_save_becc0e8" formatted="false">Stop and save</string>
+    <string name="ui_stop_f77e388" formatted="false">Stop</string>
+    <string name="ui_storage_space_needed_cff7b36" formatted="false">Storage space needed</string>
+    <string name="ui_storage_space_needed_your_progress_is_saved_41c0a86" formatted="false">Storage space needed. Your progress is saved.</string>
+    <string name="ui_talk_freely_your_ai_stays_in_the_loop_6719342" formatted="false">Talk freely.\nYour AI stays in the loop.</string>
+    <string name="ui_tap_allow_recording_access_next_tap_use_this__2b3e2d8" formatted="false">• Tap Allow recording access.\n• Next, tap Use this folder.\n• No need to open subfolders.</string>
+    <string name="ui_tap_once_to_record_again_to_stop_fd2d31d" formatted="false">Tap once to record, again to stop</string>
+    <string name="ui_tap_paste_922f9f6" formatted="false">Tap Paste</string>
+    <string name="ui_tap_record_and_say_93a1fed" formatted="false">Tap Record and say:</string>
+    <string name="ui_tap_stop_to_save_your_recording_a1fe4ae" formatted="false">Tap Stop to save your recording</string>
+    <string name="ui_the_new_key_will_be_used_for_the_remaining_un_84cb7a6" formatted="false">The new key will be used for the remaining unprocessed chunks.</string>
+    <string name="ui_the_provider_may_already_have_processed_a_chu_287c797" formatted="false">The provider may already have processed a chunk. Retrying may cost again.</string>
+    <string name="ui_the_provider_rejected_this_request_check_the__e4a3d4c" formatted="false">The provider rejected this request. Check the file and provider settings before retrying.</string>
+    <string name="ui_the_same_recorder_is_inside_ramble_stop_from__93187d9" formatted="false">The same recorder is inside Ramble. Stop from the notification, even with the screen locked.</string>
+    <string name="ui_this_applies_to_new_recordings_existing_trans_a8fc2c4" formatted="false">This applies to new recordings. Existing transcripts are not moved or deleted.</string>
+    <string name="ui_this_file_was_not_finalized_and_couldn_t_be_r_962928c" formatted="false">This file was not finalized and couldn\'t be recovered. It is kept until you choose to delete it.</string>
+    <string name="ui_this_is_my_first_ever_recording_hello_to_all__8ce490d" formatted="false">“This is my first ever recording. Hello to all my AI agents. I\'m here!”</string>
+    <string name="ui_this_key_didn_t_work_6ac29b0" formatted="false">This key didn\'t work</string>
+    <string name="ui_this_recording_is_queued_you_can_return_later_b0d45f4" formatted="false">This recording is queued. You can return later.</string>
+    <string name="ui_this_version_of_ramble_isn_t_registered_corre_4c72858" formatted="false">This version of Ramble isn\'t registered correctly with Google. Update the app or contact support.</string>
+    <string name="ui_transcribe_5c07ff5" formatted="false">Transcribe</string>
+    <string name="ui_transcribe_phone_call_recordings_f3e1a77" formatted="false">Transcribe phone-call recordings</string>
+    <string name="ui_transcribe_shared_audio_95496b1" formatted="false">Transcribe shared audio</string>
+    <string name="ui_transcribe_voice_memos_e981fa3" formatted="false">Transcribe voice memos</string>
+    <string name="ui_transcribing_11c367b" formatted="false">Transcribing</string>
+    <string name="ui_transcribing_7b67bab" formatted="false">Transcribing…</string>
+    <string name="ui_transcribing_f800f8e" formatted="false">Transcribing…</string>
+    <string name="ui_transcribing_your_recording_9e5aa1a" formatted="false">Transcribing your recording…</string>
+    <string name="ui_transcript_folder_ca727d0" formatted="false">Transcript folder</string>
+    <string name="ui_transcript_ready_792bf46" formatted="false">Transcript ready</string>
+    <string name="ui_transcription_key_needed_bec4da1" formatted="false">Transcription key needed</string>
+    <string name="ui_transcription_language_b47c15e" formatted="false">Transcription language</string>
+    <string name="ui_transcription_paused_9d8f35b" formatted="false">Transcription paused</string>
+    <string name="ui_transcription_provider_c2ef7e2" formatted="false">Transcription provider</string>
+    <string name="ui_transcription_provider_fc1dfb9" formatted="false">Transcription provider</string>
+    <string name="ui_transcription_stopped_review_it_to_try_again_e64b87a" formatted="false">Transcription stopped. Review it to try again.</string>
+    <string name="ui_try_a_recording_55b91c5" formatted="false">Try a recording</string>
+    <string name="ui_try_again_96eaf84" formatted="false">Try again</string>
+    <string name="ui_try_again_a8e3285" formatted="false">Try again</string>
+    <string name="ui_try_your_first_recording_0deff5f" formatted="false">Try your first recording</string>
+    <string name="ui_turn_on_447a7dd" formatted="false">Turn on</string>
+    <string name="ui_turn_on_double_press_4012cef" formatted="false">Turn on Double press</string>
+    <string name="ui_turn_on_quick_tap_2a11452" formatted="false">Turn on Quick Tap</string>
+    <string name="ui_two_taps_on_the_back_open_ramble_tap_the_micr_9b5eddc" formatted="false">Two taps on the back open Ramble. Tap the microphone to record.</string>
+    <string name="ui_update_google_play_services_b89d591" formatted="false">Update Google Play services</string>
+    <string name="ui_upload_on_wi_fi_only_4d70051" formatted="false">Upload on Wi-Fi only</string>
+    <string name="ui_use_default_downloads_171fe5a" formatted="false">Use default: Downloads</string>
+    <string name="ui_voice_memos_79db403" formatted="false">Voice memos</string>
+    <string name="ui_voice_recorder_6c23f5b" formatted="false">Voice recorder</string>
+    <string name="ui_voice_recordings_0d8b2a0" formatted="false">Voice recordings</string>
+    <string name="ui_wait_for_active_processing_to_finish_then_try_63ea4c9" formatted="false">Wait for active processing to finish, then try again.</string>
+    <string name="ui_waiting_2a654ae" formatted="false">Waiting…</string>
+    <string name="ui_waiting_for_connection_7cca616" formatted="false">Waiting for connection</string>
+    <string name="ui_waiting_for_connection_no_audio_sent_ccdd09f" formatted="false">Waiting for connection — no audio sent</string>
+    <string name="ui_waiting_for_connection_no_audio_was_sent_85a3020" formatted="false">Waiting for connection. No audio was sent.</string>
+    <string name="ui_waiting_for_provider_limit_092ec40" formatted="false">Waiting for provider limit</string>
+    <string name="ui_waiting_for_storage_space_9f5a98a" formatted="false">Waiting for storage space</string>
+    <string name="ui_waiting_for_the_recording_to_finish_saving_8df9fd7" formatted="false">Waiting for the recording to finish saving</string>
+    <string name="ui_waiting_for_transcription_f969478" formatted="false">Waiting for transcription</string>
+    <string name="ui_what_s_on_your_mind_35ba4f0" formatted="false">What\'s on your mind?</string>
+    <string name="ui_when_off_private_audio_copies_are_removed_aft_f0c674b" formatted="false">When off, private audio copies are removed after a transcript is saved. Unfinished recordings and original source files are kept.</string>
+    <string name="ui_where_to_save_new_transcripts_a2c239c" formatted="false">Where to save new transcripts?</string>
+    <string name="ui_who_will_transcribe_45b4972" formatted="false">Who will transcribe?</string>
+    <string name="ui_you_can_close_the_app_and_record_as_usual_new_6ffccb2" formatted="false">You can close the app and record as usual. New recordings are checked about every 15 minutes, sometimes longer.</string>
+    <string name="ui_you_can_switch_apps_or_lock_your_phone_6147ef6" formatted="false">You can switch apps or lock your phone.</string>
+    <string name="ui_you_re_all_set_95bc22a" formatted="false">You\'re all set</string>
+    <string name="ui_you_re_ready_to_continue_2e2387e" formatted="false">You\'re ready to continue.</string>
+    <string name="ui_your_ai_assistants_connected_to_drive_can_fin_7af09d6" formatted="false">Your AI assistants connected to Drive can find this transcript too.</string>
+    <string name="ui_your_api_key_needs_attention_2dbbef2" formatted="false">Your API key needs attention</string>
+    <string name="ui_your_chosen_folder_c4e0e6f" formatted="false">Your chosen folder</string>
+    <string name="ui_your_first_transcript_is_here_connect_your_ph_6e2036a" formatted="false">Your first transcript is here. Connect your phone recorder\'s folder in settings to import its recordings too.</string>
+    <string name="ui_your_key_is_encrypted_on_this_phone_audio_goe_b1aecf2" formatted="false">Your key is encrypted on this phone. Audio goes directly to your chosen provider.</string>
+    <string name="ui_your_key_is_saved_securely_awaiting_verificat_47cbc43" formatted="false">Your key is saved securely, awaiting verification. Connect to the internet and try again.</string>
+    <string name="ui_your_key_works_6cbf015" formatted="false">Your key works ✓</string>
+    <string name="ui_your_provider_asked_us_to_wait_we_ll_retry_au_d42fc78" formatted="false">Your provider asked us to wait. We\'ll retry automatically.</string>
+    <string name="ui_your_recordings_8510c13" formatted="false">Your recordings</string>
+    <string name="ui_your_transcript_9fed024" formatted="false">Your transcript</string>
+    <string name="first_recording_title">Your first recording</string>
+    <string name="first_recording_ready_title">Your first recording is ready</string>
+    <string name="recording_seconds">Recording · %1$ds</string>
+    <string name="paused_recording_help">Your recording is saved. Resume auto-transcription in Settings to continue.</string>
+    <string name="pending_recording_help">You can leave and return — your progress is saved. We\'ll continue automatically.</string>
+    <string name="attention_count">%1$d need attention</string>
+    <string name="processing_count">%1$d processing</string>
+    <string name="folder_options">Folder options for %1$s</string>
+    <string name="get_provider_key">Get an API key from %1$s</string>
+    <string name="provider_key_title">Your %1$s API key</string>
+    <string name="progress_step">Step %1$d of 4</string>
+    <string name="cleared_audio_count">Cleared private audio for %1$d completed recordings.</string>
+    <string name="cannot_open_link">Cannot open this link</string>
+    <string name="key_rejected_help">Key rejected. Check it and try again.</string>
+    <string name="folder_access_needed">Folder access is needed.</string>
+    <string name="action_incomplete">The action did not complete. Check connection and permissions, then retry.</string>
+    <string name="folder_not_found">Could not read this folder. Choose an accessible folder and try again.</string>
+    <string name="folder_access_cancelled">No access was granted. You can try again.</string>
+    <string name="folder_not_writable">This folder is not writable.</string>
+    <string name="copied_message">Copied</string>
+    <string name="api_key_label">API key</string>
+    <string name="app_recording_title">Recording %1$s</string>
+    <string name="phone_recording_source">Ramble recording</string>
+    <string name="my_first_recording_title">My first recording</string>
+    <string name="unsupported_audio_help">This recording exceeds the local processing budget or uses an unsupported format. Split it into shorter files or export it in a supported audio format.</string>
+    <string name="drive_services_missing">Google Play services are missing on this device. To connect Drive in an emulator, use a Google Play system image.</string>
+    <string name="drive_services_disabled">Google Play services are disabled. Enable them, then connect Drive again.</string>
+    <string name="drive_services_unavailable">Google Play services are currently unavailable. Wait for them to finish updating, or check their status in Android settings.</string>
+    <string name="drive_services_enable">Enable Google Play services</string>
+    <string name="clear_api_key">Clear API key</string>
+</resources>

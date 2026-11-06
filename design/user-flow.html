@@ -1,0 +1,234 @@
+<div id="ramble-android-flow" dir="rtl">
+  <div class="rf-review-bar">
+    <div><strong>‏Ramble · Android</strong><span class="rf-review-caption">‏תכנון חוויית משתמש</span></div>
+    <label>‏מעבר למסך <select id="rf-screen-picker" aria-label="בחירת מסך לתצוגה"></select></label>
+  </div>
+  <div class="rf-preview viz-dotted-background">
+    <div class="rf-phone" aria-label="אב טיפוס אפליקציית Ramble לאנדרואיד">
+      <div class="rf-os-status" dir="ltr"><span>9:41</span><span class="rf-os-icons"><i data-lucide="signal" aria-hidden="true"></i><i data-lucide="wifi" aria-hidden="true"></i><i data-lucide="battery-full" aria-hidden="true"></i></span></div>
+      <div id="rf-app"></div>
+      <div class="rf-gesture" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+  <div class="rf-review-bottom">
+    <span id="rf-current-label" aria-live="polite"></span>
+    <span>‏הדמיה בלבד · ללא חיבור לחשבונות או העלאת קבצים</span>
+  </div>
+  <div class="rf-flow-index" aria-label="מפת מסכי האפליקציה"></div>
+</div>
+<style>
+#ramble-android-flow{--rf-green:#25D366;--rf-ink:#121212;--rf-bg:light-dark(#F4F6F4,#1C1E1D);--rf-surface:light-dark(#FFFFFF,#262928);--rf-inset:light-dark(#EDF0EE,#303433);--rf-border:light-dark(#D6DBD8,#3C413F);--rf-text:light-dark(#151817,#F1F3F2);--rf-muted:light-dark(#5B625F,#ABB2AF);--rf-accent:light-dark(#0F7A3E,#3DDC84);--rf-ok:light-dark(#E2F7EA,#173524);--rf-warn:light-dark(#8A5200,#FFB340);--rf-warn-bg:light-dark(#FFF1D6,#3A2E12);--rf-error:light-dark(#C8231F,#FF6B61);--rf-error-bg:light-dark(#FDE7E6,#3E1D1B);--rf-info:light-dark(#0B62C4,#6CB4FF);--rf-info-bg:light-dark(#E3EFFC,#17304A);--rf-space:24px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--rf-text);font-size:15px;line-height:1.55;background:transparent}
+#ramble-android-flow *{box-sizing:border-box}
+#ramble-android-flow button,#ramble-android-flow input,#ramble-android-flow select{font:inherit;color:inherit}
+#ramble-android-flow button{cursor:var(--cursor-interaction,pointer)}
+#ramble-android-flow button:focus-visible,#ramble-android-flow input:focus-visible,#ramble-android-flow select:focus-visible{outline:2px solid var(--rf-accent);outline-offset:3px}
+#ramble-android-flow .rf-review-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:4px 0 18px}
+#ramble-android-flow .rf-review-bar strong{font-weight:600}
+#ramble-android-flow .rf-review-caption{display:block;color:var(--rf-muted);font-size:12px}
+#ramble-android-flow .rf-review-bar label{display:flex;gap:8px;align-items:center;font-size:13px}
+#ramble-android-flow select{max-width:240px;background:var(--rf-surface);border:1px solid var(--rf-border);border-radius:8px;padding:8px;min-height:40px}
+#ramble-android-flow .rf-preview{padding:24px 12px;display:flex;justify-content:center;min-width:0}
+#ramble-android-flow .rf-phone{width:min(100%,390px);background:var(--rf-bg);border:1px solid var(--rf-border);border-radius:28px;overflow:hidden;box-shadow:0 16px 48px light-dark(#12121214,#00000035);text-align:start}
+#ramble-android-flow .rf-os-status{display:flex;align-items:center;justify-content:space-between;height:36px;padding:0 24px;font-size:12px;font-weight:600;background:var(--rf-bg)}
+#ramble-android-flow .rf-os-icons{display:flex;align-items:center;gap:5px}
+#ramble-android-flow .rf-os-icons svg{width:14px;height:14px}
+#ramble-android-flow .rf-gesture{padding:12px 0 10px;display:flex;justify-content:center;background:var(--rf-bg)}
+#ramble-android-flow .rf-gesture span{width:88px;height:4px;background:var(--rf-text);border-radius:4px;opacity:.65}
+#ramble-android-flow #rf-app{min-height:612px;display:flex;flex-direction:column}
+#ramble-android-flow .rf-appbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:8px;min-height:64px}
+#ramble-android-flow .rf-brand{display:flex;align-items:center;gap:10px;font-weight:600;direction:ltr}
+#ramble-android-flow .rf-logo{width:32px;height:32px;display:block;flex-shrink:0}
+#ramble-android-flow .rf-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:transparent;border-radius:12px;flex-shrink:0}
+#ramble-android-flow .rf-icon-btn:hover{background:var(--rf-inset)}
+#ramble-android-flow .rf-icon-btn svg{width:20px;height:20px}
+#ramble-android-flow .rf-back svg{transform:scaleX(-1)}
+#ramble-android-flow .rf-content{padding:12px var(--rf-space) 24px;flex:1;min-width:0}
+#ramble-android-flow .rf-content h1{font-size:28px;line-height:1.22;font-weight:600;letter-spacing:-.6px;margin:12px 0}
+#ramble-android-flow .rf-content h2{font-size:18px;font-weight:600;margin:0 0 8px;line-height:1.4}
+#ramble-android-flow p{margin:0 0 20px}
+#ramble-android-flow .rf-sub{color:var(--rf-muted);font-size:14px}
+#ramble-android-flow .rf-small{font-size:12px;color:var(--rf-muted)}
+#ramble-android-flow .rf-steps{display:flex;gap:6px;margin-bottom:24px}
+#ramble-android-flow .rf-steps span{height:4px;background:var(--rf-border);border-radius:4px;flex:1}
+#ramble-android-flow .rf-steps span.is-current{background:var(--rf-green)}
+#ramble-android-flow .rf-step-label{font-size:12px;color:var(--rf-muted);margin-bottom:8px}
+#ramble-android-flow .rf-footer{padding:0 var(--rf-space) 16px;display:grid;gap:10px}
+#ramble-android-flow .rf-button{min-height:48px;padding:12px 16px;border-radius:12px;background:var(--rf-surface);border:1px solid var(--rf-border);font-weight:600;display:inline-flex;justify-content:center;align-items:center;gap:8px;text-align:center;text-decoration:none}
+#ramble-android-flow .rf-button.rf-primary{background:var(--rf-green);color:var(--rf-ink);border-color:var(--rf-green)}
+#ramble-android-flow .rf-button.rf-soft{background:var(--rf-inset);border-color:transparent}
+#ramble-android-flow .rf-button.rf-ghost{background:transparent;border-color:transparent;font-weight:500;color:var(--rf-accent)}
+#ramble-android-flow .rf-button svg{width:18px;height:18px;flex-shrink:0}
+#ramble-android-flow .rf-button:disabled{opacity:.48;cursor:default}
+#ramble-android-flow .rf-option-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}
+#ramble-android-flow .rf-provider{display:flex;flex-direction:column;align-items:flex-start;text-align:start;border:1px solid var(--rf-border);border-radius:14px;padding:14px;background:var(--rf-surface);min-height:86px;gap:4px}
+#ramble-android-flow .rf-provider.is-selected{border:2px solid var(--rf-accent);padding:13px;background:var(--rf-ok)}
+#ramble-android-flow .rf-provider strong{font-size:18px;font-weight:600;direction:ltr}
+#ramble-android-flow .rf-provider span{font-size:12px;color:var(--rf-muted)}
+#ramble-android-flow .rf-field-label{display:block;font-size:13px;font-weight:600;margin:0 0 8px}
+#ramble-android-flow .rf-field{width:100%;min-height:50px;padding:12px 14px;border:1px solid var(--rf-border);background:var(--rf-surface);border-radius:10px;direction:ltr;text-align:left;font-size:16px}
+#ramble-android-flow .rf-key-row{display:flex;gap:8px;align-items:center}
+#ramble-android-flow .rf-key-row .rf-field{min-width:0}
+#ramble-android-flow .rf-inline-link{border:0;background:transparent;color:var(--rf-accent);padding:10px 0;min-height:44px;font-size:13px;text-align:start}
+#ramble-android-flow .rf-note{display:flex;align-items:flex-start;gap:9px;padding:14px;border-radius:12px;background:var(--rf-inset);font-size:13px;margin-top:20px;color:var(--rf-muted)}
+#ramble-android-flow .rf-note svg{width:18px;height:18px;flex-shrink:0;margin-top:2px}
+#ramble-android-flow .rf-note p{margin:0}
+#ramble-android-flow .rf-note.rf-danger{color:var(--rf-error);background:var(--rf-error-bg)}
+#ramble-android-flow .rf-note.rf-warning{color:var(--rf-warn);background:var(--rf-warn-bg)}
+#ramble-android-flow .rf-note.rf-success{color:var(--rf-accent);background:var(--rf-ok)}
+#ramble-android-flow .rf-group{background:var(--rf-surface);border:1px solid var(--rf-border);border-radius:14px;overflow:hidden;margin:18px 0}
+#ramble-android-flow .rf-group .rf-row+.rf-row{border-top:1px solid var(--rf-border)}
+#ramble-android-flow .rf-row{display:flex;gap:12px;align-items:center;padding:16px;min-width:0}
+#ramble-android-flow button.rf-row{width:100%;text-align:start;border:0;background:transparent}
+#ramble-android-flow .rf-row-main{flex:1;min-width:0}
+#ramble-android-flow .rf-row-title{font-weight:600;font-size:14px}
+#ramble-android-flow .rf-row-detail{font-size:12px;color:var(--rf-muted);margin-top:4px;overflow-wrap:anywhere}
+#ramble-android-flow .rf-row>svg{width:19px;height:19px;flex-shrink:0;color:var(--rf-muted)}
+#ramble-android-flow .rf-row .rf-mini{background:var(--rf-inset);border:0;border-radius:8px;min-height:40px;padding:8px 10px;white-space:nowrap;font-size:12px;font-weight:600}
+#ramble-android-flow .rf-mark{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--rf-accent)}
+#ramble-android-flow .rf-mark svg{width:14px;height:14px}
+#ramble-android-flow .rf-mark.wait{color:var(--rf-warn)}
+#ramble-android-flow .rf-mark.working{color:var(--rf-info)}
+#ramble-android-flow .rf-rule{height:1px;background:var(--rf-border);margin:24px 0}
+#ramble-android-flow .rf-section-label{display:flex;justify-content:space-between;align-items:center;margin:24px 0 10px;font-size:13px;color:var(--rf-muted)}
+#ramble-android-flow .rf-toggle{position:relative;display:inline-flex;align-items:center;gap:10px;min-height:44px}
+#ramble-android-flow .rf-toggle input{width:22px;height:22px;accent-color:var(--rf-accent);margin:0}
+#ramble-android-flow .rf-empty{text-align:center;padding:48px 8px 24px}
+#ramble-android-flow .rf-empty .rf-logo{width:58px;height:58px;margin:0 auto 24px}
+#ramble-android-flow .rf-empty h2{font-size:21px}
+#ramble-android-flow .rf-success-symbol{display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:22px;background:var(--rf-ok);color:var(--rf-accent);margin-bottom:24px}
+#ramble-android-flow .rf-success-symbol svg{width:30px;height:30px}
+#ramble-android-flow .rf-prompt-tabs{display:flex;background:var(--rf-inset);padding:4px;border-radius:10px;gap:4px;margin:14px 0}
+#ramble-android-flow .rf-prompt-tabs button{flex:1;min-height:40px;padding:8px;border:0;border-radius:7px;background:transparent;color:var(--rf-muted)}
+#ramble-android-flow .rf-prompt-tabs button[aria-selected=true]{background:var(--rf-surface);color:var(--rf-text);font-weight:600;box-shadow:0 1px 3px light-dark(#12121214,#00000030)}
+#ramble-android-flow .rf-prompt{padding:16px;background:var(--rf-surface);border:1px solid var(--rf-border);border-radius:12px;font-size:14px;line-height:1.7;overflow-wrap:anywhere;margin-bottom:12px;white-space:pre-line}
+#ramble-android-flow .rf-prompt-url{direction:ltr;unicode-bidi:isolate;display:inline;font-size:12px;color:var(--rf-accent)}
+#ramble-android-flow .rf-status-panel{background:var(--rf-ok);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:center;margin:4px 0 24px}
+#ramble-android-flow .rf-status-panel>svg{width:22px;height:22px;color:var(--rf-accent);flex-shrink:0}
+#ramble-android-flow .rf-status-panel.rf-pending{background:var(--rf-warn-bg)}
+#ramble-android-flow .rf-status-panel.rf-pending>svg{color:var(--rf-warn)}
+#ramble-android-flow .rf-status-panel.rf-attention{background:var(--rf-error-bg)}
+#ramble-android-flow .rf-status-panel.rf-attention>svg{color:var(--rf-error)}
+#ramble-android-flow .rf-status-panel.rf-paused{background:var(--rf-inset)}
+#ramble-android-flow .rf-transcript-row{width:100%;border:0;border-bottom:1px solid var(--rf-border);background:transparent;display:flex;padding:18px 0;gap:12px;text-align:start;align-items:flex-start}
+#ramble-android-flow .rf-transcript-icon{width:40px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--rf-inset);color:var(--rf-muted);flex-shrink:0}
+#ramble-android-flow .rf-transcript-icon svg{width:20px;height:20px}
+#ramble-android-flow .rf-transcript-body{flex:1;min-width:0}
+#ramble-android-flow .rf-transcript-title{font-size:15px;font-weight:600;margin-bottom:4px}
+#ramble-android-flow .rf-transcript-meta{font-size:12px;color:var(--rf-muted);margin-bottom:8px}
+#ramble-android-flow .rf-detail-text{font-size:16px;line-height:1.9;margin-top:24px}
+#ramble-android-flow .rf-detail-text p{margin-bottom:20px}
+#ramble-android-flow .rf-detail-actions{display:flex;gap:8px;margin-top:20px}
+#ramble-android-flow .rf-detail-actions .rf-button{flex:1;padding:10px 8px;font-size:13px}
+#ramble-android-flow .rf-system-label{font-size:11px;color:var(--rf-muted);text-align:center;padding:6px;background:var(--rf-inset)}
+#ramble-android-flow .rf-google{font-size:24px;font-weight:600;direction:ltr;letter-spacing:-1px;margin-bottom:28px}
+#ramble-android-flow .rf-system-folder{display:flex;align-items:center;gap:12px;padding:18px 0;border-bottom:1px solid var(--rf-border)}
+#ramble-android-flow .rf-system-folder svg{width:22px;height:22px;color:var(--rf-muted)}
+#ramble-android-flow .rf-os-copy{font-size:14px;color:var(--rf-muted)}
+#ramble-android-flow .rf-os-bullet{display:flex;gap:12px;padding:14px 0;align-items:flex-start;font-size:14px}
+#ramble-android-flow .rf-os-bullet svg{width:18px;height:18px;flex-shrink:0;margin-top:3px}
+#ramble-android-flow .rf-list{margin:20px 0;padding-inline-start:22px;font-size:14px}
+#ramble-android-flow .rf-list li{padding-inline-start:4px;margin-bottom:14px}
+#ramble-android-flow .rf-review-bottom{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:14px 0;font-size:12px;color:var(--rf-muted)}
+#ramble-android-flow .rf-flow-index{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:12px}
+#ramble-android-flow .rf-flow-index button{font-size:12px;padding:8px 10px;border:1px solid var(--rf-border);border-radius:8px;min-height:38px;background:var(--rf-surface);color:var(--rf-muted)}
+#ramble-android-flow .rf-flow-index button[aria-current=true]{background:var(--rf-inset);color:var(--rf-text);border-color:var(--rf-text)}
+#ramble-android-flow .rf-toast{padding:10px 14px;margin:0 var(--rf-space) 12px;border-radius:10px;background:var(--rf-inset);font-size:13px;text-align:center}
+@media(max-width:420px){#ramble-android-flow .rf-preview{padding:12px 0}#ramble-android-flow .rf-phone{border-radius:22px}#ramble-android-flow .rf-content{padding-inline:18px}#ramble-android-flow .rf-footer{padding-inline:18px}#ramble-android-flow .rf-review-bar label{width:100%;justify-content:space-between}#ramble-android-flow select{max-width:220px}#ramble-android-flow .rf-content h1{font-size:26px}}
+@media(prefers-reduced-motion:no-preference){#ramble-android-flow .rf-button,#ramble-android-flow .rf-provider{transition:background .15s ease,border-color .15s ease}}
+</style>
+<script>
+(()=>{
+const root=document.getElementById('ramble-android-flow');
+const app=root.querySelector('#rf-app');
+const picker=root.querySelector('#rf-screen-picker');
+const logo='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJSYW1ibGUiPgo8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxOCIgZmlsbD0iIzI1ZDM2NiIvPgo8cGF0aCBkPSJNOCAzMnE0LjUtMjQgOSAwcTQuNSAyMCA5IDBxMy41LTEzIDcgMHEzLjUgOCA3IDBoMTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEyMTIxMiIgc3Ryb2tlLXdpZHRoPSI1LjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K';
+const screens=[['provider','התחלה · ספק ומפתח'],['sources','הגדרה · הקלטות'],['storage','הגדרה · חיבור Drive'],['ready','הכול מוכן · עם Drive'],['ready-local','הכול מוכן · מקומי'],['home-empty','ראשי · לפני ההקלטה הראשונה'],['home','ראשי · תמלולים ותור'],['detail','תמלול · צפייה ושיתוף'],['settings','הגדרות'],['agent','הנחיות לאייג׳נט'],['call-help','הקלטת שיחות · הסבר'],['system-source','Android · הרשאת מקור'],['system-output','Android · תיקיית יעד'],['system-google','Google · חיבור חשבון'],['drive-folder','Drive · בחירת תיקייה'],['key-error','תקלה · מפתח שגוי'],['permission-error','תקלה · הרשאת מקור'],['offline','ראשי · אין אינטרנט'],['drive-error','תקלה · העלאה לדרייב'],['disk-error','תקלה · אין מקום'],['paused','ראשי · מושהה']];
+const defaults={screen:'provider',provider:'Groq',voice:false,calls:false,output:false,drive:false,promptLang:'he',paused:false,revision:0};
+const saved=window.openai?.widgetState?.privateContent;
+let state={...defaults,...(saved&&typeof saved==='object'?saved:{})};
+if(!screens.some(s=>s[0]===state.screen))state.screen='provider';
+if(!['Groq','OpenAI'].includes(state.provider))state.provider='Groq';
+let sourceReturn='sources',googleReturn='storage',toast='',keyVisible=false;
+const h=s=>'\u200f'+s;
+const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const icon=(name)=>`<i data-lucide="${name}" aria-hidden="true"></i>`;
+const image=()=>`<img class="rf-logo" src="${logo}" alt="הלוגו של Ramble">`;
+const button=(label,action,type='primary',more='')=>`<button type="button" class="rf-button rf-${type} cursor-interaction" data-action="${action}" ${more}>${h(label)}</button>`;
+const note=(text,type='neutral',symbol='shield-check')=>`<div class="rf-note ${type==='neutral'?'':'rf-'+type}">${icon(symbol)}<p>${h(text)}</p></div>`;
+const step=n=>`<div class="rf-step-label">${h(`הגדרה ${n} מתוך 4`)}</div><div class="rf-steps" aria-label="שלב ${n} מתוך 4">${[1,2,3,4].map(i=>`<span class="${i<=n?'is-current':''}"></span>`).join('')}</div>`;
+function bar(title='',back='',settings=false){return `<div class="rf-appbar">${back?`<button class="rf-icon-btn rf-back cursor-interaction" type="button" aria-label="חזרה" data-action="go:${back}">${icon('arrow-left')}</button>`:`<div class="rf-brand">${image()}<span>Ramble</span></div>`}${title?`<span>${h(title)}</span>`:''}${settings?`<button class="rf-icon-btn cursor-interaction" type="button" aria-label="הגדרות" data-action="go:settings">${icon('settings-2')}</button>`:back?'<span style="width:44px"></span>':''}</div>`;}
+function shell(content,footer='',header=bar()){app.innerHTML=header+`<div class="rf-content">${content}</div>`+(toast?`<div class="rf-toast" role="status">${h(toast)}</div>`:'')+(footer?`<div class="rf-footer">${footer}</div>`:'');}
+function groupRow(symbol,title,detail,action,label=''){return `<div class="rf-row">${icon(symbol)}<div class="rf-row-main"><div class="rf-row-title">${h(title)}</div><div class="rf-row-detail">${detail}</div></div>${action?`<button type="button" class="rf-mini cursor-interaction" data-action="${action}">${h(label)}</button>`:''}</div>`;}
+function settingsRow(symbol,title,detail,action){return `<button class="rf-row cursor-interaction" type="button" data-action="${action}">${icon(symbol)}<div class="rf-row-main"><div class="rf-row-title">${h(title)}</div><div class="rf-row-detail">${detail}</div></div>${icon('chevron-left')}</button>`;}
+const url='https://drive.google.com/drive/folders/DEMO';
+const promptText=()=>state.promptLang==='en'?`When I ask about the content of a conversation or meeting, such as what was said or which topics came up, look for a transcript in this Google Drive folder: ${url}. If you find one, use it and cite the source.`:`כשאני שואל על תוכן של שיחה או פגישה, למשל מה נאמר או אילו נושאים עלו, חפש תמלול בתיקייה הזאת ב-Google Drive: ${url}. אם מצאת, השתמש בו וציין את המקור.`;
+function promptBlock(){return `<div class="rf-prompt-tabs" role="tablist" aria-label="שפת ההנחיות"><button type="button" role="tab" id="rf-tab-he" aria-controls="rf-prompt-text" aria-selected="${state.promptLang==='he'}" data-action="lang:he">עברית</button><button type="button" role="tab" id="rf-tab-en" aria-controls="rf-prompt-text" aria-selected="${state.promptLang==='en'}" data-action="lang:en">English</button></div><div id="rf-prompt-text" role="tabpanel" aria-labelledby="rf-tab-${state.promptLang}" class="rf-prompt" dir="${state.promptLang==='en'?'ltr':'rtl'}">${escape(promptText())}</div>${button('העתקת ההנחיות','copy-prompt','soft')}`;}
+function home(kind){let status='פעיל',detail='בדיקה מחזורית · ייתכנו עיכובי מערכת',cls='',glyph='check-check',action='pause',actionLabel='השהיה';if(kind==='offline'){status='ממתינים לאינטרנט';detail='2 הקלטות בתור · ננסה שוב כשהחיבור יחזור';cls='rf-pending';glyph='wifi-off';}if(kind==='paused'){status='העיבוד מושהה';detail='הקבצים והתור נשמרים';cls='rf-paused';glyph='pause';action='resume';actionLabel='הפעלה';}if(kind==='drive-error'){status='צריך לחבר שוב את Drive';detail='התמלולים שמורים בטלפון';cls='rf-pending';glyph='cloud-off';action='reconnect-drive';actionLabel='חיבור';}if(kind==='disk-error'){status='אין מספיק מקום לשמירה';detail='פנו מקום או בחרו תיקייה אחרת';cls='rf-attention';glyph='hard-drive';action='repair-output';actionLabel='טיפול';}
+const panel=`<div class="rf-status-panel ${cls}">${icon(glyph)}<div class="rf-row-main"><div class="rf-row-title">${h(status)}</div><div class="rf-row-detail">${h(detail)}</div></div><button class="rf-icon-btn cursor-interaction" type="button" data-action="${action}" aria-label="${actionLabel}">${icon(action==='pause'?'pause':action==='resume'?'play':'arrow-left')}</button></div>`;
+const row=(symbol,title,meta,status,label,action)=>`<button type="button" class="rf-transcript-row cursor-interaction" data-action="${action}"><span class="rf-transcript-icon">${icon(symbol)}</span><span class="rf-transcript-body"><span class="rf-transcript-title">${h(title)}</span><span class="rf-transcript-meta" style="display:block">${h(meta)}</span><span class="rf-mark ${status}">${icon(status==='working'?'audio-lines':status==='wait'?'clock-3':'check')}${h(label)}</span></span></button>`;
+let content=panel;if(kind==='home-empty'){content+=`<div class="rf-empty">${image()}<h2>${h('מוכנים להקלטה הבאה')}</h2><p class="rf-sub">${h('המשיכו להקליט במקליט הרגיל של הטלפון. התמלול יישמר כאן ובתיקיית Ramble.')}</p><span class="rf-small">${h('רק הקלטות חדשות מכאן והלאה')}</span></div>`;}else{content+=`<div class="rf-section-label"><span>${h('היום')}</span><span>${h('נתוני הדגמה')}</span></div>`+row('mic','פגישת תכנון','היום, 10:30 · הקלטה · 24 דקות','','נשמר בטלפון ובדרייב','go:detail')+row('phone','שיחת עדכון','היום, 09:15 · שיחת טלפון · 8 דקות',kind==='offline'?'wait':'working',kind==='offline'?'ממתין לחיבור':'מתמלל','pending-info')+row('mic','רעיונות לפרויקט','היום, 08:40 · הקלטה · 3 דקות',kind==='drive-error'?'wait':'',kind==='drive-error'?'נשמר בטלפון · ממתין להעלאה':'נשמר בטלפון ובדרייב','go:detail');}shell(content,'',bar('', '',true));}
+function render(){picker.value=state.screen;toast=toast||'';const current=screens.find(s=>s[0]===state.screen);root.querySelector('#rf-current-label').textContent=h(current[1]);root.querySelector('.rf-flow-index').querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',String(b.dataset.screen===state.screen)));
+switch(state.screen){
+case 'provider':case 'key-error':shell(`${step(1)}<h1>${h('הקלט כרגיל.')}<br>${h('התמלול כבר יגיע.')}</h1><p class="rf-sub">${h('בחרו ספק תמלול וחברו את המפתח שלכם.')}</p><div class="rf-option-grid">${['Groq','OpenAI'].map(p=>`<button type="button" class="rf-provider cursor-interaction ${state.provider===p?'is-selected':''}" aria-pressed="${state.provider===p}" data-action="provider:${p}"><strong>${p}</strong><span>${h(p==='Groq'?'מסלול חינמי זמין':'תשלום לפי שימוש')}</span></button>`).join('')}</div><label class="rf-field-label" for="rf-key">${h('מפתח API של '+state.provider)}</label><div class="rf-key-row"><input class="rf-field" id="rf-key" type="${keyVisible?'text':'password'}" value="demo-key-only" aria-label="מפתח הדגמה בלבד" autocomplete="off"><button type="button" class="rf-icon-btn cursor-interaction" data-action="show-key" aria-label="הצגת מפתח ההדגמה">${icon(keyVisible?'eye-off':'eye')}</button></div><button type="button" class="rf-inline-link cursor-interaction" data-action="key-help">${h('איפה מקבלים מפתח?')}</button>${state.screen==='key-error'?note('המפתח לא התקבל. בדקו אותו ונסו שוב.','danger','circle-alert'):''}${note('האודיו נשלח ישירות לספק שבחרתם. בלי שרת של Ramble.')}`,button(state.screen==='key-error'?'בדיקה חוזרת':'המשך','validate-key'));break;
+case 'sources':shell(`${step(2)}<h1>${h('מה לתמלל?')}</h1><p class="rf-sub">${h('מצאנו את תיקיית ההקלטות. נדרש אישור גישה חד-פעמי.')}</p><div class="rf-group">${groupRow('mic','המקליט של Samsung','<bdi>Recordings / Voice Recorder</bdi>','grant-voice',state.voice?'מאושר ✓':'אפשר גישה')}</div><div class="rf-section-label"><span>${h('אפשר להוסיף')}</span><button class="rf-inline-link cursor-interaction" type="button" data-action="go:call-help">${h('איך זה עובד?')}</button></div><div class="rf-group"><div class="rf-row">${icon('phone')}<div class="rf-row-main"><div class="rf-row-title">${h('גם הקלטות שיחות')}</div><div class="rf-row-detail">${h('במכשירים עם הקלטת שיחות מובנית')}</div></div><label class="rf-toggle"><input id="rf-calls" type="checkbox" aria-label="הוספת הקלטות שיחות" ${state.calls?'checked':''}></label></div>${state.calls?groupRow('folder-check','תיקיית שיחות','<bdi>Recordings / Call</bdi>','grant-calls','מאושר ✓'):''}</div><p class="rf-small">${h('רק הקלטות חדשות מכאן והלאה. הקלטות המקור נשארות כפי שהן.')}</p>`,button('המשך','continue-sources'),bar('','provider'));break;
+case 'storage':shell(`${step(3)}<h1>${h('גם אצל האייג׳נט שלכם.')}</h1><p class="rf-sub">${h('חברו Google Drive כדי שהאייג׳נטים שלכם יוכלו למצוא את התמלולים.')}</p><div class="rf-group">${groupRow('cloud','Google Drive',state.drive?h('מחובר · תיקיית Ramble'):h('ניצור עבורכם תיקיית Ramble אוטומטית'))}</div>${note('התמלולים נשמרים בטלפון אוטומטית. לא צריך לבחור תיקייה.','neutral','folder-check')}${state.drive?note('מחובר. כל תמלול יישמר בטלפון ויעלה גם לדרייב.','success','check'):''}`,button(state.drive?'המשך':'חיבור Google Drive',state.drive?'continue-storage':'connect-drive')+(!state.drive?button('להמשיך עם שמירה בטלפון בלבד','local-only','ghost'):''),bar('','sources'));break;
+case 'ready':case 'ready-local':{const drive=state.screen==='ready';shell(`${step(4)}<div class="rf-success-symbol">${icon('check')}</div><h1>${h('הכול מוכן.')}</h1><p class="rf-sub">${h('אפשר לסגור את האפליקציה ולהמשיך להקליט כרגיל.')}</p><div class="rf-group">${groupRow('folder-check','התמלולים נשמרים',h(drive?'בטלפון וגם בתיקיית Ramble ב-Drive':'בתיקיית Ramble בטלפון'))}</div>${drive?`<h2 style="margin-top:24px">${h('גם אצל האייג׳נט שלכם')}</h2>${promptBlock()}`:note('אפשר לחבר Google Drive בהמשך דרך ההגדרות.','neutral','cloud')}`,button('סיום','finish'));break;}
+case 'home':case 'home-empty':case 'offline':case 'paused':case 'drive-error':case 'disk-error':home(state.screen);break;
+case 'detail':shell(`<div class="rf-step-label">${h('הקלטה · היום, 10:30')}</div><h1>${h('פגישת תכנון')}</h1><p class="rf-sub">${h('24 דקות · 31 באוקטובר 2026')}</p><span class="rf-mark">${icon('cloud-check')}${h('נשמר בטלפון ובדרייב')}</span><div class="rf-detail-actions">${button('העתקה','copy-text','soft')}${button('שיתוף','share-text','soft')}</div><div class="rf-detail-text"><p>${h('נתחיל מגרסה קטנה שמאפשרת להקליט כרגיל, לקבל תמלול ולשמור אותו בתיקייה מסודרת.')}</p><p>${h('החלטנו שהמסך הראשי יהיה פשוט: סטטוס העבודה ורשימת התמלולים האחרונים. לא נוסיף צ׳אט לאפליקציה.')}</p><p>${h('בשלב הבא נבדוק שהעבודה ברקע ממשיכה גם כשהמסך נעול, ושניתוק מהאינטרנט לא גורם לאיבוד הקלטות.')}</p></div>`,button('פתיחה ב-Google Drive','open-drive','ghost'),bar('תמלול','home'));break;
+case 'settings':shell(`<h1>${h('הגדרות')}</h1><div class="rf-group">${settingsRow('key-round','ספק ומפתח API',`<bdi>${state.provider} · ••••••••</bdi>`,'go:provider')}${settingsRow('folder-input','מקורות הקלטה',h(state.calls?'מקליט Samsung והקלטות שיחות':'מקליט Samsung'),'go:sources')}${settingsRow('folder-output','שמירת תמלולים',h('בטלפון וב-Google Drive'),'go:storage')}</div><div class="rf-group">${settingsRow('copy','הנחיות לאייג׳נט',h('עברית או English · עם הקישור לתיקייה'),'go:agent')}</div><div class="rf-group"><div class="rf-row">${icon('pause')}<div class="rf-row-main"><div class="rf-row-title">${h('עיבוד הקלטות')}</div><div class="rf-row-detail">${h('אפשר להשהות בלי למחוק דבר')}</div></div><label class="rf-toggle"><input id="rf-active" type="checkbox" aria-label="עיבוד הקלטות פעיל" ${state.paused?'':'checked'}></label></div></div><p class="rf-small">${h('Ramble · קוד פתוח · המפתח והקבצים שלכם')}</p>`,'',bar('','home'));break;
+case 'agent':shell(`<h1>${h('התמלולים שלכם,')}<br>${h('גם אצל האייג׳נט.')}</h1><div class="rf-group">${groupRow('cloud','Google Drive','<bdi>My Drive / Ramble</bdi>')}</div>${promptBlock()}`,button('חזרה','go:settings','ghost'),bar('','settings'));break;
+case 'call-help':shell(`<h1>${h('גם שיחות טלפון.')}</h1><p class="rf-sub">${h('אם המכשיר שלכם תומך בהקלטת שיחות מובנית, אפשר לתמלל גם אותה.')}</p><ol class="rf-list"><li>${h('פתחו את אפליקציית הטלפון של Samsung ← הגדרות ← הקלטת שיחות.')}</li><li>${h('הקליטו ידנית בזמן שיחה, או הפעילו הקלטה אוטומטית אם קיימת במכשיר.')}</li><li>${h('אשרו ל-Ramble גישה לתיקיית הקלטות השיחות.')}</li></ol>${note('האפשרות תלויה בדגם ובגרסה האזורית של המכשיר.','neutral','info')}<p class="rf-small" style="margin-top:20px">${h('Ramble קורא הקלטות שנשמרו. הוא לא מקליט את השיחה בעצמו.')}</p>`,button('הבנתי','go:sources'),bar('','sources'));break;
+case 'system-source':case 'system-output':{const output=state.screen==='system-output';shell(`<div class="rf-step-label">${h('האחסון הפנימי של הטלפון')}</div><h1 dir="ltr" style="font-size:24px;text-align:start">${output?'Ramble':state.pendingCall?'Call':'Voice Recorder'}</h1><p class="rf-os-copy">${h(output?'האם לאפשר ל-Ramble לשמור קבצים בתיקייה הזאת?':'האם לאפשר ל-Ramble גישה לקבצים שבתיקייה הזאת?')}</p><div class="rf-system-folder">${icon('folder')}<span dir="ltr">${output?'Download / Ramble':state.pendingCall?'Recordings / Call':'Recordings / Voice Recorder'}</span></div><div style="padding:24px 0" class="rf-small">${h('אישור זה מתייחס לתיקייה שנבחרה ולתיקיות שבתוכה.')}</div>`,button('שימוש בתיקייה הזאת',output?'approve-output':'approve-source')+button('ביטול',output?'cancel-output':'cancel-source','ghost'),`<div class="rf-system-label">${h('מסך מערכת Android · המחשה')}</div>${bar('בחירת תיקייה',output?'storage':sourceReturn)}`);break;}
+case 'system-google':shell(`<div class="rf-google">Google</div><h1>${h('בחירת חשבון')}</h1><p class="rf-sub">${h('כדי לחבר את Google Drive ל-Ramble')}</p><div class="rf-group">${groupRow('user-round','חשבון הדגמה','<bdi>demo@example.com</bdi>')}</div><div class="rf-os-bullet">${icon('file-text')}<span>${h('אישור לשמירת קובצי התמלול בתיקיית הדרייב שתבחרו.')}</span></div><p class="rf-small">${h('החיבור הוא לחשבון Google שלכם. לא נוצר חשבון ב-Ramble.')}</p>`,button('המשך','google-approved')+button('ביטול','google-cancel','ghost'),`<div class="rf-system-label">${h('חיבור Google · המחשה, לא בקשת הרשאה אמיתית')}</div>`);break;
+case 'drive-folder':shell(`<h1>${h('תיקיית התמלולים')}</h1><p class="rf-sub">${h('בחרו איפה לשמור ב-Google Drive.')}</p><div class="rf-group">${groupRow('cloud','My Drive','<bdi>demo@example.com</bdi>')}${groupRow('folder','Ramble',h('תיקיית יעד מוצעת'),'drive-approved','בחירה')}</div><p class="rf-small">${h('כל הקלטה הופכת לקובץ טקסט נפרד. הגדרות השיתוף של התיקייה אינן משתנות.')}</p>`,button('שמירה בתיקייה הזאת','drive-approved'),bar('','storage'));break;
+case 'permission-error':shell(`<div class="rf-success-symbol" style="background:var(--rf-warn-bg);color:var(--rf-warn)">${icon('folder-lock')}</div><h1>${h('צריך שוב גישה')}<br>${h('להקלטות.')}</h1><p class="rf-sub">${h('ההרשאה לתיקיית המקליט כבר אינה זמינה. אשרו אותה כדי להמשיך.')}</p><div class="rf-group">${groupRow('mic','המקליט של Samsung','<bdi>Recordings / Voice Recorder</bdi>')}</div>${note('התור נשמר. התמלולים שכבר נוצרו נשארים בטלפון.','neutral','files')}`,button('אישור גישה מחדש','repair-source')+button('למסך הראשי','go:home','ghost'),bar('','home'));break;
+default:home('home');}
+if(globalThis.lucide)lucide.createIcons({attrs:{width:18,height:18}});
+}
+function save(){state.revision=(Number(state.revision)||0)+1;window.openai?.setWidgetState?.({modelContent:{screen:state.screen,provider:state.provider,drive:state.drive,promptLanguage:state.promptLang},privateContent:{...state}})?.catch(()=>{});}
+function go(screen){state.screen=screen;toast='';render();save();}
+async function action(value){
+if(value.startsWith('go:')){go(value.slice(3));return;}
+if(value.startsWith('provider:')){state.provider=value.slice(9);render();save();return;}
+if(value.startsWith('lang:')){state.promptLang=value.slice(5);render();save();return;}
+switch(value){
+case 'show-key':keyVisible=!keyVisible;render();break;
+case 'validate-key':go('sources');break;
+case 'key-help':toast='במוצר ייפתח עמוד יצירת המפתח של הספק שנבחר.';render();break;
+case 'grant-voice':state.pendingCall=false;sourceReturn='sources';go('system-source');break;
+case 'grant-calls':state.pendingCall=true;sourceReturn='sources';go('system-source');break;
+case 'approve-source':if(state.pendingCall)state.calls=true;else state.voice=true;go(sourceReturn);break;
+case 'cancel-source':state.pendingCall=false;go(sourceReturn);toast='הגישה לא אושרה. אפשר לנסות שוב.';render();break;
+case 'continue-sources':if(!state.voice){toast='נדרש לאשר גישה לתיקיית ההקלטות.';render();}else go('storage');break;
+case 'grant-output':go('system-output');break;
+case 'approve-output':state.output=true;go('storage');break;
+case 'cancel-output':go('storage');break;
+case 'connect-drive':googleReturn='storage';go('system-google');break;
+case 'reconnect-drive':googleReturn='home';go('system-google');break;
+case 'google-approved':state.drive=true;state.output=true;go(googleReturn==='storage'?'ready':googleReturn);break;
+case 'google-cancel':go(googleReturn);break;
+case 'pick-drive':googleReturn='storage';go('drive-folder');break;
+case 'drive-approved':state.drive=true;go(googleReturn);break;
+case 'continue-storage':state.output=true;go(state.drive?'ready':'ready-local');break;
+case 'local-only':state.drive=false;state.output=true;go('ready-local');break;
+case 'finish':go('home-empty');break;
+case 'pause':state.paused=true;go('paused');break;
+case 'resume':state.paused=false;go('home');break;
+case 'repair-source':state.pendingCall=false;sourceReturn='home';go('system-source');break;
+case 'repair-output':go('storage');break;
+case 'copy-prompt':try{await navigator.clipboard.writeText(promptText());toast='ההנחיות הועתקו. הקישור כאן הוא קישור הדגמה.';}catch{toast='העתיקו את הטקסט המוצג. קישור התיקייה כאן הוא להדגמה.';}render();break;
+case 'copy-text':toast='העתקת טקסט · הדמיה';render();break;
+case 'share-text':toast='במוצר ייפתח תפריט השיתוף של Android לקובץ הטקסט.';render();break;
+case 'open-drive':toast='במוצר ייפתח הקובץ שהועלה לדרייב שלכם.';render();break;
+case 'pending-info':toast='ההקלטה ממתינה או נמצאת בעיבוד. הטקסט יופיע כשיהיה מוכן.';render();break;
+}save();}
+picker.innerHTML=screens.map(([id,title])=>`<option value="${id}">${h(title)}</option>`).join('');
+picker.addEventListener('change',()=>go(picker.value));
+root.querySelector('.rf-flow-index').innerHTML=[['provider','התחלה'],['sources','הקלטות'],['storage','שמירה'],['ready','מוכן'],['home','ראשי'],['detail','תמלול'],['settings','הגדרות'],['offline','אין אינטרנט'],['drive-error','תקלה בדרייב']].map(([id,label])=>`<button type="button" class="cursor-interaction" data-screen="${id}" data-action="go:${id}">${h(label)}</button>`).join('');
+root.addEventListener('click',event=>{const el=event.target.closest('[data-action]');if(el&&root.contains(el))action(el.dataset.action);});
+root.addEventListener('change',event=>{if(event.target.id==='rf-calls'){if(event.target.checked){state.pendingCall=true;sourceReturn='sources';go('system-source');}else{state.calls=false;render();save();}}if(event.target.id==='rf-active'){state.paused=!event.target.checked;render();save();}});
+window.addEventListener('openai:set_globals',event=>{const incoming=event.detail?.globals?.widgetState?.privateContent;if(incoming&&Number(incoming.revision)>Number(state.revision)&&screens.some(s=>s[0]===incoming.screen)){state={...defaults,...incoming};render();}});
+render();
+if(globalThis.Tweak){const settings={spacing:24};const tweak=new Tweak({container:root,onChange:()=>root.style.setProperty('--rf-space',settings.spacing+'px')});tweak.addSlider(settings,'spacing',{label:'מרווחי מסך',min:18,max:28,step:2,unit:'px'});}
+})();
+</script>

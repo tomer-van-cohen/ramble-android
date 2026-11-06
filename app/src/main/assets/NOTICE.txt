@@ -1,0 +1,8 @@
+Required Notice: Copyright (c) 2026 Tomer Cohen
+
+Ramble application code is licensed under PolyForm Noncommercial License 1.0.0.
+See LICENSE for the complete, unmodified terms.
+
+The Ramble name and logo remain trademarks/brand assets; the code license does
+not grant trademark rights. Third-party libraries and assistant artwork retain
+their respective licenses and ownership notices; see THIRD_PARTY_NOTICES.md.

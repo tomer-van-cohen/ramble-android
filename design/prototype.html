@@ -1,0 +1,1629 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ramble Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   Tokens: Ramble reference tokens (docs/design/ramble-reference-tokens.json)
+   adapted to Android. Brand green is a fill only; text on it is brand ink.
+   ------------------------------------------------------------------ */
+:root {
+  --brand: #25D366;
+  --ink: #121212;
+  --bg: #F4F6F4;
+  --surface: #FFFFFF;
+  --surface2: #EDF0EE;
+  --border: #D6DBD8;
+  --border-strong: #AEB6B2;
+  --text: #151817;
+  --text2: #5B625F;
+  --text3: #6F7774;
+  --accent: #0F7A3E;
+  --rec: #C8231F;
+  --warn: #8A5200;
+  --info: #0B62C4;
+  --fill-ok: #E2F7EA;
+  --fill-info: #E3EFFC;
+  --fill-warn: #FFF1D6;
+  --fill-rec: #FDE7E6;
+  --fill-neutral: #EDF0EE;
+  --hud-bg: rgba(31,34,33,0.94);
+  --hud-text: #F1F3F2;
+  --scrim: rgba(0,0,0,0.42);
+  --shadow-sheet: 0 16px 40px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.08);
+  /* Android / Google system surfaces (not ours, approximate) */
+  --sys-bg: #FFFFFF;
+  --sys-surface: #F3F4F9;
+  --sys-text: #1F1F1F;
+  --sys-text2: #444746;
+  --sys-primary: #0B57D0;
+  --sys-on-primary: #FFFFFF;
+  --sys-divider: #E1E3E1;
+  /* Harness (outside the phone) */
+  --h-bg: #E9ECEA;
+  --h-panel: #FFFFFF;
+  --h-text: #151817;
+  --h-text2: #5B625F;
+  --h-border: #D6DBD8;
+  --h-chip: #EDF0EE;
+  --h-sys: #0B57D0;
+  --h-sys-fill: #E3EFFC;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1C1E1D; --surface: #262928; --surface2: #303433; --border: #3C413F; --border-strong: #5A615E;
+    --text: #F1F3F2; --text2: #ABB2AF; --text3: #8E9693; --accent: #3DDC84; --rec: #FF6B61;
+    --warn: #FFB340; --info: #6CB4FF; --fill-ok: #173524; --fill-info: #17304A; --fill-warn: #3A2E12;
+    --fill-rec: #3E1D1B; --fill-neutral: #303433; --scrim: rgba(0,0,0,0.6);
+    --shadow-sheet: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+    --sys-bg: #1F1F1F; --sys-surface: #2A2A2C; --sys-text: #E3E3E3; --sys-text2: #C4C7C5;
+    --sys-primary: #A8C7FA; --sys-on-primary: #062E6F; --sys-divider: #444746;
+    --h-bg: #141615; --h-panel: #1F2221; --h-text: #F1F3F2; --h-text2: #ABB2AF; --h-border: #3C413F;
+    --h-chip: #2A2E2C; --h-sys: #A8C7FA; --h-sys-fill: #17304A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1C1E1D; --surface: #262928; --surface2: #303433; --border: #3C413F; --border-strong: #5A615E;
+  --text: #F1F3F2; --text2: #ABB2AF; --text3: #8E9693; --accent: #3DDC84; --rec: #FF6B61;
+  --warn: #FFB340; --info: #6CB4FF; --fill-ok: #173524; --fill-info: #17304A; --fill-warn: #3A2E12;
+  --fill-rec: #3E1D1B; --fill-neutral: #303433; --scrim: rgba(0,0,0,0.6);
+  --shadow-sheet: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+  --sys-bg: #1F1F1F; --sys-surface: #2A2A2C; --sys-text: #E3E3E3; --sys-text2: #C4C7C5;
+  --sys-primary: #A8C7FA; --sys-on-primary: #062E6F; --sys-divider: #444746;
+  --h-bg: #141615; --h-panel: #1F2221; --h-text: #F1F3F2; --h-text2: #ABB2AF; --h-border: #3C413F;
+  --h-chip: #2A2E2C; --h-sys: #A8C7FA; --h-sys-fill: #17304A;
+  color-scheme: dark;
+}
+
+/* Phone text scale: 1rem = 16px × Android font scale. Harness uses px. */
+html { font-size: calc(16px * var(--fs, 1)); }
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--h-bg); color: var(--h-text);
+  font-family: "Noto Sans Hebrew", Roboto, system-ui, sans-serif; font-size: 14px; line-height: 1.5;
+}
+button { font: inherit; color: inherit; }
+bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
+
+/* ---------------- Harness ---------------- */
+.hx { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between; padding: 16px 24px 4px; }
+.hx h1 { font-size: 20px; margin: 0; font-weight: 700; }
+.hx p { margin: 0; color: var(--h-text2); font-size: 13px; }
+.stage { display: grid; grid-template-columns: 270px minmax(400px, 1fr) 360px; gap: 20px; padding: 12px 24px 32px; align-items: start; }
+.panel { background: var(--h-panel); border: 1px solid var(--h-border); border-radius: 14px; padding: 14px; }
+.nav { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; padding: 8px; }
+.nav h3 { font-size: 12px; color: var(--h-text2); margin: 14px 8px 4px; font-weight: 600; }
+.nav h3:first-child { margin-top: 4px; }
+.nav button { display: block; width: 100%; text-align: start; border: 0; background: none; padding: 7px 10px; border-radius: 8px; font-size: 13.5px; cursor: pointer; line-height: 1.35; }
+.nav button:hover { background: var(--h-chip); }
+.nav button[aria-current="true"] { background: var(--fill-ok); color: var(--accent); font-weight: 600; }
+.nav button .sysdot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--h-sys); margin-inline-end: 6px; vertical-align: middle; }
+.devcol { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.surface-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--fill-ok); color: var(--accent); }
+.surface-tag.sys { background: var(--h-sys-fill); color: var(--h-sys); }
+.surface-tag svg { width: 16px; height: 16px; }
+.phone-wrap { transform-origin: top center; }
+.phone { width: 372px; height: 800px; border-radius: 46px; padding: 10px; background: #0E100F; box-shadow: 0 30px 60px rgba(0,0,0,0.25), inset 0 0 0 2px #2A2D2C; position: relative; }
+.phone::after { content: ""; position: absolute; right: -3px; top: 210px; width: 4px; height: 62px; border-radius: 2px; background: #2A2D2C; } /* side key, physical right edge */
+.screen { width: 100%; height: 100%; border-radius: 36px; overflow: hidden; background: var(--bg); color: var(--text); display: flex; flex-direction: column; position: relative; }
+.statusbar { flex: none; height: 34px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; font: 500 13px Roboto, sans-serif; color: var(--text); position: relative; }
+.statusbar .cam { position: absolute; left: 50%; top: 9px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #0E100F; }
+.statusbar .si { display: flex; gap: 5px; align-items: center; }
+.statusbar svg { width: 15px; height: 15px; }
+.gesture { flex: none; height: 22px; display: grid; place-items: center; }
+.gesture i { width: 108px; height: 4px; border-radius: 2px; background: var(--text); opacity: .55; }
+#app { flex: 1; min-height: 0; position: relative; display: flex; flex-direction: column; }
+.below { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.hbtn { border: 1px solid var(--h-border); background: var(--h-panel); padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13.5px; display: inline-flex; align-items: center; gap: 6px; }
+.hbtn:hover { background: var(--h-chip); }
+.hbtn svg { width: 16px; height: 16px; }
+.side { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; }
+.side h2 { font-size: 16px; margin: 0 0 4px; }
+.side h4 { font-size: 12.5px; color: var(--h-text2); margin: 12px 0 4px; font-weight: 600; }
+.side ul { margin: 4px 0 0; padding-inline-start: 18px; }
+.side li { margin: 3px 0; font-size: 13.5px; }
+.goal { font-size: 14px; margin: 2px 0 0; }
+.qa { display: grid; gap: 6px; margin-top: 6px; }
+.qa div { background: var(--h-chip); border-radius: 8px; padding: 7px 10px; font-size: 13.5px; }
+.qa b { display: block; font-size: 12px; color: var(--h-text2); font-weight: 600; }
+.ctl { display: grid; gap: 10px; }
+.ctl label.row { display: grid; gap: 4px; font-size: 12.5px; color: var(--h-text2); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--h-border); border-radius: 10px; overflow: hidden; }
+.seg button { border: 0; background: none; padding: 6px 10px; font-size: 13px; cursor: pointer; border-inline-start: 1px solid var(--h-border); }
+.seg button:first-child { border-inline-start: 0; }
+.seg button[aria-pressed="true"] { background: var(--fill-ok); color: var(--accent); font-weight: 600; }
+.legend { font-size: 12.5px; color: var(--h-text2); }
+@media (max-width: 1180px) {
+  .stage { grid-template-columns: 1fr; padding: 12px 16px 32px; }
+  .nav, .side { position: static; max-height: none; }
+  .nav { order: 2; } .devcol { order: 1; } .side { order: 3; }
+}
+
+/* ---------------- App (inside the phone) ---------------- */
+.scr { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; }
+.confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2; }
+.confetti i { position: absolute; top: -12px; width: 8px; height: 12px; border-radius: 2px; opacity: 0; animation: confetti 2s cubic-bezier(.3, .6, .5, 1) forwards; }
+@keyframes confetti { 0% { transform: translateY(0) rotate(0); opacity: 1; } 85% { opacity: 1; } 100% { transform: translateY(620px) rotate(var(--r)); opacity: 0; } }
+.topbar { flex: none; min-height: 60px; display: flex; align-items: center; gap: 4px; padding: 4px 8px; }
+.topbar .ttl { font-size: 1.25rem; font-weight: 600; flex: 1; padding-inline-start: 8px; line-height: 1.3; }
+.topbar .brand { display: flex; align-items: center; gap: 8px; padding-inline: 4px 8px; flex: none; direction: ltr; } /* last child: always on the left in RTL; ltr so the logo sits on the edge and the name follows */
+.topbar .brand svg { width: 32px; height: 32px; flex: none; }
+.topbar .brand b { font-size: 1.125rem; font-weight: 700; }
+.icobtn { width: 48px; height: 48px; border: 0; background: none; border-radius: 50%; display: grid; place-items: center; cursor: pointer; color: var(--text); flex: none; }
+.icobtn:hover { background: var(--surface2); }
+.icobtn svg { width: 26px; height: 26px; }
+.stepper { flex: none; padding: 0 20px 6px; }
+.stepper .lbl { font-size: 0.9375rem; color: var(--text2); }
+.stepper .bars { display: flex; gap: 6px; margin-top: 6px; }
+.stepper .bars i { flex: 1; height: 5px; border-radius: 3px; background: var(--border); }
+.stepper .bars i.on { background: var(--accent); }
+.content { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 20px 24px; }
+.actions { flex: none; padding: 12px 20px 16px; display: grid; gap: 10px; background: var(--bg); border-top: 1px solid transparent; }
+.actions .linkbtn { justify-self: center; min-height: 40px; padding: 2px 0; margin-top: -4px; }
+.actions.lift { border-top-color: var(--border); }
+.t-title { font-size: 1.75rem; line-height: 1.25; font-weight: 700; margin: 8px 0 12px; letter-spacing: -0.005em; }
+.t-h2 { font-size: 1.25rem; line-height: 1.3; font-weight: 700; margin: 24px 0 10px; }
+.t-body { font-size: 1.125rem; line-height: 1.55; margin: 0 0 14px; }
+.t-sub { font-size: 1rem; line-height: 1.5; color: var(--text2); margin: 0 0 12px; }
+.t-small { font-size: 0.9375rem; line-height: 1.45; color: var(--text2); margin: 8px 0; }
+.btn { min-height: max(56px, 3.4rem); width: 100%; border-radius: 16px; border: 0; font-size: 1.125rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 10px 18px; cursor: pointer; line-height: 1.25; text-align: center; }
+.btn svg { width: 1.375rem; height: 1.375rem; flex: none; }
+.btn.primary { background: var(--brand); color: var(--ink); }
+.btn.primary:hover { filter: brightness(0.96); }
+.btn.secondary { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px var(--border-strong); font-weight: 600; min-height: max(52px, 3.2rem); }
+.btn.secondary:hover { background: var(--surface2); }
+.btn.busy { opacity: .75; cursor: progress; }
+.linkbtn { border: 0; background: none; color: var(--accent); font-size: 1.0625rem; font-weight: 600; padding: 10px 0; min-height: 48px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.linkbtn svg { width: 1.25rem; height: 1.25rem; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 16px; margin: 0 0 14px; }
+.card.row { display: flex; gap: 14px; align-items: flex-start; }
+.badge { width: 48px; height: 48px; flex: none; border-radius: 14px; display: grid; place-items: center; background: var(--surface2); color: var(--text); }
+.badge svg { width: 26px; height: 26px; }
+.badge.ok { background: var(--fill-ok); color: var(--accent); }
+.badge.warn { background: var(--fill-warn); color: var(--warn); }
+.badge.rec { background: var(--fill-rec); color: var(--rec); }
+.badge.info { background: var(--fill-info); color: var(--info); }
+.card .ct { font-size: 1.125rem; font-weight: 700; line-height: 1.35; }
+.card .cs { font-size: 1rem; color: var(--text2); line-height: 1.45; margin-top: 2px; }
+.path { font-family: Roboto, system-ui, sans-serif; font-size: 0.9375rem; color: var(--text2); direction: ltr; unicode-bidi: isolate; overflow-wrap: anywhere; }
+.card > div, .summary .sr > span { min-width: 0; overflow-wrap: anywhere; }
+.notice { display: flex; gap: 12px; align-items: flex-start; border-radius: 16px; padding: 14px 16px; margin: 0 0 14px; font-size: 1.0625rem; line-height: 1.5; }
+.notice svg { width: 1.5rem; height: 1.5rem; flex: none; margin-top: 1px; }
+.notice.ok { background: var(--fill-ok); } .notice.ok svg { color: var(--accent); }
+.notice.warn { background: var(--fill-warn); } .notice.warn svg { color: var(--warn); }
+.notice.rec { background: var(--fill-rec); } .notice.rec svg { color: var(--rec); }
+.notice.info { background: var(--fill-info); } .notice.info svg { color: var(--info); }
+.notice.neutral { background: var(--surface2); } .notice.neutral svg { color: var(--text2); }
+.notice b { font-weight: 700; }
+.choice { display: flex; gap: 14px; align-items: center; width: 100%; text-align: start; background: var(--surface); border: 1.5px solid var(--border); border-radius: 20px; padding: 16px; margin: 0 0 12px; cursor: pointer; min-height: 76px; }
+.choice[aria-checked="true"] { border: 2.5px solid var(--accent); background: var(--fill-ok); padding: 15px; }
+.choice .radio { width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid var(--border-strong); flex: none; display: grid; place-items: center; }
+.choice[aria-checked="true"] .radio { border-color: var(--accent); }
+.choice[aria-checked="true"] .radio::after { content: ""; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); }
+.choice .ct { font-size: 1.1875rem; font-weight: 700; }
+.choice .cs { font-size: 1rem; color: var(--text2); }
+.group-lbl { font-size: 0.9375rem; font-weight: 600; color: var(--text2); margin: 18px 0 8px; }
+.group-lbl:first-child { margin-top: 4px; }
+.choice.soon { cursor: default; opacity: .6; border-style: dashed; }
+.tag.soon { background: var(--surface2); color: var(--text2); }
+.tag { display: inline-block; font-size: 0.8125rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: var(--fill-ok); color: var(--accent); margin-inline-start: 6px; vertical-align: 2px; }
+.field label { display: block; font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.field .box { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 16px; min-height: 60px; padding: 6px 6px 6px 8px; }
+.field .box.bad { border: 2.5px solid var(--rec); }
+.field .box.good { border: 2.5px solid var(--accent); }
+.field .val { flex: 1; font: 500 1.0625rem Roboto, system-ui, sans-serif; direction: ltr; text-align: left; padding: 0 10px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.field .ph { flex: 1; font-size: 1.0625rem; color: var(--text3); padding: 0 10px; }
+.field .paste { min-height: 48px; border-radius: 12px; border: 0; background: var(--surface2); color: var(--text); padding: 0 14px; font-size: 1rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; flex: none; }
+.field .paste svg { width: 1.25rem; height: 1.25rem; }
+.msg { min-height: 0; }
+.msg .notice { margin-top: 12px; }
+.steps { list-style: none; margin: 4px 0 14px; padding: 0; counter-reset: s; }
+.steps li { counter-increment: s; display: flex; gap: 14px; align-items: flex-start; font-size: 1.125rem; line-height: 1.45; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.steps li:last-child { border-bottom: 0; }
+.steps li::before { content: counter(s); flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--fill-ok); color: var(--accent); font-weight: 700; display: grid; place-items: center; font-size: 1.0625rem; }
+.instr { background: var(--surface2); border-radius: 16px; padding: 12px 16px; margin: 0 0 14px; }
+.instr .steps { margin: 0; } .instr .steps li { border-bottom-color: var(--border); padding: 8px 0; font-size: 1.0625rem; }
+.instr .hd { font-size: 0.9375rem; color: var(--text2); font-weight: 600; margin-bottom: 2px; }
+.big-ok { text-align: center; padding: 20px 0 8px; }
+.big-ok .ring { width: 88px; height: 88px; border-radius: 50%; background: var(--fill-ok); color: var(--accent); display: grid; place-items: center; margin: 0 auto 12px; }
+.big-ok .ring svg { width: 48px; height: 48px; }
+.big-ok .ring.rec { background: var(--fill-rec); color: var(--rec); }
+.big-ok .ring.warn { background: var(--fill-warn); color: var(--warn); }
+.big-ok .t-title { margin-bottom: 8px; }
+.success { min-height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; padding-bottom: 40px; }
+.success .big-ok { padding: 0; }
+.success .ring { margin-bottom: 28px; }
+.success .t-title { margin-bottom: 12px; }
+.success .t-body { color: var(--text2); margin: 0; }
+.nw { white-space: nowrap; }
+.drive-art { width: 96px; height: auto; margin: 0 auto 28px; display: block; }
+.agents { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.agents span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); font: 600 0.9375rem Roboto, system-ui, sans-serif; direction: ltr; }
+.agents svg { width: 18px; height: 18px; flex: none; }
+.ring.pop { animation: pop .45s cubic-bezier(.2, 1.4, .4, 1) both; }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+.wave { display: block; width: calc(100% + 40px); margin: 0 -20px 4px; height: auto; }
+.hero { min-height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 8px 4px 32px; }
+.hero .wave { margin-bottom: 36px; }
+.hero .keep { display: block; margin-top: 10px; }
+.hero .t-title { font-size: 2rem; line-height: 1.2; margin: 0 0 24px; text-wrap: balance; }
+.hero .t-body { color: var(--text2); margin: 0 auto; max-width: 30ch; text-wrap: balance; }
+.tabs { display: flex; background: var(--surface2); border-radius: 14px; padding: 4px; gap: 4px; margin: 4px 0 12px; }
+.tabs button { flex: 1; min-height: 48px; border: 0; border-radius: 11px; background: none; font-size: 1.0625rem; font-weight: 600; cursor: pointer; color: var(--text2); }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.prompt { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; font-size: 1.0625rem; line-height: 1.6; margin: 0 0 14px; overflow-wrap: anywhere; }
+.prompt[dir="ltr"] { text-align: left; font-family: Roboto, system-ui, sans-serif; }
+.prompt .url { color: var(--accent); font-family: Roboto, system-ui, sans-serif; font-size: 0.9375rem; }
+.summary { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 4px 16px; margin: 4px 0 16px; }
+.summary .sr { display: flex; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 1.0625rem; line-height: 1.4; }
+.summary .sr:last-child { border-bottom: 0; }
+.summary .sr svg { width: 1.5rem; height: 1.5rem; flex: none; color: var(--accent); }
+.summary .sr small { display: block; color: var(--text2); font-size: 0.9375rem; }
+.illu { display: block; margin: 4px auto 12px; width: 100%; max-width: 300px; height: auto; color: var(--text); }
+/* Home */
+.status { border-radius: 20px; padding: 16px; margin: 4px 0 18px; display: flex; gap: 14px; align-items: flex-start; }
+.status .badge { background: rgba(255,255,255,.55); }
+:root[data-theme="dark"] .status .badge { background: rgba(0,0,0,.22); }
+.status.ok { background: var(--fill-ok); } .status.ok .badge { color: var(--accent); }
+.status.info { background: var(--fill-info); } .status.info .badge { color: var(--info); }
+.status.warn { background: var(--fill-warn); } .status.warn .badge { color: var(--warn); }
+.status.rec { background: var(--fill-rec); } .status.rec .badge { color: var(--rec); }
+.status.neutral { background: var(--surface2); } .status.neutral .badge { color: var(--text2); }
+.status .st { font-size: 1.1875rem; font-weight: 700; line-height: 1.3; }
+.status .sb { font-size: 1rem; line-height: 1.45; margin-top: 2px; }
+.status .sm { font-size: 0.875rem; color: var(--text2); margin-top: 6px; }
+.status .btn { margin-top: 12px; min-height: max(52px, 3.2rem); }
+.status .grow { flex: 1; min-width: 0; }
+.daylbl { font-size: 0.9375rem; font-weight: 700; color: var(--text2); margin: 18px 4px 6px; }
+.list { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+.item { display: flex; gap: 12px; align-items: flex-start; width: 100%; text-align: start; border: 0; background: none; padding: 14px 16px; cursor: pointer; border-bottom: 1px solid var(--border); min-height: 76px; }
+.item:last-child { border-bottom: 0; }
+.item:hover { background: var(--surface2); }
+.item .badge { width: 44px; height: 44px; border-radius: 50%; }
+.item .badge svg { width: 22px; height: 22px; }
+.item .grow { flex: 1; min-width: 0; }
+.item .it { font-size: 1.0625rem; font-weight: 700; line-height: 1.35; }
+.item .im { font-size: 0.9375rem; color: var(--text2); margin-top: 1px; }
+.item .snip { font-size: 0.9375rem; color: var(--text2); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip { display: inline-flex; align-items: center; gap: 5px; font-size: 0.875rem; font-weight: 600; padding: 3px 9px 3px 10px; border-radius: 999px; margin-top: 6px; line-height: 1.35; }
+.chip svg { width: 1rem; height: 1rem; flex: none; }
+.chip.ok { background: var(--fill-ok); color: var(--accent); }
+.chip.info { background: var(--fill-info); color: var(--info); }
+.chip.warn { background: var(--fill-warn); color: var(--warn); }
+.chip.rec { background: var(--fill-rec); color: var(--rec); }
+.chip.neutral { background: var(--fill-neutral); color: var(--text2); }
+.empty { text-align: center; padding: 8px 4px 0; }
+.empty .t-h2 { margin-top: 8px; }
+.recbtn { width: 112px; height: 112px; border-radius: 50%; border: 0; background: var(--rec); color: #fff; display: grid; place-items: center; margin: 40px auto 20px; cursor: pointer; box-shadow: 0 0 0 10px var(--fill-rec); }
+.recbtn svg { width: 48px; height: 48px; }
+.recbtn:active { transform: scale(.96); }
+/* Transcript */
+.meta { font-size: 1rem; color: var(--text2); margin: -4px 0 12px; line-height: 1.5; }
+.saved { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 10px 14px; margin: 0 0 18px; font-size: 1rem; }
+.saved svg { width: 1.25rem; height: 1.25rem; vertical-align: -4px; color: var(--accent); }
+.saved .pend svg { color: var(--warn); }
+.saved .linkbtn { padding: 4px 0; min-height: 44px; font-size: 1rem; }
+.prose p { font-size: 1.1875rem; line-height: 1.75; margin: 0 0 16px; }
+/* Settings */
+.sgroup { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin: 0 0 16px; }
+.srow { display: flex; gap: 14px; align-items: center; width: 100%; text-align: start; border: 0; background: none; padding: 14px 16px; min-height: 72px; cursor: pointer; border-bottom: 1px solid var(--border); }
+.srow:last-child { border-bottom: 0; }
+.srow:hover { background: var(--surface2); }
+.srow .badge { width: 42px; height: 42px; border-radius: 12px; }
+.srow .badge svg { width: 22px; height: 22px; }
+.srow .grow { flex: 1; min-width: 0; }
+.srow .rt { font-size: 1.0625rem; font-weight: 700; }
+.srow .rs { font-size: 0.9375rem; color: var(--text2); }
+.srow .chev { width: 22px; height: 22px; color: var(--text3); flex: none; }
+.switch { width: 52px; height: 32px; border-radius: 16px; background: var(--border-strong); position: relative; flex: none; transition: background .2s; }
+.switch::after { content: ""; position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: right .2s cubic-bezier(.2,0,0,1); box-shadow: 0 1px 2px rgba(0,0,0,.3); }
+.switch.on { background: var(--accent); }
+.switch.on::after { right: 24px; } /* RTL: on = thumb moves to the end (left) */
+.foot { text-align: center; font-size: 0.875rem; color: var(--text3); margin: 8px 0 4px; }
+/* Overlays */
+.scrim { position: absolute; inset: 0; background: var(--scrim); z-index: 20; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.scrim.bottom { align-items: flex-end; padding: 0; }
+.dialog { background: var(--surface); border-radius: 28px; padding: 24px; width: 100%; box-shadow: var(--shadow-sheet); }
+.dialog h2 { font-size: 1.375rem; margin: 0 0 10px; line-height: 1.3; }
+.dialog p { font-size: 1.0625rem; line-height: 1.5; margin: 0 0 20px; color: var(--text2); }
+.dialog .row2 { display: grid; gap: 10px; }
+.sheet { background: var(--surface); border-radius: 28px 28px 0 0; padding: 12px 20px 20px; width: 100%; box-shadow: var(--shadow-sheet); }
+.sheet .handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border-strong); margin: 0 auto 14px; }
+.snack { position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 30; background: var(--hud-bg); color: var(--hud-text); border-radius: 14px; padding: 14px 16px; font-size: 1rem; line-height: 1.45; display: flex; gap: 10px; align-items: flex-start; box-shadow: 0 6px 20px rgba(0,0,0,.3); animation: snackIn .2s cubic-bezier(.2,0,0,1); }
+.snack svg { width: 1.375rem; height: 1.375rem; flex: none; color: #3DDC84; }
+@keyframes snackIn { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+.spin { animation: spin 1s linear infinite; transform-origin: 50% 50%; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.progress-list { list-style: none; padding: 0; margin: 12px 0; }
+.progress-list li { display: flex; gap: 12px; align-items: center; font-size: 1.125rem; padding: 12px 0; }
+.progress-list svg { width: 1.75rem; height: 1.75rem; flex: none; color: var(--accent); }
+.devchip { display: inline-flex; gap: 8px; align-items: center; background: var(--surface2); border-radius: 999px; padding: 6px 12px; font-size: 0.9375rem; margin: 0 0 12px; }
+.devchip svg { width: 1.125rem; height: 1.125rem; }
+@media (prefers-reduced-motion: reduce) {
+  .spin { animation: none; } .snack { animation: none; } .confetti { display: none; } .ring.pop { animation: none; } .switch, .switch::after { transition: none; }
+}
+
+/* ---------------- System surfaces (Android / Google / Samsung): not ours ---------------- */
+.sys { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--sys-bg); color: var(--sys-text); font-family: Roboto, "Noto Sans Hebrew", system-ui, sans-serif; position: relative; }
+.sys .sbar { display: flex; align-items: center; gap: 8px; padding: 8px 12px; min-height: 56px; }
+.sys .sbar b { font-size: 1.25rem; font-weight: 500; flex: 1; }
+.sys .crumb { padding: 0 20px 10px; font-size: 0.875rem; color: var(--sys-text2); }
+.sys .crumb bdi { direction: ltr; }
+.sys .files { flex: 1; overflow: auto; }
+.sys .file { display: flex; gap: 16px; align-items: center; padding: 12px 20px; opacity: .45; font-size: 1rem; }
+.sys .file svg { width: 24px; height: 24px; }
+.sys .file small { display: block; font-size: 0.8125rem; color: var(--sys-text2); }
+.sys .sfoot { padding: 12px 16px 16px; display: flex; justify-content: flex-end; border-top: 1px solid var(--sys-divider); }
+.sys .sbtn { border: 0; border-radius: 999px; background: var(--sys-primary); color: var(--sys-on-primary); font: 500 1rem Roboto, "Noto Sans Hebrew", sans-serif; min-height: 44px; padding: 0 22px; cursor: pointer; }
+.sys .sbtn.text { background: none; color: var(--sys-primary); }
+.sys .sdialog { background: var(--sys-surface); color: var(--sys-text); border-radius: 28px; padding: 24px; width: 100%; }
+.sys .sdialog h2 { font-size: 1.25rem; font-weight: 400; margin: 0 0 14px; line-height: 1.35; }
+.sys .sdialog p { font-size: 0.9375rem; color: var(--sys-text2); margin: 0 0 18px; line-height: 1.5; }
+.sys .sdialog .acts { display: flex; justify-content: flex-end; gap: 8px; }
+.sys .g { padding: 20px 24px; flex: 1; overflow: auto; }
+.sys .glogo { font: 500 1.375rem "Product Sans", Roboto, sans-serif; letter-spacing: -0.5px; margin-bottom: 14px; direction: ltr; text-align: right; }
+.sys .glogo span:nth-child(1){color:#4285F4}.sys .glogo span:nth-child(2){color:#EA4335}.sys .glogo span:nth-child(3){color:#FBBC05}.sys .glogo span:nth-child(4){color:#4285F4}.sys .glogo span:nth-child(5){color:#34A853}.sys .glogo span:nth-child(6){color:#EA4335}
+.sys .g h2 { font-size: 1.5rem; font-weight: 400; margin: 0 0 8px; line-height: 1.3; }
+.sys .g p { font-size: 0.9375rem; color: var(--sys-text2); line-height: 1.5; margin: 0 0 14px; }
+.sys .acct { display: flex; gap: 14px; align-items: center; width: 100%; text-align: start; padding: 14px 4px; border: 0; border-bottom: 1px solid var(--sys-divider); background: none; color: var(--sys-text); cursor: pointer; font-size: 1rem; }
+.sys .acct .av { width: 36px; height: 36px; border-radius: 50%; background: #7B61FF; color: #fff; display: grid; place-items: center; font-weight: 500; flex: none; }
+.sys .acct small { display: block; color: var(--sys-text2); font-size: 0.875rem; }
+.sys .scope { display: flex; gap: 12px; align-items: flex-start; background: var(--sys-surface); border-radius: 12px; padding: 14px; font-size: 0.9375rem; margin: 0 0 14px; }
+.sys .scope svg { width: 22px; height: 22px; flex: none; color: var(--sys-text2); }
+.sys .gacts { display: flex; justify-content: space-between; padding: 12px 24px 18px; }
+.sys .url { margin: 8px 12px; background: var(--sys-surface); border-radius: 999px; padding: 10px 16px; font-size: 0.9375rem; direction: ltr; text-align: left; color: var(--sys-text2); }
+.sys .web { flex: 1; padding: 20px; direction: ltr; text-align: left; overflow: auto; }
+.sys .web h2 { font-size: 1.375rem; margin: 6px 0 8px; font-weight: 600; }
+.sys .web p { color: var(--sys-text2); font-size: 0.9375rem; }
+.sys .web .fake { display: inline-block; margin-top: 10px; border-radius: 8px; background: #F55036; color: #fff; padding: 10px 16px; font-weight: 600; font-size: 0.9375rem; }
+.sys .slist { flex: 1; overflow: auto; padding: 0 12px; }
+.sys .sitem { display: flex; gap: 14px; align-items: center; padding: 14px 12px; border-radius: 18px; font-size: 1.0625rem; }
+.sys .sitem small { display: block; font-size: 0.875rem; color: var(--sys-text2); }
+.sys .sitem .dot { width: 36px; height: 36px; border-radius: 12px; flex: none; display: grid; place-items: center; color: #fff; }
+.sys .sitem .dot svg { width: 20px; height: 20px; }
+.sys .sitem.hl { background: var(--sys-surface); outline: 2px dashed var(--sys-primary); outline-offset: -2px; }
+.sys .rec { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; }
+.sys .rec .timer { font: 300 3rem Roboto, sans-serif; direction: ltr; }
+.sys .rec .rbtn { width: 84px; height: 84px; border-radius: 50%; border: 4px solid var(--sys-divider); display: grid; place-items: center; background: none; }
+.sys .rec .rbtn i { width: 56px; height: 56px; border-radius: 50%; background: #FF3B30; }
+.sys .bar { margin: 18px 20px; height: 14px; border-radius: 7px; background: var(--sys-surface); overflow: hidden; }
+.sys .bar i { display: block; height: 100%; width: 99%; background: #E3683C; }
+.sys .share { background: var(--sys-surface); border-radius: 28px 28px 0 0; padding: 16px 20px 24px; width: 100%; color: var(--sys-text); }
+.sys .share .apps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 16px; text-align: center; font-size: 0.8125rem; }
+.sys .share .apps i { display: block; width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 6px; background: var(--sys-divider); }
+.sysnote { position: absolute; bottom: 10px; left: 12px; right: 12px; text-align: center; font-size: 11.5px; color: var(--sys-text2); opacity: .9; pointer-events: none; font-family: "Noto Sans Hebrew", sans-serif; }
+</style>
+</head>
+<body>
+<header class="hx">
+  <div>
+    <h1>Ramble · אב-טיפוס אינטראקטיבי</h1>
+    <p>הדמיה בלבד: אין חיבור לחשבונות, אין קריאות לשרתים, אין מפתחות אמיתיים. התוכן מדומה.</p>
+  </div>
+  <p>מסכים שלנו מסומנים בירוק. מסכי מערכת (אנדרואיד, Google, סמסונג) מסומנים בכחול.</p>
+</header>
+
+<main class="stage">
+  <nav class="panel nav" id="nav" aria-label="כל המסכים והמצבים"></nav>
+
+  <section class="devcol">
+    <div id="surfaceTag" class="surface-tag"></div>
+    <div class="phone-wrap" id="phoneWrap">
+      <div class="phone">
+        <div class="screen" id="screen">
+          <div class="statusbar" aria-hidden="true">
+            <span>10:24</span>
+            <i class="cam"></i>
+            <span class="si">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 20h3v-4H2zm5 0h3v-8H7zm5 0h3V8h-3zm5 0h3V4h-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20l-11-12a16 16 0 0 1 22 0z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 3h8v2h2v16H6V5h2z"/></svg>
+            </span>
+          </div>
+          <div id="app"></div>
+          <div class="gesture" aria-hidden="true"><i></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="below">
+      <button class="hbtn" id="sysBack" type="button" title="מחוות החזרה של אנדרואיד">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        חזרה (מחווה של אנדרואיד)
+      </button>
+      <button class="hbtn" id="restart" type="button">התחלה מחדש</button>
+    </div>
+  </section>
+
+  <aside class="side">
+    <section class="panel" aria-live="polite">
+      <h2 id="nTitle"></h2>
+      <p class="goal" id="nGoal"></p>
+      <h4>בדיקה מנקודת מבט של משתמש מבוגר</h4>
+      <div class="qa" id="nQA"></div>
+      <h4>התנהגות</h4>
+      <ul id="nItems"></ul>
+    </section>
+    <section class="panel ctl" aria-label="תצוגה וסימולציה">
+      <h2>תצוגה</h2>
+      <label class="row">ערכת צבעים<span class="seg" data-ctl="theme"></span></label>
+      <label class="row">גודל טקסט (הגדרת אנדרואיד)<span class="seg" data-ctl="fs"></span></label>
+      <h2 style="margin-top:6px">תוצאות לסימולציה</h2>
+      <p class="legend">משפיע על מה שקורה בלחיצה הבאה. בחלונות המערכת אפשר פשוט ללחוץ ״ביטול״ או ״לאפשר״.</p>
+      <label class="row">בדיקת המפתח<span class="seg" data-ctl="simKey"></span></label>
+      <label class="row">תיקיית המקליט<span class="seg" data-ctl="simFolder"></span></label>
+      <label class="row">הקלטות שיחות בטלפון<span class="seg" data-ctl="simCalls"></span></label>
+      <label class="row">יצירת התיקייה ב-Drive<span class="seg" data-ctl="simDrive"></span></label>
+      <label class="row">לחיצה כפולה על כפתור הצד<span class="seg" data-ctl="simSide"></span></label>
+    </section>
+  </aside>
+</main>
+
+<script>
+/* =====================================================================
+   Ramble interactive prototype. Synthetic data, simulated system
+   surfaces, no network calls, no real credentials.
+   ===================================================================== */
+
+// ---------- Brand assets (verbatim from docs/design/assets) ----------
+const LOGO = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ramble"><rect width="64" height="64" rx="18" fill="#25d366"/><path d="M8 32q4.5-24 9 0q4.5 20 9 0q3.5-13 7 0q3.5 8 7 0h16" fill="none" stroke="#121212" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+// Voice wave, shaped like the logo: a big swing up and down on the left that settles step by step
+// into small ripples that keep running to the edge (never a flat line).
+// Paths are computed by waveD(); drawWave() animates them while a wave is on screen.
+const WAVE_LINES = [
+  { base: 88, amp: 1, shift: 0, width: 7, opacity: 1 },
+  { base: 104, amp: 0.7, shift: 0.9, width: 3, opacity: 0.35 },
+];
+function waveD(line, t, reveal) {
+  const x0 = -20, x1 = 740, end = x0 + (x1 - x0) * reveal;
+  let d = '';
+  for (let x = x0; x <= end + 0.01; x += 5) {
+    const u = (x - x0) / (x1 - x0);
+    const big = Math.exp(-u * 3.4) * (0.88 + 0.12 * Math.sin(t * 1.8 + line.shift));  // logo humps: up, down, smaller, smaller
+    const sp = u * 21 + u * u * 16 + line.shift * 0.3;              // humps tighten toward the end, like the logo
+    const calm = 0.15 * Math.sin(u * 34 + u * u * 12 - t * 3.4 + line.shift);  // small ripples keep flowing everywhere
+    const y = line.base - 70 * line.amp * (big * Math.sin(sp) + calm);
+    const grow = Math.min(1, (end - x) / 60 + 0.15);               // leading edge rises in smoothly
+    d += (d ? 'L' : 'M') + x.toFixed(1) + ' ' + (line.base + (y - line.base) * grow).toFixed(1);
+  }
+  return d || `M${x0} ${line.base}`;
+}
+const WAVE = '<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 170" aria-hidden="true">'
+  + WAVE_LINES.map(l => `<path d="${waveD(l, 0, 1)}" fill="none" stroke="#25D366" stroke-opacity="${l.opacity}" stroke-width="${l.width}" stroke-linecap="round" stroke-linejoin="round"/>`).join('')
+  + '</svg>';
+
+// ---------- Icons (24px stroke) ----------
+function gearPath() {
+  let d = '', n = 8, ro = 10, ri = 7.6;
+  for (let k = 0; k < n; k++) {
+    const a = k * 2 * Math.PI / n;
+    const p = [[ri, a - 0.36], [ro, a - 0.2], [ro, a + 0.2], [ri, a + 0.36]];
+    p.forEach(([r, t], i) => { d += (k === 0 && i === 0 ? 'M' : 'L') + (12 + r * Math.cos(t)).toFixed(2) + ' ' + (12 + r * Math.sin(t)).toFixed(2); });
+  }
+  return d + 'Z';
+}
+const CLOUD = '<path d="M7 18.5a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 17.8 9.5 4.5 4.5 0 0 1 17.5 18.5z"/>';
+const IC = {
+  back: '<path d="M5 12h14M13 5l7 7-7 7"/>',
+  chev: '<path d="M14.5 6l-6 6 6 6"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  checkCircle: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/>',
+  phone: '<path d="M6.6 3.5h3l1.6 4.3-2.1 1.4a11 11 0 0 0 5.7 5.7l1.4-2.1 4.3 1.6v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/>',
+  folder: '<path d="M3 7.5A2 2 0 0 1 5 5.5h4l2 2h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  cloud: CLOUD,
+  cloudCheck: CLOUD + '<path d="M9.5 14l2 2 3.5-4"/>',
+  cloudUp: CLOUD + '<path d="M12 16.5v-5M9.8 13.7L12 11.5l2.2 2.2"/>',
+  cloudOff: CLOUD + '<path d="M3 3l18 18"/>',
+  copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+  share: '<circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/>',
+  key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2.5 2.5M14 9l2 2"/>',
+  lock: '<rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>',
+  wifiOff: '<path d="M2 8.5a15 15 0 0 1 4.6-2.8M10 5.1A15 15 0 0 1 22 8.5M5 12a10 10 0 0 1 4-2.2M14.8 10A10 10 0 0 1 19 12M8.5 15.5a5 5 0 0 1 7 0M3 3l18 18"/>',
+  pause: '<path d="M8.5 5v14M15.5 5v14"/>',
+  play: '<path d="M8 5.5v13l10.5-6.5z"/>',
+  alert: '<path d="M12 3.5L2.8 19.5h18.4z"/><path d="M12 10v4.5M12 17v.01"/>',
+  hourglass: '<path d="M7 3.5h10M7 20.5h10M8 3.5v3.5l4 5 4-5V3.5M8 20.5V17l4-5 4 5v3.5"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8v.01"/>',
+  external: '<path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>',
+  device: '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18.5h4"/>',
+  paste: '<rect x="6" y="4.5" width="12" height="16" rx="2"/><path d="M9 4.5v-1h6v1M9 10h6M9 14h6"/>',
+  doc: '<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 15.5h5"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  refresh: '<path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4.5h-4.5"/>',
+  gear: '<path d="' + gearPath() + '"/><circle cx="12" cy="12" r="3"/>',
+  spinner: '<circle cx="12" cy="12" r="8" stroke-opacity=".25"/><path class="spin" d="M12 4a8 8 0 0 1 8 8"/>',
+  storage: '<ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/>',
+  bolt: '<path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>'
+};
+const ic = (n, extra = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${IC[n]}</svg>`;
+
+// ---------- Synthetic content ----------
+const FOLDER_URL = 'https://drive.google.com/drive/folders/1RfLw-EXAMPLE-0aBcD3fGh';
+const ACCOUNT = 'dana@example.com';
+const DEVICE = 'Galaxy S24 · One UI 6.1';
+// Approved prompt copy, verbatim from docs/PRODUCT.md
+const PROMPT = {
+  he: '‏כשאני שואל על תוכן של שיחה או פגישה, למשל מה נאמר או אילו נושאים עלו, חפש תמלול בתיקייה הזאת ב-Google Drive: {folder_url}. אם מצאת, השתמש בו וציין את המקור.',
+  en: 'When I ask about the content of a conversation or meeting, such as what was said or which topics came up, look for a transcript in this Google Drive folder: {folder_url}. If you find one, use it and cite the source.'
+};
+const PROV = {
+  groq: { name: 'Groq', site: 'console.groq.com/keys', keyPrefix: 'gsk_', plan: 'מומלץ. יש מסלול חינמי עם מגבלת שימוש.' },
+  openai: { name: 'OpenAI', site: 'platform.openai.com/api-keys', keyPrefix: 'sk-', plan: 'תשלום לפי שימוש.' }
+};
+const TEXT_013 = [
+  'טוב, אז בואו נעבור על מה שנשאר לשבוע הזה. קודם כול ההזמנה של החומרים, שצריכה לצאת עד יום רביעי, אחרת זה נדחה לשבוע הבא.',
+  'לגבי הפגישה עם הספק, הוחלט שנבקש הצעת מחיר מעודכנת לפני שמתחייבים. עלה גם שכדאי לבדוק עוד ספק אחד, רק כדי שתהיה השוואה.',
+  'בנושא הלוח זמנים: הסיור במקום נקבע ליום ראשון בבוקר. מי שלא יכול להגיע, שיעדכן עד מחר בערב.',
+  'ודבר אחרון, התקציב של החודש הבא. אמרנו שנחזור לזה אחרי שיהיו המספרים הסופיים, כנראה בתחילת השבוע.'
+];
+const JOBS = [
+  { id: 'j1', src: 'voice', title: 'הקלטה 014', when: 'היום, 15:42', dur: '3 דק׳', day: 'היום' },
+  { id: 'j2', src: 'call', title: 'שיחת טלפון', when: 'היום, 13:05', dur: '8 דק׳', day: 'היום' },
+  { id: 'j3', src: 'voice', title: 'הקלטה 013', when: 'היום, 09:18', dur: '21 דק׳', day: 'היום', snip: 'טוב, אז בואו נעבור על מה שנשאר לשבוע הזה…' },
+  { id: 'j4', src: 'voice', title: 'הקלטה 012', when: 'אתמול, 19:30', dur: '2 דק׳', day: 'אתמול', snip: 'תזכורת לעצמי: להתקשר לאינסטלטור ביום ראשון…' },
+  { id: 'j5', src: 'call', title: 'שיחת טלפון', when: 'אתמול, 11:12', dur: '6 דק׳', day: 'אתמול', snip: 'כן, אז נדבר על זה שוב אחרי החג…' }
+];
+
+// ---------- State ----------
+let promptLangStored = null;
+try { promptLangStored = localStorage.getItem('rf.promptLang'); } catch (e) {}
+const S = {
+  theme: 'light', fs: 1,
+  screen: 'welcome', stack: [], ctx: 'setup',
+  provider: 'groq', key: '', keyStatus: 'idle',          // idle|missing|checking|ok|invalid|offline
+  sim: { key: 'ok', folder: 'found', calls: 'found', drive: 'ok', side: 'supported' },
+  voice: 'none',                                          // none|denied|granted
+  calls: 'none',                                          // none|granted|denied|declined
+  drive: 'none',                                          // none|cancelled|error|connected|local
+  promptLang: promptLangStored || 'he', copied: false,
+  home: 'empty', paused: false, transcript: 'j3',
+  overlay: null, snack: null, pickTarget: null, sysReturn: null, sysDepth: 0
+};
+let snackTimer = null;
+
+// ---------- Small builders ----------
+const btn = (label, a, kind = 'primary', o = {}) =>
+  `<button type="button" class="btn ${kind}${o.busy ? ' busy' : ''}" data-a="${a}"${o.arg ? ` data-arg="${o.arg}"` : ''}${o.busy ? ' aria-busy="true"' : ''}>${o.icon ? ic(o.icon) : ''}${label}</button>`;
+const link = (label, a, icon, arg) => `<button type="button" class="linkbtn" data-a="${a}"${arg ? ` data-arg="${arg}"` : ''}>${icon ? ic(icon) : ''}${label}</button>`;
+const notice = (tone, icon, html) => `<div class="notice ${tone}" role="status">${ic(icon)}<div>${html}</div></div>`;
+const L = s => `<bdi class="ltr">${s}</bdi>`;
+const pv = () => PROV[S.provider].name;
+
+function topbar({ back = true, title = '', settings = false } = {}) {
+  return `<header class="topbar">
+    ${back ? `<button type="button" class="icobtn" data-a="back" aria-label="חזרה">${ic('back')}</button>` : ''}
+    <div class="ttl">${title}</div>
+    ${settings ? `<button type="button" class="icobtn" data-a="go" data-arg="settings" aria-label="הגדרות">${ic('gear')}</button>` : ''}
+    <div class="brand">${LOGO}<b>Ramble</b></div>
+  </header>`;
+}
+const STEP_NAMES = ['ספק תמלול', 'מתן הרשאות', 'שמירה', 'הקלטה מהירה'];
+function stepper(n) {
+  if (S.ctx !== 'setup') return '';
+  return `<div class="stepper" aria-label="שלב ${n} מתוך 4"><div class="lbl">שלב ${n} מתוך 4 · ${STEP_NAMES[n - 1]}</div>
+    <div class="bars">${[1, 2, 3, 4].map(i => `<i class="${i <= n ? 'on' : ''}"></i>`).join('')}</div></div>`;
+}
+function scr({ top, step = 0, body, acts = '' }) {
+  return `<div class="scr">${top}${step ? stepper(step) : ''}<div class="content" id="content">${body}</div>${acts ? `<div class="actions">${acts}</div>` : ''}</div>`;
+}
+
+// ---------- Side-button illustration (own drawing; side key is on the physical right edge) ----------
+function sideIllu(small) {
+  return `<svg class="illu" viewBox="0 0 300 ${small ? 150 : 190}" aria-hidden="true" style="${small ? 'max-width:220px' : ''}">
+    <g transform="translate(${small ? 95 : 90} ${small ? 8 : 10})">
+      <rect x="0" y="0" width="${small ? 96 : 110}" height="${small ? 134 : 170}" rx="18" fill="var(--surface)" stroke="currentColor" stroke-width="3"/>
+      <rect x="10" y="12" width="${small ? 76 : 90}" height="${small ? 108 : 140}" rx="10" fill="var(--surface2)"/>
+      <circle cx="${small ? 48 : 55}" cy="${small ? 66 : 82}" r="${small ? 16 : 20}" fill="#FF3B30" opacity=".9"/>
+      <rect x="${small ? 96 : 110}" y="${small ? 34 : 42}" width="7" height="${small ? 26 : 32}" rx="3" fill="#25D366" stroke="var(--ink)" stroke-width="1.5"/>
+      <path d="M${small ? 112 : 126} ${small ? 36 : 44}q10 11 0 22" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M${small ? 122 : 138} ${small ? 30 : 37}q16 17 0 34" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+      <text x="${small ? 142 : 160}" y="${small ? 54 : 64}" font-family="Roboto, sans-serif" font-weight="700" font-size="${small ? 20 : 24}" fill="var(--accent)" direction="ltr">×2</text>
+    </g></svg>`;
+}
+
+// =====================================================================
+// Screens. kind: app | android | google | samsung | browser
+// =====================================================================
+const V = {};
+
+// ---- Welcome ----
+V.welcome = () => scr({
+  top: topbar({ back: false }),
+  body: `<div class="hero">${WAVE}<h1 class="t-title">פטפטו חופשי. <span class="keep">ה-AI שלכם יזכור.</span></h1>
+    <p class="t-body">כל הקלטה מתומללת אוטומטית, ונגישה לעוזרים שלכם. בלי להקליד ובלי לסכם.</p></div>`,
+  acts: btn('בואו נתחיל', 'go', 'primary', { arg: 'provider' })
+});
+
+// ---- Step 1: provider ----
+V.provider = () => scr({
+  top: topbar({}), step: 1,
+  body: `<h1 class="t-title">מי יתמלל את ההקלטות?</h1>
+    <div role="radiogroup" aria-label="ספק תמלול">
+      <h2 class="group-lbl">מביאים מפתח משלכם</h2>
+      ${['groq', 'openai'].map(p => `<button type="button" class="choice" role="radio" aria-checked="${S.provider === p}" data-a="provider" data-arg="${p}">
+        <span class="radio"></span><span><span class="ct">${PROV[p].name}</span>${p === 'groq' ? '<span class="tag">מומלץ</span>' : ''}<br><span class="cs">${p === 'groq' ? 'יש מסלול חינמי עם מגבלת שימוש.' : 'תשלום לפי שימוש.'}</span></span></button>`).join('')}
+      <h2 class="group-lbl">Ramble מתמלל בשבילכם</h2>
+      <div class="choice soon" role="radio" aria-checked="false" aria-disabled="true">
+        <span class="radio"></span><span><span class="ct">Ramble</span><span class="tag soon">בקרוב</span><br><span class="cs">בלי מפתח ובלי הגדרות. עדיין לא זמין.</span></span></div>
+    </div>
+    <p class="t-small">אפשר להחליף אחר כך בהגדרות.</p>`,
+  acts: btn('המשך', 'go', 'primary', { arg: 'key' })
+});
+
+// ---- Step 1: API key (also used from settings and repair) ----
+V.key = () => {
+  const st = S.keyStatus, name = pv();
+  const filled = !!S.key;
+  let msg = '';
+  if (st === 'checking') msg = notice('neutral', 'spinner', 'בודקים את המפתח…');
+  if (st === 'invalid') msg = notice('rec', 'alert', `<b>המפתח לא עובד.</b> בדקו שהעתקתם את כולו, ונסו להדביק שוב.`);
+  if (st === 'offline') msg = notice('warn', 'wifiOff', `<b>אין חיבור לאינטרנט.</b> המפתח נשמר. התחברו ל-Wi‑Fi ולחצו ״לנסות שוב״.`);
+  if (st === 'ok') msg = notice('ok', 'checkCircle', `<b>המפתח עובד.</b> אפשר להמשיך.`);
+  const repairBanner = S.ctx === 'repair' ? notice('rec', 'key', `<b>המפתח של ${name} הפסיק לעבוד.</b> אולי הוא נמחק או שפג תוקפו. ההקלטות שמחכות לא יאבדו.`) : '';
+  const title = S.ctx === 'setup' ? `מפתח API מ-${name}` : S.ctx === 'repair' ? 'הדביקו מפתח חדש' : `מפתח של ${name}`;
+  // No separate "check" button: pasting checks the key right away. Until then, the CTA opens the provider's key page.
+  let primary;
+  if (st === 'checking') primary = btn('בודקים את המפתח…', 'noop', 'primary', { busy: true, icon: 'spinner' });
+  else if (st === 'ok') primary = btn(S.ctx === 'setup' ? 'המשך' : 'שמירה', 'keyDone');
+  else if (st === 'offline') primary = btn('לנסות שוב', 'checkKey', 'primary', { icon: 'refresh' });
+  else primary = btn(`השגת API Key ב-${name}`, 'openBrowser', 'primary', { icon: 'external' });
+  return scr({
+    top: topbar({ title: S.ctx === 'setup' ? '' : 'החלפת מפתח' }), step: 1,
+    body: `${repairBanner}<h1 class="t-title">${title}</h1>
+      <p class="t-body">מעתיקים API Key מהאתר של ${name} ומדביקים כאן.</p>
+      ${link('הסבר מפורט', 'go', 'info', 'keyhelp')}
+      <div class="field" style="margin-top:8px">
+        <label id="kl">ה-API Key שלכם</label>
+        <div class="box ${st === 'invalid' ? 'bad' : st === 'ok' ? 'good' : ''}" role="group" aria-labelledby="kl">
+          <button type="button" class="paste" data-a="paste">${ic('paste')}הדבקה</button>
+          ${filled ? `<span class="val" aria-label="מפתח מוסתר">${PROV[S.provider].keyPrefix}••••••••••DEMO</span>` : `<span class="ph">הדביקו כאן</span>`}
+        </div>
+      </div>
+      <div class="msg" aria-live="polite" data-reveal>${msg}</div>
+      <div style="height:6px"></div>
+      ${notice('neutral', 'lock', `המפתח נשמר רק בטלפון. ההקלטות נשלחות ישירות ל-${name}.`)}`,
+    acts: primary
+  });
+};
+
+// ---- Step 1: how to get a key ----
+V.keyhelp = () => {
+  const p = PROV[S.provider];
+  return scr({
+    top: topbar({ title: 'איך משיגים מפתח' }), step: 1,
+    body: `<h1 class="t-title">משיגים מפתח ב-3 צעדים</h1>
+      <ol class="steps">
+        <li><span>פותחים את האתר של ${p.name} ונכנסים לחשבון.${S.provider === 'groq' ? ' אפשר להיכנס עם חשבון Google.' : ''}</span></li>
+        <li><span>לוחצים על ${L('Create API Key')}${S.provider === 'groq' ? '' : ' (יצירת מפתח)'}.</span></li>
+        <li><span>מעתיקים את המפתח, חוזרים לכאן ולוחצים ״הדבקה״.</span></li>
+      </ol>
+      ${S.provider === 'groq'
+        ? notice('neutral', 'info', 'ל-Groq יש מסלול חינמי עם מגבלת שימוש. אם תגיעו למגבלה, התמלול פשוט יחכה.')
+        : notice('neutral', 'info', 'ב-OpenAI משלמים לפי שימוש. צריך להוסיף אמצעי תשלום באתר שלהם.')}
+      <p class="t-small">כתובת האתר: <span class="path">${p.site}</span></p>`,
+    acts: btn(`פתיחת האתר של ${p.name}`, 'openBrowser', 'primary', { icon: 'external' }) + btn('חזרה', 'back', 'secondary')
+  });
+};
+
+// ---- Step 2: voice recorder folder ----
+V.sources = () => {
+  const repair = S.ctx === 'repair';
+  if (S.voice === 'granted') {
+    return scr({
+      top: topbar({}), step: 2,
+      // No button: after the grant this screen confirms for a moment and moves on by itself (see A.sysAllow).
+      body: `<div class="success"><div class="big-ok"><div class="ring pop">${ic('check')}</div><h1 class="t-title">יש גישה להקלטות</h1></div>
+        <p class="t-body">מעכשיו, כל הקלטה חדשה במקליט תתומלל.</p></div>`
+    });
+  }
+  const found = S.sim.folder === 'found';
+  const denied = S.voice === 'denied';
+  const hint = found
+    ? 'בחלון הבא לוחצים ״שימוש בתיקייה הזו״ ואז ״לאפשר״.'
+    : `בחלון הבא פותחים את ${L('Recordings')} ואז ${L('Voice Recorder')}, ולוחצים ״שימוש בתיקייה הזו״ ו״לאפשר״.`;
+  return scr({
+    top: topbar({ title: repair ? 'גישה להקלטות' : '' }), step: 2,
+    body: `${repair ? notice('rec', 'folder', '<b>הגישה להקלטות בוטלה.</b> ההקלטות שמחכות לא יאבדו.') : ''}
+      ${denied ? notice('warn', 'alert', '<b>הגישה לא אושרה.</b> בלי אישור אי אפשר לתמלל.') : ''}
+      <h1 class="t-title">${repair ? 'מאשרים שוב גישה' : 'גישה להקלטות'}</h1>
+      <p class="t-body">כדי לתמלל, צריך אישור לראות את ההקלטות שלכם.</p>
+      <p class="t-small">${hint}</p>`,
+    acts: btn(denied ? 'לנסות שוב' : found ? 'מתן גישה' : 'בחירת התיקייה', 'pick', 'primary', { arg: 'voice' })
+  });
+};
+
+// ---- Step 2: phone calls (optional) ----
+V.calls = () => {
+  const inSettings = S.ctx === 'settings';
+  const next = btn('המשך', 'callsDone');
+  if (S.calls === 'granted') {
+    return scr({ top: topbar({}), step: 2,
+      body: `<div class="success"><div class="big-ok"><div class="ring pop">${ic('check')}</div><h1 class="t-title">גם שיחות יתומללו</h1></div>
+        <p class="t-body">כל שיחה חדשה שהטלפון יקליט תתומלל.</p></div>` });
+  }
+  if (S.sim.calls === 'absent') {
+    return scr({ top: topbar({ title: inSettings ? 'שיחות טלפון' : '' }), step: 2,
+      body: `<h1 class="t-title">שיחות טלפון</h1>
+        <div class="card row"><div class="badge">${ic('phone')}</div><div><div class="ct">לא מצאנו הקלטות שיחות</div><div class="cs">אולי הקלטת שיחות כבויה, או שהיא לא זמינה בטלפון הזה.</div></div></div>
+        <p class="t-body">זה בסדר. ההקלטות מהמקליט ימשיכו להתמלל.</p>
+        <p class="t-small">אם תפעילו הקלטת שיחות בעתיד (באפליקציית הטלפון ← הגדרות ← הקלטת שיחות), תוכלו להוסיף אותן בהגדרות של Ramble.</p>`,
+      acts: inSettings ? btn('חזרה', 'back') : next });
+  }
+  const denied = S.calls === 'denied';
+  return scr({
+    top: topbar({ title: inSettings ? 'שיחות טלפון' : '' }), step: 2,
+    body: `${denied ? notice('warn', 'alert', '<b>הגישה לשיחות לא אושרה.</b> זה בסדר, ההקלטות מהמקליט עדיין יתומללו.') : ''}
+      <h1 class="t-title">גם שיחות טלפון?</h1>
+      <p class="t-body">אם הטלפון שלכם מקליט שיחות, אפשר לתמלל גם אותן. זה לא חובה.</p>
+      <div class="card row"><div class="badge ok">${ic('phone')}</div><div><div class="ct">הקלטות שיחות</div><div class="path">Recordings/Call</div></div></div>
+      ${notice('neutral', 'info', 'Ramble לא מקליט שיחות בעצמו. הוא מתמלל רק שיחות שהטלפון כבר הקליט.')}`,
+    acts: btn(denied ? 'לנסות שוב' : 'כן, להוסיף שיחות', 'pick', 'primary', { arg: 'calls' }) +
+      link(inSettings ? 'ביטול' : 'לא, תודה', inSettings ? 'back' : 'callsSkip')
+  });
+};
+
+// ---- Step 3: save destinations ----
+V.save = () => {
+  const d = S.drive, inSettings = S.ctx !== 'setup';
+  if (d === 'connected') {
+    return scr({ top: topbar({ title: inSettings ? 'Google Drive' : '' }), step: 3,
+      body: `<div class="big-ok"><div class="ring">${ic('cloudCheck')}</div><h1 class="t-title">Google Drive מחובר</h1></div>
+        <div class="card row"><div class="badge ok">${ic('folder')}</div><div><div class="ct">תיקייה: Ramble</div><div class="cs">בחשבון</div><div class="path">${ACCOUNT}</div></div></div>
+        <p class="t-body">התמלולים יישמרו בטלפון, ויעלו גם לתיקייה הזו ב-Drive שלכם. רק הטקסט עולה, לא ההקלטה.</p>`,
+      acts: btn(inSettings ? 'חזרה' : 'המשך', 'saveDone') });
+  }
+  let top = '';
+  let acts = btn('חיבור Google Drive', 'connectDrive', 'primary') + link('לשמור רק בטלפון', 'localOnly');
+  if (d === 'cancelled') { top = notice('warn', 'info', '<b>החיבור ל-Google בוטל.</b> אפשר לנסות שוב, או להמשיך רק בטלפון.'); acts = btn('לנסות שוב', 'connectDrive') + link('לשמור רק בטלפון', 'localOnly'); }
+  if (d === 'error') { top = notice('rec', 'alert', '<b>לא הצלחנו להכין את התיקייה ב-Drive.</b> בדקו שיש אינטרנט ונסו שוב. לא תיווצר תיקייה כפולה.'); acts = btn('לנסות שוב', 'connectDrive', 'primary', { icon: 'refresh' }) + link('לשמור בינתיים רק בטלפון', 'localOnly'); }
+  if (S.ctx === 'repair') { top = notice('warn', 'cloudOff', '<b>Google Drive התנתק.</b> התמלולים נשמרים בטלפון, ויעלו ל-Drive אחרי שתתחברו שוב.'); acts = btn('חיבור מחדש ל-Google Drive', 'connectDrive'); }
+  return scr({
+    top: topbar({ title: inSettings ? 'Google Drive' : '' }), step: 3,
+    body: `${top}<div class="success">${DRIVE_ART}
+      <h1 class="t-title">${S.ctx === 'repair' ? 'מתחברים שוב ל-Drive' : 'שומרים גם <span class="nw">ב-Google Drive</span>'}</h1>
+      <p class="t-body">כך כל עוזרי ה-AI שלכם יוכלו לקרוא את התמלולים.</p></div>`,
+    acts
+  });
+};
+
+// Own drawing in Drive's colours, not the official logo
+const DRIVE_ART = `<svg class="drive-art" viewBox="0 0 100 88" aria-hidden="true">
+  <polygon points="33,0 67,0 100,58 67,58" fill="#F4B400"/>
+  <polygon points="33,0 50,29 17,87 0,58" fill="#0F9D58"/>
+  <polygon points="17,87 33,58 100,58 83,87" fill="#4285F4"/></svg>`;
+
+// ---- Step 3: connecting Drive (our progress screen) ----
+V.drivebusy = () => scr({
+  top: topbar({ back: false, title: '' }), step: S.ctx === 'setup' ? 3 : 0,
+  body: `<h1 class="t-title">מחברים את Google Drive</h1>
+    <ul class="progress-list" aria-live="polite">
+      <li>${ic('checkCircle')}<span>החשבון אושר</span></li>
+      <li>${ic('spinner')}<span>מכינים תיקייה בשם Ramble…</span></li>
+    </ul>
+    <p class="t-small">זה לוקח כמה שניות.</p>`
+});
+
+// ---- Step 3b / settings: instructions for the AI assistant ----
+function promptBlock() {
+  const lang = S.promptLang;
+  const text = PROMPT[lang].replace('{folder_url}', `<bdi class="url ltr">${FOLDER_URL}</bdi>`);
+  return `<div class="tabs" role="tablist" aria-label="שפת ההנחיות">
+      <button type="button" role="tab" aria-selected="${lang === 'he'}" data-a="plang" data-arg="he">עברית</button>
+      <button type="button" role="tab" aria-selected="${lang === 'en'}" data-a="plang" data-arg="en" lang="en">English</button>
+    </div>
+    <div class="prompt" role="tabpanel" dir="${lang === 'he' ? 'rtl' : 'ltr'}" lang="${lang}">${text}</div>`;
+}
+// Simplified marks, not the official logos
+const AGENTS = `<p class="t-small" style="margin:0 0 8px">עובד עם כל עוזר AI שמתחבר ל-Google Drive:</p><div class="agents" aria-label="עובד עם ChatGPT, Claude, Gemini ועוד">
+  <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#111"/><path d="M12 6.5a3 3 0 0 1 3 3v5a3 3 0 0 1-6 0v-5a3 3 0 0 1 3-3z" fill="none" stroke="#fff" stroke-width="1.6" transform="rotate(30 12 12)"/><path d="M12 6.5a3 3 0 0 1 3 3v5a3 3 0 0 1-6 0v-5a3 3 0 0 1 3-3z" fill="none" stroke="#fff" stroke-width="1.6" transform="rotate(-30 12 12)"/></svg>ChatGPT</span>
+  <span><svg viewBox="0 0 24 24"><g stroke="#D97757" stroke-width="2.4" stroke-linecap="round">${[0, 30, 60, 90, 120, 150].map(a => `<line x1="12" y1="2.5" x2="12" y2="21.5" transform="rotate(${a} 12 12)"/>`).join('')}</g></svg>Claude</span>
+  <span><svg viewBox="0 0 24 24"><defs><linearGradient id="gm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4E8CF7"/><stop offset="1" stop-color="#A76BE8"/></linearGradient></defs><path d="M12 1c.8 5.6 5.4 10.2 11 11-5.6.8-10.2 5.4-11 11-.8-5.6-5.4-10.2-11-11 5.6-.8 10.2-5.4 11-11z" fill="url(#gm)"/></svg>Gemini</span>
+  <span>ועוד</span>
+</div>`;
+V.agent = () => {
+  const inSettings = S.ctx !== 'setup';
+  if (S.drive !== 'connected') {
+    return scr({ top: topbar({ title: 'הנחיות לעוזר ה-AI' }),
+      body: `<h1 class="t-title">קודם מחברים את Google Drive</h1>
+        <p class="t-body">עוזר ה-AI שלכם לא יכול לקרוא קבצים שנמצאים רק בטלפון. כדי שימצא את התמלולים, צריך שהם יעלו גם ל-Google Drive.</p>`,
+      acts: btn('חיבור Google Drive', 'goDriveFromAgent') });
+  }
+  const after = S.copied
+    ? notice('ok', 'checkCircle', `<b>הועתק.</b> עכשיו הדביקו בצ׳אט של העוזר שלכם. אם הוא עוד לא מחובר ל-Google Drive, חברו אותו בהגדרות שלו.`) +
+      `<p class="t-small">${inSettings ? 'לבדיקה, שאלו את העוזר: ״מה נאמר בהקלטה 013 מהיום?״' : 'אחרי שהתמלול הראשון יעלה, נסו לשאול: ״מה סוכם בפגישה האחרונה שהקלטתי?״'}</p>`
+    : '';
+  let acts;
+  if (inSettings) acts = btn(S.copied ? 'להעתיק שוב' : 'העתקת ההנחיות', 'copyPrompt', 'primary', { icon: 'copy' }) + btn('פתיחת התיקייה ב-Drive', 'openDriveFolder', 'secondary', { icon: 'external' });
+  else acts = S.copied ? btn('המשך', 'go', 'primary', { arg: 'quick' }) + link('להעתיק שוב', 'copyPrompt')
+                       : btn('העתקת ההנחיות', 'copyPrompt', 'primary', { icon: 'copy' }) + link('דילוג', 'go', null, 'quick');
+  return scr({
+    top: topbar({ title: inSettings ? 'הנחיות לעוזר ה-AI' : '' }), step: 3,
+    body: `<h1 class="t-title">התמלולים שלכם, גם אצל עוזר ה-AI</h1>
+      <p class="t-body">העתיקו את ההנחיות והדביקו אותן בצ׳אט של העוזר שאתם כבר משתמשים בו.</p>
+      ${AGENTS}
+      ${promptBlock()}
+      <div aria-live="polite" data-reveal>${after}</div>`,
+    acts
+  });
+};
+
+// ---- Step 4: quick record invitation ----
+V.quick = () => {
+  if (S.sim.side === 'unsupported') {
+    return scr({ top: topbar({}), step: 4,
+      body: `<h1 class="t-title">הקלטה מהירה</h1>
+        <p class="t-body">בטלפון הזה לא מצאנו אפשרות להקליט בלחיצה על כפתור הצד.</p>
+        <p class="t-body">זה בסדר. פשוט פתחו את המקליט של סמסונג והקליטו כרגיל.</p>
+        ${notice('neutral', 'info', 'טיפ: אפשר לגרור את אייקון המקליט למסך הבית, כדי למצוא אותו מהר.')}`,
+      acts: btn('המשך', 'go', 'primary', { arg: 'done' }) });
+  }
+  return scr({
+    top: topbar({}), step: 4,
+    body: `<h1 class="t-title">הקלטה בלחיצה כפולה</h1>
+      ${sideIllu()}
+      <p class="t-body">אפשר להגדיר שלחיצה כפולה על הכפתור בצד הטלפון תתחיל הקלטה במקליט של סמסונג. כך לא צריך לחפש את האפליקציה.</p>
+      <p class="t-small">לא חובה. מגדירים את זה בהגדרות של הטלפון, וזה לוקח בערך דקה.</p>`,
+    acts: btn('כך מגדירים', 'go', 'primary', { arg: 'quickguide' }) + btn('דילוג', 'go', 'secondary', { arg: 'done' })
+  });
+};
+V.quickguide = () => scr({
+  top: topbar({ title: 'כך מגדירים' }), step: 4,
+  body: `<div class="devchip">${ic('device')}<span>הטלפון שלכם: ${L(DEVICE)}</span></div>
+    <h1 class="t-title">בהגדרות של הטלפון:</h1>
+    <ol class="steps">
+      <li><span>לחצו על ״תכונות מתקדמות״</span></li>
+      <li><span>לחצו על ״מקש צד״</span></li>
+      <li><span>הפעילו את ״לחיצה כפולה״</span></li>
+      <li><span>בחרו ״מקליט קול״</span></li>
+      <li><span>בחרו ״התחלת הקלטה״</span></li>
+    </ol>
+    ${notice('neutral', 'info', 'בחלק מהטלפונים השמות קצת שונים. Ramble לא משנה את ההגדרה בשבילכם.')}`,
+  acts: btn('פתיחת ההגדרות', 'openSettingsApp', 'primary', { icon: 'external' }) + btn('דילוג', 'go', 'secondary', { arg: 'done' })
+});
+V.quickcheck = () => scr({
+  top: topbar({}), step: 4,
+  body: `<h1 class="t-title">בודקים שזה עובד</h1>
+    ${sideIllu(true)}
+    <p class="t-body">לחצו פעמיים, מהר, על הכפתור בצד הטלפון. אם המקליט נפתח ומתחיל להקליט, הכול הוגדר.</p>
+    <p class="t-small">לא עבד? אפשר לפתוח שוב את ההגדרות, או פשוט להקליט כרגיל מהמקליט.</p>`,
+  acts: btn('המשך', 'go', 'primary', { arg: 'done' }) + btn('פתיחת ההגדרות שוב', 'openSettingsApp', 'secondary')
+});
+
+// ---- Done ----
+V.done = () => {
+  const drive = S.drive === 'connected';
+  return scr({
+    top: topbar({ back: true }),
+    body: `${confetti()}<h1 class="t-title">הכול מוכן</h1>
+      <p class="t-body"><b>אפשר לסגור את האפליקציה ולהקליט כרגיל.</b> כל הקלטה חדשה תתומלל לבד.</p>
+      <div class="summary">
+        <div class="sr">${ic('mic')}<span>מתמללים הקלטות מהמקליט${S.calls === 'granted' ? ' ומשיחות טלפון' : ''}</span></div>
+        <div class="sr">${ic('device')}<span>נשמר בטלפון<small><bdi class="ltr">Download/Ramble</bdi></small></span></div>
+        ${drive ? `<div class="sr">${ic('cloudCheck')}<span>ונשמר גם ב-Google Drive<small>תיקייה: Ramble</small></span></div>` : ''}
+        <div class="sr">${ic('key')}<span>התמלול נעשה ב-${pv()}</span></div>
+      </div>`,
+    acts: btn('בואו ננסה: הקלטה ראשונה', 'openRecorder', 'primary', { icon: 'mic' }) + link('למסך הראשי', 'finish')
+  });
+};
+
+// Plays once per render of the done screen; hidden for reduced motion
+function confetti() {
+  const colors = ['#25D366', '#4285F4', '#F4B400', '#EA4335', '#A76BE8'];
+  return `<div class="confetti" aria-hidden="true">${Array.from({ length: 36 }, (_, i) =>
+    `<i style="left:${(i * 37) % 100}%;background:${colors[i % colors.length]};animation-delay:${(i % 9) * 0.07}s;animation-duration:${1.6 + (i % 5) * 0.25}s;--r:${(i % 2 ? 1 : -1) * (180 + (i % 4) * 90)}deg"></i>`).join('')}</div>`;
+}
+
+// ---- Home ----
+const HOME_STATES = {
+  empty:        { tone: 'ok', icon: 'checkCircle', t: 'פועל', b: 'מחכה להקלטה חדשה.', m: 'בדיקה אחרונה: לפני 4 דקות' },
+  list:         { tone: 'ok', icon: 'checkCircle', t: 'פועל', b: 'הקלטות חדשות יתומללו לבד.', m: 'בדיקה אחרונה: לפני 6 דקות' },
+  queue:        { tone: 'info', icon: 'hourglass', t: '2 הקלטות מחכות לתמלול', b: 'הן יתומללו בבדיקה הבאה, בדרך כלל בתוך כרבע שעה. אין צורך לעשות דבר.', m: 'בדיקה אחרונה: לפני 9 דקות' },
+  offline:      { tone: 'warn', icon: 'wifiOff', t: 'אין אינטרנט', b: 'ההקלטות מחכות בתור. כשהאינטרנט יחזור, נמשיך לבד.', a: ['לבדוק שוב עכשיו', 'retryOffline'] },
+  key:          { tone: 'rec', icon: 'key', t: 'המפתח של Groq לא עובד', b: 'ההקלטות מחכות בתור. צריך מפתח חדש כדי להמשיך.', a: ['תיקון המפתח', 'fixKey'] },
+  quota:        { tone: 'warn', icon: 'hourglass', t: 'Groq ביקש הפסקה קצרה', b: 'הגעתם למגבלת השימוש. ננסה שוב לבד בעוד כשעה.', a: ['מה אפשר לעשות?', 'go', 'fixquota'] },
+  access:       { tone: 'rec', icon: 'folder', t: 'אין גישה להקלטות', b: 'אנדרואיד ביטל את הגישה לתיקיית המקליט. צריך לאשר אותה שוב.', a: ['מתן גישה מחדש', 'fixAccess'] },
+  storage:      { tone: 'rec', icon: 'storage', t: 'הטלפון מלא', b: 'אין מקום לשמור תמלולים חדשים. שום דבר לא נמחק.', a: ['איך מפנים מקום', 'go', 'fixstorage'] },
+  drivePending: { tone: 'info', icon: 'cloudUp', t: '2 תמלולים מחכים להעלאה', b: 'הם כבר שמורים בטלפון. נעלה אותם ל-Drive לבד, כשאפשר.', m: 'ניסיון אחרון: לפני 3 דקות' },
+  driveRevoked: { tone: 'warn', icon: 'cloudOff', t: 'Google Drive התנתק', b: 'התמלולים נשמרים בטלפון. אחרי חיבור מחדש הם יעלו ל-Drive.', a: ['חיבור מחדש', 'fixDrive'] },
+  paused:       { tone: 'neutral', icon: 'pause', t: 'התמלול מושהה', b: 'הקלטות חדשות יחכו בתור. שום דבר לא נמחק.', a: ['המשך תמלול', 'resume'] }
+};
+function jobState(j) {
+  const h = S.home, local = S.drive !== 'connected';
+  const waiting = { cls: 'neutral', icon: 'hourglass', t: 'מחכה לתמלול' };
+  const doneDrive = { cls: 'ok', icon: 'cloudCheck', t: 'נשמר ב-Drive' };
+  const doneLocal = { cls: 'ok', icon: 'checkCircle', t: 'נשמר בטלפון' };
+  const upPend = { cls: 'warn', icon: 'cloudUp', t: 'נשמר בטלפון · מחכה להעלאה' };
+  if (j.id === 'j1') {
+    if (h === 'list') return { cls: 'info', icon: 'spinner', t: 'מתמלל עכשיו' };
+    if (h === 'paused') return { cls: 'neutral', icon: 'pause', t: 'מחכה · מושהה' };
+    return waiting;
+  }
+  if (j.id === 'j2') {
+    if (h === 'list') return waiting;
+    if (h === 'drivePending' || h === 'driveRevoked') return upPend;
+    if (['queue', 'offline', 'key', 'quota', 'access', 'storage', 'paused'].includes(h)) return waiting;
+  }
+  if ((h === 'drivePending' || h === 'driveRevoked') && j.id === 'j3') return upPend;
+  return local ? doneLocal : doneDrive;
+}
+V.home = () => {
+  const st = HOME_STATES[S.home] || HOME_STATES.list;
+  const sAct = st.a ? btn(st.a[0], st.a[1], 'secondary', { arg: st.a[2] }) : '';
+  const status = `<section class="status ${st.tone}" role="status"><div class="badge">${ic(st.icon)}</div>
+      <div class="grow"><div class="st">${st.t.replace('Groq', pv())}</div><div class="sb">${st.b}</div>${st.m ? `<div class="sm">${st.m}</div>` : ''}${sAct}</div></section>`;
+  let body;
+  if (S.home === 'empty') {
+    body = `${status}<div class="empty">
+      <button type="button" class="recbtn" data-a="openRecorder" aria-label="הקלטה במקליט של סמסונג">${ic('mic')}</button>
+      <h2 class="t-h2">בואו ננסה</h2>
+      <p class="t-body">לחצו והקליטו משהו קצר. המקליט של סמסונג ייפתח, והתמלול יופיע כאן.</p></div>`;
+    return scr({ top: topbar({ back: false, settings: true }), body });
+  }
+  let rows = '', day = '';
+  JOBS.forEach(j => {
+    if (j.src === 'call' && S.calls !== 'granted' && S.home !== 'list') { /* keep calls visible in the demo list regardless */ }
+    if (j.day !== day) { if (day) rows += '</div>'; rows += `<div class="daylbl">${j.day}</div><div class="list">`; day = j.day; }
+    const js = jobState(j);
+    const done = js.t.startsWith('נשמר');
+    rows += `<button type="button" class="item" data-a="openJob" data-arg="${j.id}">
+      <div class="badge">${ic(j.src === 'call' ? 'phone' : 'mic')}</div>
+      <div class="grow"><div class="it">${j.title}</div><div class="im">${j.when} · ${j.dur}</div>
+      ${done && j.snip ? `<div class="snip">${j.snip}</div>` : ''}
+      <span class="chip ${js.cls}">${ic(js.icon)}${js.t}</span></div></button>`;
+  });
+  rows += '</div>';
+  return scr({ top: topbar({ back: false, settings: true }), body: status + `<h2 class="t-h2" style="margin-top:4px">התמלולים שלכם</h2>` + rows });
+};
+
+// ---- Transcript ----
+V.transcript = () => {
+  const j = JOBS.find(x => x.id === S.transcript) || JOBS[2];
+  const js = jobState(j);
+  const onDrive = js.t === 'נשמר ב-Drive';
+  const pending = js.t.includes('מחכה להעלאה');
+  const text = j.id === 'j3' ? TEXT_013 : [j.snip.replace('…', '') + ', כי בשבוע הזה כבר אין זמן. אז ככה, נדבר שוב ביום ראשון בבוקר ונסגור את זה.'];
+  const saved = `<div class="saved">
+      <span>${ic('checkCircle')} נשמר בטלפון</span>
+      ${onDrive ? `<span>${ic('cloudCheck')} נשמר ב-Drive</span>${link('פתיחה ב-Drive', 'openDriveFile', 'external')}` : ''}
+      ${pending ? `<span class="pend">${ic('cloudUp')} מחכה להעלאה ל-Drive</span>` : ''}
+    </div>`;
+  return scr({
+    top: topbar({ title: '' }),
+    body: `<h1 class="t-title" style="margin-top:0">${j.title}</h1>
+      <p class="meta">${j.when} · ${j.dur} · ${j.src === 'call' ? 'שיחת טלפון' : 'מקליט הקול'}</p>
+      ${saved}
+      <div class="prose">${text.map(p => `<p>${p}</p>`).join('')}</div>`,
+    acts: btn('העתקת הטקסט', 'copyText', 'primary', { icon: 'copy' }) + btn('שיתוף', 'share', 'secondary', { icon: 'share' })
+  });
+};
+
+// ---- Repair: provider quota ----
+V.fixquota = () => scr({
+  top: topbar({ title: 'הגעתם למגבלה' }),
+  body: `<div class="big-ok"><div class="ring warn">${ic('hourglass')}</div><h1 class="t-title">Groq ביקש הפסקה קצרה</h1></div>
+    <p class="t-body">במסלול החינמי של Groq יש מגבלה על כמות התמלול בכל שעה ובכל יום. הגעתם אליה.</p>
+    ${notice('ok', 'checkCircle', '<b>לא צריך לעשות כלום.</b> ההקלטות מחכות בתור, וננסה שוב לבד בעוד כשעה.')}
+    <p class="t-small">אם זה קורה הרבה, אפשר להגדיל את המגבלה בחשבון שלכם ב-Groq, או לעבור ל-OpenAI.</p>`,
+  acts: btn('הבנתי', 'back') + btn('החלפת ספק', 'go', 'secondary', { arg: 'setprovider' })
+});
+
+// ---- Repair: storage full ----
+V.fixstorage = () => scr({
+  top: topbar({ title: 'הטלפון מלא' }),
+  body: `<div class="big-ok"><div class="ring rec">${ic('storage')}</div><h1 class="t-title">צריך לפנות קצת מקום</h1></div>
+    <p class="t-body">אין מספיק מקום בטלפון כדי לשמור תמלולים חדשים.</p>
+    <p class="t-body">מחקו כמה דברים שאתם לא צריכים, למשל סרטונים ישנים או אפליקציות שלא משתמשים בהן.</p>
+    ${notice('ok', 'checkCircle', 'תמלולים שכבר נשמרו לא נמחקו. כשיהיה מקום, נמשיך לבד.')}`,
+  acts: btn('פתיחת ניהול האחסון', 'openStorage', 'primary', { icon: 'external' })
+});
+
+// ---- Settings ----
+V.settings = () => {
+  const drive = S.drive === 'connected';
+  return scr({
+    top: topbar({ title: 'הגדרות' }),
+    body: `<div class="sgroup">
+        ${srow('key', 'ספק תמלול', `${pv()} · המפתח עובד`, 'go', 'setprovider')}
+        ${srow('mic', 'הקלטות', `מקליט הקול${S.calls === 'granted' ? ' ושיחות טלפון' : ' · שיחות: כבוי'}`, 'go', 'setsources')}
+        ${srow('device', 'שמירה בטלפון', '<bdi class="ltr">Download/Ramble</bdi>', 'go', 'setlocal')}
+        ${srow('cloud', 'Google Drive', drive ? `מחובר · <bdi class="ltr">${ACCOUNT}</bdi>` : 'לא מחובר', 'go', drive ? 'setdrive' : 'save', drive ? '' : 'settings')}
+        ${srow('copy', 'הנחיות לעוזר ה-AI', drive ? 'להעתקה לעוזר שלכם' : 'צריך Google Drive', 'go', 'agent', 'settings')}
+      </div>
+      <div class="sgroup">
+        <button type="button" class="srow" role="switch" aria-checked="${!S.paused}" data-a="togglePause">
+          <div class="badge">${ic(S.paused ? 'pause' : 'play')}</div>
+          <div class="grow"><div class="rt">תמלול ברקע</div><div class="rs">${S.paused ? 'מושהה. הקלטות חדשות מחכות.' : 'פועל. בודק בערך כל רבע שעה.'}</div></div>
+          <span class="switch ${S.paused ? '' : 'on'}" aria-hidden="true"></span>
+        </button>
+      </div>
+      <p class="foot">אב-טיפוס של Ramble · קוד פתוח</p>`
+  });
+};
+function srow(icon, t, s, a, arg, ctx) {
+  return `<button type="button" class="srow" data-a="${a}" data-arg="${arg}"${ctx ? ` data-ctx="${ctx}"` : ''}><div class="badge">${ic(icon)}</div>
+    <div class="grow"><div class="rt">${t}</div><div class="rs">${s}</div></div>${ic('chev', 'class="chev"')}</button>`;
+}
+V.setprovider = () => scr({
+  top: topbar({ title: 'ספק תמלול' }),
+  body: `<div class="card row"><div class="badge ok">${ic('key')}</div><div><div class="ct">${pv()}</div>
+      <div class="cs">מפתח: <span class="path">${PROV[S.provider].keyPrefix}••••DEMO</span></div>
+      <span class="chip ok">${ic('checkCircle')}המפתח עובד</span></div></div>
+    ${notice('neutral', 'lock', `ההקלטות נשלחות ישירות ל-${pv()} עם המפתח שלכם, ולא לשרת של Ramble.`)}`,
+  acts: btn('החלפת מפתח', 'changeKey') + btn(`מעבר ל-${S.provider === 'groq' ? 'OpenAI' : 'Groq'}`, 'switchProvider', 'secondary')
+});
+V.setsources = () => scr({
+  top: topbar({ title: 'הקלטות' }),
+  body: `<div class="card row"><div class="badge ok">${ic('mic')}</div><div><div class="ct">מקליט הקול</div><div class="path">Recordings/Voice Recorder</div>
+      <span class="chip ok">${ic('checkCircle')}יש גישה</span></div></div>
+    <div class="card row"><div class="badge ${S.calls === 'granted' ? 'ok' : ''}">${ic('phone')}</div><div><div class="ct">שיחות טלפון</div>
+      ${S.calls === 'granted' ? `<div class="path">Recordings/Call</div><span class="chip ok">${ic('checkCircle')}יש גישה</span>` : `<div class="cs">כבוי. מתמללים רק הקלטות מהמקליט.</div>`}</div></div>
+    <p class="t-small">רק הקלטות חדשות מתומללות. ההקלטות עצמן אף פעם לא נמחקות או משתנות.</p>`,
+  acts: S.calls === 'granted' ? btn('הפסקת תמלול שיחות', 'askRemoveCalls', 'secondary') : btn('הוספת שיחות טלפון', 'go', 'primary', { arg: 'calls', ctx: 'settings' })
+});
+V.setlocal = () => scr({
+  top: topbar({ title: 'שמירה בטלפון' }),
+  body: `<div class="card row"><div class="badge ok">${ic('folder')}</div><div><div class="ct">התמלולים נשמרים כאן</div><div class="path">Download/Ramble</div></div></div>
+    <p class="t-body">כל תמלול הוא קובץ טקסט רגיל. אפשר למצוא אותם באפליקציה ״הקבצים שלי״, בתיקייה ״הורדות״.</p>
+    <p class="t-small">אם תבחרו תיקייה אחרת, תמלולים חדשים יישמרו בה. הקבצים הקודמים יישארו במקומם.</p>`,
+  acts: btn('בחירת תיקייה אחרת', 'pick', 'secondary', { arg: 'local' })
+});
+V.setdrive = () => scr({
+  top: topbar({ title: 'Google Drive' }),
+  body: `<div class="card row"><div class="badge ok">${ic('cloudCheck')}</div><div><div class="ct">מחובר</div><div class="path">${ACCOUNT}</div>
+      <span class="chip ok">${ic('checkCircle')}כל התמלולים הועלו</span></div></div>
+    <div class="sgroup">${srow('folder', 'תיקייה ב-Drive', 'Ramble', 'go', 'setdrivefolder')}</div>
+    <p class="t-small">רק הטקסט עולה ל-Drive, לא ההקלטות. הקבצים לא משותפים עם אף אחד.</p>`,
+  acts: btn('פתיחת התיקייה ב-Drive', 'openDriveFolder', 'primary', { icon: 'external' }) + btn('ניתוק Google Drive', 'askDisconnect', 'secondary')
+});
+V.setdrivefolder = () => scr({
+  top: topbar({ title: 'תיקייה ב-Drive' }),
+  body: `<h1 class="t-title">התמלולים עולים לתיקייה Ramble</h1>
+    <p class="t-body">אפשר לבחור תיקייה אחרת ב-Drive. תמלולים חדשים יעלו אליה, והקודמים יישארו במקומם.</p>
+    ${notice('neutral', 'info', 'אם תחליפו תיקייה, עדכנו גם את ההנחיות אצל עוזר ה-AI.')}`,
+  acts: btn('בחירת תיקייה אחרת', 'pickDriveFolder', 'secondary')
+});
+
+// ---- System surfaces (approximate; not ours) ----
+V.sysPicker = () => {
+  const t = S.pickTarget;
+  const folder = t === 'calls' ? 'Call' : t === 'local' ? 'Download' : 'Voice Recorder';
+  const files = t === 'calls' ? ['Call 2026-10-30 18-02.m4a', 'Call 2026-10-28 09-41.m4a'] : t === 'local' ? ['Ramble'] : ['Voice 011.m4a', 'Voice 010.m4a', 'Voice 009.m4a'];
+  return `<div class="sys">
+    <div class="sbar"><button type="button" class="icobtn" data-a="sysCancel" aria-label="ביטול" style="color:inherit">${ic('menu')}</button><b><bdi>${folder}</bdi></b>${ic('search', 'style="width:24px;height:24px;margin:0 12px"')}</div>
+    <div class="crumb">אחסון פנימי › <bdi>${t === 'local' ? 'Download' : 'Recordings'}</bdi>${t === 'local' ? '' : ` › <bdi>${folder}</bdi>`}</div>
+    <div class="files">${files.map(f => `<div class="file">${ic(t === 'local' ? 'folder' : 'doc')}<div><bdi>${f}</bdi><small>אוק׳ 30 · 1.2MB</small></div></div>`).join('')}</div>
+    <div class="sfoot"><button type="button" class="sbtn" data-a="sysUseFolder">שימוש בתיקייה הזו</button></div>
+    ${S.overlay === 'sysAllow' ? `<div class="scrim"><div class="sdialog" role="alertdialog">
+      <h2>לאפשר ל-Ramble לגשת לקבצים ב-<bdi>${folder}</bdi>?</h2>
+      <p>פעולה זו תאפשר ל-Ramble לגשת לתוכן הנוכחי ולתוכן עתידי שיאוחסן ב-<bdi>${folder}</bdi>.</p>
+      <div class="acts"><button type="button" class="sbtn text" data-a="sysDeny">ביטול</button><button type="button" class="sbtn text" data-a="sysAllow">לאפשר</button></div>
+    </div></div>` : ''}
+  </div>`;
+};
+V.sysAccount = () => `<div class="sys"><div class="g">
+    <div class="glogo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+    <h2>בחירת חשבון</h2><p>כדי להמשיך אל Ramble</p>
+    <button type="button" class="acct" data-a="go" data-arg="sysConsent"><span class="av">D</span><span>דנה<small><bdi class="ltr">${ACCOUNT}</bdi></small></span></button>
+    <button type="button" class="acct" data-a="noop"><span class="av" style="background:var(--sys-divider);color:var(--sys-text)">+</span><span>הוספת חשבון</span></button>
+  </div><div class="gacts"><span></span><button type="button" class="sbtn text" data-a="googleCancel">ביטול</button></div></div>`;
+V.sysConsent = () => `<div class="sys"><div class="g">
+    <div class="glogo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+    <h2>Ramble רוצה גישה לחשבון Google שלך</h2>
+    <p><bdi class="ltr">${ACCOUNT}</bdi></p>
+    <div class="scope">${ic('cloud')}<span>לראות, לערוך, ליצור ולמחוק רק את הקבצים הספציפיים ב-Google Drive שבהם נעשה שימוש באפליקציה הזו</span></div>
+    <p>חשוב לוודא ש-Ramble הוא אפליקציה מהימנה.</p>
+  </div><div class="gacts"><button type="button" class="sbtn text" data-a="googleCancel">ביטול</button><button type="button" class="sbtn" data-a="googleAllow">המשך</button></div></div>`;
+V.sysBrowser = () => `<div class="sys">
+    <div class="url">${PROV[S.provider].site}</div>
+    <div class="web"><h2>API Keys</h2><p>Manage your API keys. Keep them secret.</p><span class="fake">+ Create API Key</span>
+      <p style="margin-top:22px">(Simulated provider page. The real site may look different.)</p></div>
+  </div>`;
+V.sysSettings = () => `<div class="sys">
+    <div class="sbar"><b>הגדרות</b>${ic('search', 'style="width:24px;height:24px;margin:0 12px"')}</div>
+    <div class="slist">
+      ${[['תצוגה', '#3D7BF7', 'device'], ['סוללה', '#2BB673', 'bolt'], ['אפליקציות', '#4C6EF5', 'menu'], ['תכונות מתקדמות', '#F08C00', 'gear'], ['נגישות', '#20A39E', 'info']]
+        .map(([n, c, i]) => `<div class="sitem ${n === 'תכונות מתקדמות' ? 'hl' : ''}"><span class="dot" style="background:${c}">${ic(i)}</span><span>${n}${n === 'תכונות מתקדמות' ? '<small>מקש צד, תנועות ומחוות</small>' : ''}</span></div>`).join('')}
+    </div></div>`;
+V.sysRecorder = () => `<div class="sys">
+    <div class="sbar"><b>מקליט קול</b></div>
+    <div class="rec"><div class="timer">00:00.00</div><button type="button" class="rbtn" data-a="noop" aria-label="הקלטה (באפליקציה של סמסונג)"><i></i></button>
+      <p style="color:var(--sys-text2);font-size:.9375rem;text-align:center;padding:0 24px">כדי להקליט, לוחצים כאן על הכפתור האדום.</p></div></div>`;
+V.sysStorage = () => `<div class="sys">
+    <div class="sbar"><b>אחסון</b></div>
+    <div style="padding:8px 20px"><div style="font-size:1.75rem">127 GB <small style="font-size:1rem;color:var(--sys-text2)">מתוך 128 GB בשימוש</small></div></div>
+    <div class="bar"><i></i></div>
+    <div class="slist">${['תמונות וסרטונים · 74 GB', 'אפליקציות · 31 GB', 'קבצים אחרים · 22 GB'].map(n => `<div class="sitem"><span>${n}</span></div>`).join('')}</div></div>`;
+
+// ---- Screen registry ----
+const SYS = { sysPicker: 'android', sysAccount: 'google', sysConsent: 'google', sysBrowser: 'browser', sysSettings: 'samsung', sysRecorder: 'samsung', sysStorage: 'android' };
+const SURFACE_LABEL = {
+  app: 'מסך של Ramble',
+  android: 'מסך מערכת של אנדרואיד · לא בשליטתנו',
+  google: 'מסך של Google · לא בשליטתנו',
+  samsung: 'אפליקציה של סמסונג · לא בשליטתנו',
+  browser: 'דפדפן · אתר של הספק'
+};
+
+// ---- Per-screen notes (goal, elder check, behavior) ----
+function notesFor(id) {
+  const N = {
+    welcome: { t: 'פתיחה', g: 'להבין במשפט אחד למה זה שווה, ולהתחיל.',
+      q: ['ללחוץ ״בואו נתחיל״. יש רק כפתור אחד.', 'עוברים לבחירת ספק התמלול.', 'הכותרת והכפתור הגדול.'],
+      i: ['מסך פתיחה בלבד: בלי בחירות ובלי פס התקדמות.', 'הכותרת בפנייה ברבים, כמו בשאר האפליקציה.'] },
+    provider: { t: 'בחירת ספק', g: 'להמשיך עם ספק ברירת המחדל, או לבחור אחר.',
+      q: ['ללחוץ ״המשך״. Groq כבר מסומן.', 'הבחירה מסומנת במסגרת ירוקה ובעיגול מלא.', 'פס ההתקדמות מראה 4 שלבים.'],
+      i: ['Groq מסומן כברירת מחדל ״מומלץ״. OpenAI היא אפשרות נוספת.', 'שתי קבוצות: ״מביאים מפתח משלכם״ (Groq, OpenAI) ו״Ramble מתמלל בשבילכם״. Ramble מסומן ״בקרוב״ ולא ניתן לבחירה.', 'כל ההתקנה נשמרת. אם סוגרים באמצע, חוזרים לשלב הראשון שלא הושלם.'] },
+    key: { t: S.ctx === 'repair' ? 'תיקון: מפתח שגוי' : S.ctx === 'settings' ? 'הגדרות: החלפת מפתח' : 'מפתח אישי', g: 'להשיג מפתח אצל הספק, להדביק, ולראות מיד שהוא עובד.',
+      q: ['״השגת מפתח ב-Groq״ פותח את דף המפתחות. חוזרים ולוחצים ״הדבקה״.', 'ההדבקה בודקת מיד. הודעה מתחת לשדה: בודקים / עובד / לא עובד / אין אינטרנט.', 'כשהמפתח עובד, הכפתור הופך ל״המשך״.'],
+      i: ['שדה מדומה: אין להזין מפתח אמיתי באב-הטיפוס.', 'בדיקה זולה בלי אודיו (למשל רשימת מודלים). בלי להעלות הקלטה רק כדי לבדוק.', 'כפתור ״הדבקה״ בתוך השדה, כי לחיצה ארוכה קשה למשתמשים מבוגרים.', 'מעבר בין ספקים לא חושף את המפתח של הספק הקודם.', 'ההודעה על שליחת האודיו לספק גלויה תמיד, לא מוסתרת.', 'אין כפתור ״בדיקת מפתח״ נפרד: ההדבקה מפעילה את הבדיקה.'] },
+    keyhelp: { t: 'איך משיגים מפתח', g: 'הסבר קצר בשלושה צעדים, וקישור לאתר הספק.',
+      q: ['״פתיחת האתר של Groq״.', 'הדפדפן נפתח. חזרה מחזירה לשדה המפתח.', 'אחרי ההדבקה, חוזרים למסך הקודם.'],
+      i: ['הקישור פותח את דף המפתחות של הספק בדפדפן.', 'לא מבטיחים שעות חינם בלי הגבלה. רק ״מסלול חינמי עם מגבלת שימוש״.', 'השמות באתר הספק באנגלית, לכן הם מבודדים כ-LTR.'] },
+    sources: { t: S.ctx === 'repair' ? 'תיקון: הרשאה חסרה' : 'גישה להקלטות', g: 'לאשר גישה לתיקיית המקליט, בלי לחפש אותה.',
+      q: [S.voice === 'granted' ? 'כלום. אחרי רגע עוברים לבד לשלב הבא.' : 'ללחוץ ״מתן גישה״, ובחלון של אנדרואיד ״שימוש בתיקייה הזו״ ו״לאפשר״.', 'אחרי האישור: מסך ״יש גישה להקלטות״ עם סימן וי גדול.', 'הסימן הגדול, ומעבר אוטומטי אחרי שנייה.'],
+      i: ['זיהוי התיקייה הוא הצעה בלבד. הגישה עצמה מגיעה מבורר התיקיות של אנדרואיד (SAF), עם מיקום התחלתי.', 'ההנחיה מראש מתארת בדיוק מה ללחוץ בחלון המערכת. צריך לאמת את השמות המדויקים בעברית במכשיר.', 'ביטול או סירוב: נשארים כאן, עם הסבר וכפתור ״לנסות שוב״. אין מעבר שקט לגישה רחבה.', 'נקודת ההתחלה (baseline) נשמרת ברגע האישור. הקלטות ישנות לא נשלחות לתמלול ולא עולות כסף.', 'בתיקון: אותה נקודת התחלה נשמרת. הקלטות שנוצרו בזמן שהגישה חסרה ייכנסו לתור.'] },
+    calls: { t: 'שיחות טלפון (לא חובה)', g: 'להציע תמלול שיחות, בלי לחייב.',
+      q: ['״כן״ או ״לא, תודה״. שתי אפשרויות בלבד.', 'וי גדול, או הסבר שההקלטות מהמקליט ממשיכות כרגיל.', 'בכל תוצאה יש ״המשך״.'],
+      i: ['כבוי כברירת מחדל. אישור נפרד לתיקיית השיחות, עם נקודת התחלה משלו.', 'סירוב או טלפון בלי הקלטת שיחות לא מבטלים את ההקלטות מהמקליט.', 'לא משנים הגדרות הקלטה בטלפון, ולא מבטיחים WhatsApp או שיחות אינטרנט.', 'זמינות הקלטת שיחות תלויה בדגם ובאזור. צריך לבדוק במכשיר.'] },
+    save: { t: S.drive === 'connected' ? 'Google Drive מחובר' : S.ctx === 'repair' ? 'תיקון: Drive התנתק' : 'שמירת התמלולים', g: 'להראות שהשמירה בטלפון אוטומטית, ולהציע Drive כאפשרות.',
+      q: [S.drive === 'connected' ? '״המשך״.' : 'לבחור: ״חיבור Google Drive״ או ״לשמור רק בטלפון״.', 'אחרי החיבור: מסך ״Google Drive מחובר״ עם החשבון והתיקייה.', 'הכפתור ״המשך״ אחרי כל תוצאה.'],
+      i: ['אין בחירת תיקייה בהתקנה. בטלפון: Download/Ramble (צריך לאמת MediaStore במכשיר).', 'Google מאשר גישה לחשבון של המשתמש. זו לא התחברות ל-Ramble.', 'אחרי האישור נוצרת תיקיית Ramble, או נעשה שימוש בקיימת. המזהה נשמר, וניסיון חוזר לא יוצר כפילות.', 'ביטול אצל Google: חוזרים לכאן עם הסבר, בלי לאבד את ההגדרות.', 'רק הטקסט עולה, לא האודיו. אין שינוי בהרשאות השיתוף.'] },
+    drivebusy: { t: 'מחברים את Drive', g: 'להראות שמשהו קורה אחרי אישור Google.',
+      q: ['אין מה ללחוץ. רק לחכות כמה שניות.', 'שורות עם וי וסמן התקדמות.', 'המסך עובר לבד ל״Drive מחובר״ או להודעת שגיאה.'],
+      i: ['תוצאת השגיאה נקבעת בפאנל הסימולציה.', 'יצירת התיקייה בטוחה לניסיון חוזר.'] },
+    agent: { t: 'הנחיות לעוזר ה-AI', g: 'להעתיק הנחיה מוכנה עם הקישור האמיתי לתיקייה.',
+      q: [S.copied ? '״המשך״.' : '״העתקת ההנחיות״.', '״הועתק״ והסבר מה עושים עכשיו: להדביק בצ׳אט של העוזר.', 'הכפתור הראשי הופך ל״המשך״ אחרי ההעתקה.'],
+      i: ['נוסח מאושר מ-PRODUCT.md, מילה במילה, עם קישור התיקייה במקום {folder_url}. בהדמיה זה מזהה לדוגמה.', 'הלשוניות עברית / English לא תלויות בשפת האפליקציה. הבחירה נזכרת.', 'מועתק רק הטקסט של השפה שנבחרה, בלי כותרות ובלי סימני Markdown. אפשר לבדוק בהדבקה.', 'הקישור מבודד כ-LTR בתוך הטקסט העברי.', 'לא כתוב ״מוכן אצל העוזר״ לפני שתמלול באמת עלה.', 'אין חיבור של העוזר מתוך האפליקציה.', 'במסלול ״רק בטלפון״ המסך הזה לא מוצג.'] },
+    quick: { t: S.sim.side === 'unsupported' ? 'הקלטה מהירה: לא נתמך' : 'הזמנה להקלטה מהירה', g: 'להציע קיצור דרך להקלטה, בלי לחייב.',
+      q: ['״כך מגדירים״ או ״דילוג״.', 'מסך ההדרכה נפתח.', 'אפשר לדלג. הסיום תמיד זמין.'],
+      i: ['המחשה: כפתור הצד בקצה הימני הפיזי של הטלפון. היא לא מתהפכת ב-RTL.', 'Ramble לא משנה את מיפוי הכפתור בעצמו.', 'בטלפון בלי האפשרות: הסבר קצר והמשך.', 'אין תזכורות חוזרות להגדרה הזו.'] },
+    quickguide: { t: 'כך מגדירים', g: 'הוראות קצרות לפי הדגם, ופתיחת ההגדרות.',
+      q: ['״פתיחת ההגדרות״ ולעקוב אחרי 5 הצעדים.', 'ההגדרות של הטלפון נפתחות. חזרה מחזירה למסך הבדיקה.', 'במסך הבדיקה יש ״המשך״.'],
+      i: ['הדגם והגרסה מזוהים ומוצגים כדי שיהיה ברור למי ההוראות.', 'השמות בתפריט צריכים אימות במכשיר, לפי דגם, גרסה ואזור.', 'אין קישור ישיר מתועד למסך מקש הצד. פותחים את ההגדרות ומדריכים בטקסט.', 'אחרי החזרה לא מסמנים ״הוגדר״. אי אפשר לדעת את זה בוודאות.'] },
+    quickcheck: { t: 'בדיקת הקלטה מהירה', g: 'לתת למשתמש לבדוק בעצמו, בלי לטעון שזה הוגדר.',
+      q: ['ללחוץ פעמיים על כפתור הצד, ואז ״המשך״.', 'המקליט של סמסונג נפתח (מחוץ לאפליקציה).', '״המשך״ מוביל לסיום.'],
+      i: ['נקודת ההתחלה כבר נשמרה בשלב 2, לכן הקלטת בדיקה עכשיו תתומלל.', 'לא מבטיחים התחלת הקלטה ממסך נעול. זה עדיין דורש בדיקה במכשיר.'] },
+    done: { t: 'הכול מוכן', g: 'להבהיר שההתקנה הסתיימה ושאפשר לסגור את האפליקציה.',
+      q: ['״בואו ננסה: הקלטה ראשונה״ פותח את המקליט של סמסונג.', 'אחרי ההקלטה, חוזרים למסך הראשי שמראה ״פועל״. ״למסך הראשי״ מדלג על הניסיון.', 'כותרת ״הכול מוכן״ ומשפט מודגש: אפשר לסגור ולהקליט כרגיל.'],
+      i: ['סיכום קצר: מאיפה מתמללים, איפה נשמר, מי מתמלל.', 'לא מבטיחים תמלול מיידי: ״בערך כל רבע שעה, לפעמים יותר״.', 'קונפטי קצר כשהמסך נפתח. ״בואו ננסה״ פותח את האפליקציה של סמסונג. הוא לא מתחיל הקלטה ולא מבקש הרשאת מיקרופון.', 'ההתקנה נשמרת כמושלמת לפני שהמקליט נפתח, כך שההקלטה הראשונה לא תיחשב ״ישנה״.', 'הגל המקורי מצויר פעם אחת, ובלי אנימציה כשמופעל ״הפחתת תנועה״.'] },
+    home: { t: 'מסך ראשי · ' + ({ empty: 'אין תמלולים עדיין', list: 'רשימה', queue: 'המתנה לעיבוד', offline: 'אין אינטרנט', key: 'מפתח שגוי', quota: 'מגבלת ספק', access: 'הרשאה חסרה', storage: 'אחסון מלא', drivePending: 'העלאה ממתינה ל-Drive', driveRevoked: 'Drive התנתק', paused: 'עיבוד מושהה' })[S.home],
+      g: 'לראות במבט אחד שהכול עובד, או מה צריך לתקן.',
+      q: [HOME_STATES[S.home].a ? `ללחוץ ״${HOME_STATES[S.home].a[0]}״ בכרטיס הסטטוס.` : S.home === 'empty' ? 'ללחוץ על כפתור ההקלטה האדום. המקליט של סמסונג נפתח.' : 'אין צורך לעשות כלום. אפשר לפתוח תמלול מהרשימה.', 'הכרטיס העליון משתנה ומסביר במילים.', 'כשהכרטיס ירוק וכתוב ״פועל״.'],
+      i: ['כרטיס סטטוס אחד, עם אייקון, מילים ופעולה אחת לכל היותר. הצבע אף פעם לא האות היחיד.', 'לכל תקלה פעולה אחת, שמובילה לתיקון ממוקד. בלי לחזור להתחלת ההתקנה.', 'עבודה בתור נשמרת תמיד. תיקון לא מתמלל מחדש ולא מחייב שוב.', '״בדיקה אחרונה״ מוצגת כדי שסטטוס ישן לא ייראה חי.', 'אין כפתור הקלטה. האפליקציה רק מתמללת קבצים מהמקליט.', 'הקלטה שעוד לא תומללה נפתחת כחלונית הסבר, לא כטקסט חלקי.', 'השהיה וחידוש נמצאים בהגדרות. כשמושהה, הכרטיס מציע ״המשך תמלול״.', 'רשימת ההקלטות בהדמיה היא תוכן לדוגמה בלבד.'] },
+    transcript: { t: 'תמלול', g: 'לקרוא את הטקסט ולהעתיק או לשתף אותו.',
+      q: ['לקרוא. ״העתקת הטקסט״ או ״שיתוף״.', 'הודעה ״הטקסט הועתק״ / חלון השיתוף של אנדרואיד.', 'חזרה עם החץ או במחווה.'],
+      i: ['תאריך ושעה של ההקלטה המקורית, המקור והאורך.', '״פתיחה ב-Drive״ מופיע רק אחרי העלאה מאומתת.', 'אין סיכום, משימות או צ׳אט. אין שמות דוברים מומצאים.', 'הטקסט גדל לפי הגדרת גודל הטקסט ונגלל באופן טבעי.'] },
+    fixquota: { t: 'תיקון: מגבלת ספק', g: 'להרגיע: לא צריך לעשות כלום.',
+      q: ['״הבנתי״.', 'חוזרים לראשי. הכרטיס ממשיך להסביר.', 'כשהכרטיס חוזר ל״פועל״.'],
+      i: ['ניסיון חוזר אוטומטי עם השהיה הולכת וגדלה.', 'החלפת ספק היא פעולה מכוונת, לא אוטומטית.'] },
+    fixstorage: { t: 'תיקון: אחסון מלא', g: 'הסבר פשוט ופעולה אחת: לפתוח את ניהול האחסון.',
+      q: ['״פתיחת ניהול האחסון״.', 'מסך האחסון של אנדרואיד נפתח. בחזרה, האפליקציה בודקת שוב.', 'הודעה ״יש שוב מקום״ והכרטיס חוזר ל״פועל״.'],
+      i: ['תמלולים שהושלמו נשמרים במקום פרטי עד שאפשר לכתוב אותם לתיקייה.', 'שום דבר לא נמחק.'] },
+    settings: { t: 'הגדרות', g: 'מקום אחד לשינויים, מעט שורות.',
+      q: ['לבחור נושא אחד מתוך חמישה, או להשהות תמלול.', 'כל שורה פותחת מסך קצר עם פעולה אחת או שתיים.', 'חזרה מחזירה לראשי.'],
+      i: ['אין חשבון Ramble, אין התחברות ואין ״יציאה״.', 'המתג ״תמלול ברקע״ משהה ומחדש. העבודה בתור נשמרת.', 'שינוי תיקיות נמצא רק כאן.', 'צפייה במסך הגדרות לא מפעילה בדיקה, עיבוד או חיוב.'] },
+    setprovider: { t: 'הגדרות: ספק תמלול', g: 'לראות איזה ספק פעיל, ולהחליף מפתח או ספק.',
+      q: ['״החלפת מפתח״ או ״מעבר ל-OpenAI״.', 'נפתח מסך המפתח. הספק מתחלף רק אחרי בדיקה מוצלחת.', '״שמירה״ מחזירה לכאן.'],
+      i: ['המפתח מוסתר תמיד. אין העתקה או הצגה שלו.', 'עד שהמפתח החדש עובר בדיקה, ממשיכים עם המפתח הקודם.'] },
+    setsources: { t: 'הגדרות: הקלטות', g: 'לראות מאיפה מתמללים, ולהוסיף או להסיר שיחות.',
+      q: ['״הוספת שיחות טלפון״ או ״הפסקת תמלול שיחות״.', 'אישור קצר לפני הסרה.', 'הכרטיס מתעדכן.'],
+      i: ['לפני הסרה מסבירים מה יקרה. קבצים מקוריים ותמלולים לא נמחקים.'] },
+    setlocal: { t: 'הגדרות: שמירה בטלפון', g: 'לדעת איפה הקבצים. שינוי תיקייה הוא אפשרות מתקדמת.',
+      q: ['בדרך כלל כלום. רק לקרוא איפה הקבצים.', 'בחירת תיקייה פותחת את בורר התיקיות של אנדרואיד.', 'הודעה ״התיקייה עודכנה״.'],
+      i: ['תיקייה מותאמת אישית נשמרת כהרשאה קבועה (SAF).'] },
+    setdrive: { t: 'הגדרות: Google Drive', g: 'לראות שהחיבור תקין, לפתוח את התיקייה או לנתק.',
+      q: ['״פתיחת התיקייה ב-Drive״.', 'Drive נפתח (מחוץ לאפליקציה).', '—'],
+      i: ['ניתוק מבקש אישור ומסביר: קבצים שכבר עלו נשארים, תמלולים חדשים נשמרים רק בטלפון.', 'שינוי תיקייה ב-Drive נמצא בשורה נפרדת, כי זו אפשרות מתקדמת.'] },
+    setdrivefolder: { t: 'הגדרות: תיקייה ב-Drive', g: 'אפשרות מתקדמת להחלפת התיקייה.', q: ['בדרך כלל לא צריך.', 'בורר התיקיות של Google נפתח.', '—'], i: ['מזכירים לעדכן את ההנחיות אצל העוזר.'] }
+  };
+  const SN = {
+    sysPicker: { t: 'בורר התיקיות של אנדרואיד', g: 'מסך מערכת. המשתמש מאשר את התיקייה.', q: ['״שימוש בתיקייה הזו״ ואז ״לאפשר״.', 'חוזרים ל-Ramble עם התוצאה.', '—'], i: ['העיצוב משוער. אנדרואיד שולט במסך הזה.', 'פתיחה במיקום שזוהה (initial URI) כשהמכשיר תומך.', 'אפשר ללחוץ ״ביטול״ בחלון האישור כדי לראות את מצב הסירוב.'] },
+    sysAccount: { t: 'בחירת חשבון Google', g: 'מסך של Google.', q: ['לבחור חשבון.', 'מסך ההרשאות של Google.', '—'], i: ['העיצוב משוער. Google שולט במסך הזה.', '״ביטול״ מחזיר למסך השמירה עם הסבר.'] },
+    sysConsent: { t: 'הרשאות Google Drive', g: 'מסך של Google.', q: ['״המשך״.', 'Ramble מכין את התיקייה.', '—'], i: ['ההרשאה הצרה ביותר (drive.file): רק קבצים שהאפליקציה יוצרת. צריך לאמת מול הנחיות Google העדכניות.', 'אימות אפליקציה אצל Google הוא נושא נפרד לפני השקה.'] },
+    sysBrowser: { t: 'אתר הספק', g: 'דפדפן, מחוץ לאפליקציה.', q: ['ליצור מפתח ולהעתיק אותו.', 'חזרה למסך המפתח.', '—'], i: ['דף מדומה. האתר האמיתי עשוי להיראות אחרת.'] },
+    sysSettings: { t: 'הגדרות סמסונג', g: 'אפליקציית ההגדרות של הטלפון.', q: ['לעקוב אחרי הצעדים שראו קודם.', 'חזרה מחזירה למסך הבדיקה.', '—'], i: ['הדמיה בלבד. Ramble לא משנה את ההגדרה.'] },
+    sysRecorder: { t: 'המקליט של סמסונג', g: 'האפליקציה של סמסונג, מחוץ ל-Ramble.', q: ['ללחוץ על הכפתור האדום כדי להקליט.', 'חזרה מגיעה למסך הראשי.', '—'], i: ['פתיחת המקליט לא מתחילה הקלטה.', 'אם המקליט לא מותקן: הסבר קצר במקום פתיחה.'] },
+    sysStorage: { t: 'ניהול אחסון של אנדרואיד', g: 'מסך מערכת.', q: ['למחוק דברים מיותרים.', 'חזרה: Ramble בודק שוב.', '—'], i: ['בהדמיה, החזרה מדמה שהתפנה מקום.'] }
+  };
+  return N[id] || SN[id] || { t: id, g: '', q: ['', '', ''], i: [] };
+}
+
+// =====================================================================
+// Navigation and actions
+// =====================================================================
+function go(id, push = true) {
+  if (push && S.screen !== id) S.stack.push(S.screen);
+  S.screen = id; S.overlay = null;
+  render(true);
+}
+function back() {
+  if (S.overlay) { S.overlay = null; render(); return; }
+  if (S.screen.startsWith('sys')) return sysReturn(null);
+  if (!S.stack.length) return;
+  if (S.screen === 'key' && S.prevProvider) { S.provider = S.prevProvider; S.prevProvider = null; S.keyStatus = 'ok'; S.key = 'demo'; }
+  S.screen = S.stack.pop(); render(true);
+}
+function snack(text) {
+  S.snack = text; render();
+  clearTimeout(snackTimer);
+  snackTimer = setTimeout(() => { S.snack = null; render(); }, 4200);
+}
+function openSys(id) { S.sysReturn = S.screen; S.sysDepth = S.stack.length; go(id); }
+function sysReturn(result) {
+  S.stack.length = S.sysDepth; S.screen = S.sysReturn; S.overlay = null;
+  if (result) result();
+  render(true);
+}
+const A = {
+  noop() {},
+  back,
+  go(arg, el) { if (el && el.dataset.ctx) S.ctx = el.dataset.ctx; if (arg === 'key') S.keyStatus = S.key ? S.keyStatus : 'idle'; go(arg); },
+  provider(p) { if (S.provider !== p) { S.provider = p; S.key = ''; S.keyStatus = 'idle'; } render(); },
+  paste() { if (S.keyStatus === 'checking') return; S.key = 'demo'; A.checkKey(); },
+  checkKey() {
+    if (!S.key) { S.keyStatus = 'missing'; reveal = true; render(); return; }
+    S.keyStatus = 'checking'; render();
+    setTimeout(() => { S.keyStatus = S.sim.key; if (S.screen === 'key') { reveal = true; render(); } }, 1300);
+  },
+  keyDone() {
+    S.prevProvider = null;
+    if (S.ctx === 'setup') return go('sources');
+    if (S.ctx === 'repair') { S.home = 'queue'; S.ctx = 'app'; S.stack = []; go('home', false); return snack('המפתח עודכן. ממשיכים לתמלל את ההקלטות שחיכו.'); }
+    S.ctx = 'app'; S.screen = 'setprovider'; S.stack = ['home', 'settings']; render(true); snack(`המפתח של ${pv()} נשמר.`);
+  },
+  openBrowser() { openSys('sysBrowser'); },
+  pick(target) { S.pickTarget = target; openSys('sysPicker'); },
+  sysUseFolder() { S.overlay = 'sysAllow'; render(); },
+  sysAllow() {
+    const t = S.pickTarget;
+    sysReturn(() => {
+      if (t === 'voice') S.voice = 'granted';
+      if (t === 'calls') S.calls = 'granted';
+    });
+    if (t === 'voice') setTimeout(() => { if (S.screen === 'sources' && S.voice === 'granted') A.sourcesDone(); }, 1200);
+    if (t === 'calls') setTimeout(() => { if (S.screen === 'calls' && S.calls === 'granted') A.callsDone(); }, 1200);
+    if (t === 'local') snack('התיקייה עודכנה. תמלולים חדשים יישמרו בה.');
+  },
+  sysDeny() { const t = S.pickTarget; sysReturn(() => { if (t === 'voice') S.voice = 'denied'; if (t === 'calls') S.calls = 'denied'; }); },
+  sysCancel() { A.sysDeny(); },
+  sourcesDone() {
+    if (S.ctx === 'repair') { S.home = 'queue'; S.ctx = 'app'; S.stack = []; go('home', false); return snack('הגישה חזרה. ממשיכים מאיפה שעצרנו.'); }
+    go('calls');
+  },
+  callsDone() { if (S.ctx === 'settings') { S.screen = 'setsources'; S.stack = ['home', 'settings']; render(true); return; } go('save'); },
+  callsSkip() { S.calls = 'declined'; go('save'); },
+  connectDrive() { openSys('sysAccount'); },
+  googleCancel() { sysReturn(() => { if (S.ctx !== 'repair') S.drive = 'cancelled'; }); },
+  googleAllow() {
+    sysReturn(() => {});
+    S.stack.push(S.screen); S.screen = 'drivebusy'; render(true);
+    setTimeout(() => {
+      S.stack.pop();
+      if (S.sim.drive === 'error') { S.drive = 'error'; S.screen = 'save'; render(true); return; }
+      S.drive = 'connected';
+      if (S.ctx === 'repair') { S.home = 'drivePending'; S.ctx = 'app'; S.stack = []; S.screen = 'home'; render(true); snack('Drive מחובר שוב. מעלים את התמלולים שחיכו.'); return; }
+      S.screen = 'save'; render(true);
+    }, 1800);
+  },
+  localOnly() { S.drive = 'local'; go('quick'); },
+  saveDone() {
+    if (S.ctx === 'settings') { S.ctx = 'app'; S.screen = 'settings'; S.stack = ['home']; render(true); return; }
+    go('agent');
+  },
+  goDriveFromAgent() { S.ctx = 'settings'; S.drive = 'none'; go('save'); },
+  plang(l) { S.promptLang = l; try { localStorage.setItem('rf.promptLang', l); } catch (e) {} render(); },
+  copyPrompt() {
+    const text = PROMPT[S.promptLang].replace('{folder_url}', FOLDER_URL);
+    copyToClipboard(text); S.copied = true; reveal = true; snack('ההנחיות הועתקו.');
+  },
+  openSettingsApp() { S.afterSettings = true; openSys('sysSettings'); },
+  openRecorder() {
+    // Setup is persisted as complete (and the source baseline exists) before leaving the app.
+    S.ctx = 'app'; S.stack = []; S.screen = 'home'; S.sysReturn = 'home'; S.sysDepth = 0;
+    S.stack.push('home'); S.screen = 'sysRecorder'; render(true);
+  },
+  finish() { S.ctx = 'app'; S.stack = []; S.home = 'empty'; go('home', false); },
+  openJob(id) {
+    const j = JOBS.find(x => x.id === id), js = jobState(j);
+    if (js.t.startsWith('נשמר')) { S.transcript = id; go('transcript'); return; }
+    S.overlay = 'job:' + id; render();
+  },
+  copyText() { copyToClipboard(TEXT_013.join('\n\n')); snack('הטקסט הועתק.'); },
+  share() { S.overlay = 'share'; render(); },
+  openDriveFile() { snack('בהדמיה: הקובץ נפתח באפליקציית Google Drive.'); },
+  openDriveFolder() { snack('בהדמיה: התיקייה Ramble נפתחת ב-Google Drive.'); },
+  pickDriveFolder() { snack('בהדמיה: נפתח בורר התיקיות של Google.'); },
+  retryOffline() { snack('עדיין אין אינטרנט. ננסה שוב לבד כשהחיבור יחזור.'); },
+  fixKey() { S.ctx = 'repair'; S.key = ''; S.keyStatus = 'idle'; go('key'); },
+  fixAccess() { S.ctx = 'repair'; S.voice = 'none'; go('sources'); },
+  fixDrive() { S.ctx = 'repair'; S.drive = 'none'; go('save'); },
+  openStorage() { openSys('sysStorage'); },
+  resume() { S.paused = false; S.home = 'queue'; render(); snack('התמלול חודש. ההקלטות שחיכו ייכנסו לתמלול.'); },
+  togglePause() {
+    S.paused = !S.paused; S.home = S.paused ? 'paused' : 'queue'; render();
+    snack(S.paused ? 'התמלול הושהה. הקלטות חדשות יחכו בתור.' : 'התמלול חודש.');
+  },
+  changeKey() { S.ctx = 'settings'; S.key = ''; S.keyStatus = 'idle'; go('key'); },
+  // The provider only changes for real after the new key passes the check; backing out restores it.
+  switchProvider() { S.prevProvider = S.provider; S.provider = S.provider === 'groq' ? 'openai' : 'groq'; S.ctx = 'settings'; S.key = ''; S.keyStatus = 'idle'; go('key'); },
+  askDisconnect() { S.overlay = 'disconnect'; render(); },
+  doDisconnect() { S.drive = 'local'; S.overlay = null; S.screen = 'settings'; S.stack = ['home']; render(true); snack('Google Drive נותק. תמלולים חדשים יישמרו רק בטלפון.'); },
+  askRemoveCalls() { S.overlay = 'removeCalls'; render(); },
+  doRemoveCalls() { S.calls = 'none'; S.overlay = null; render(); snack('שיחות טלפון לא יתומללו יותר.'); },
+  closeOverlay() { S.overlay = null; render(); }
+};
+function copyToClipboard(text) {
+  try { navigator.clipboard.writeText(text).catch(() => fallbackCopy(text)); }
+  catch (e) { fallbackCopy(text); }
+}
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); } catch (e) {} ta.remove();
+}
+
+// Returning from a system surface with side effects (simulated)
+const _sysReturn = sysReturn;
+sysReturn = function (result) {
+  const from = S.screen;
+  _sysReturn(result);
+  if (from === 'sysSettings' && S.afterSettings) { S.afterSettings = false; S.screen = 'quickcheck'; render(true); }
+  if (from === 'sysStorage') { S.home = 'queue'; S.ctx = 'app'; S.stack = []; S.screen = 'home'; render(true); snack('יש שוב מקום. ממשיכים לשמור תמלולים.'); }
+  if (from === 'sysBrowser') { S.screen = 'key'; render(true); }
+};
+
+// ---------- Overlays ----------
+function overlayHTML() {
+  if (!S.overlay || S.overlay === 'sysAllow') return '';
+  if (S.overlay.startsWith('job:')) {
+    const j = JOBS.find(x => x.id === S.overlay.slice(4)), js = jobState(j);
+    const busy = js.t === 'מתמלל עכשיו';
+    return `<div class="scrim bottom" data-a="closeOverlay"><div class="sheet" role="dialog" aria-label="${j.title}" onclick="event.stopPropagation()">
+      <div class="handle"></div><h2 class="t-h2" style="margin-top:0">${j.title}</h2><p class="meta">${j.when} · ${j.dur}</p>
+      <p class="t-body">${busy ? 'מתמללים את ההקלטה עכשיו. זה יכול לקחת כמה דקות.' : S.home === 'paused' ? 'התמלול מושהה. ההקלטה תחכה עד שתחדשו אותו.' : 'ההקלטה מחכה לתמלול. היא תתומלל בבדיקה הבאה, בדרך כלל בתוך כרבע שעה.'}</p>
+      <p class="t-small">הטקסט יופיע כאן כשהוא יהיה מוכן.</p>${btn('הבנתי', 'closeOverlay')}</div></div>`;
+  }
+  if (S.overlay === 'disconnect') return dialog('לנתק את Google Drive?', 'תמלולים שכבר עלו יישארו ב-Drive. תמלולים חדשים יישמרו רק בטלפון. עוזר ה-AI לא יראה אותם.', 'ניתוק', 'doDisconnect');
+  if (S.overlay === 'removeCalls') return dialog('להפסיק לתמלל שיחות?', 'שיחות שכבר תומללו יישארו. הקלטות השיחות עצמן לא יימחקו.', 'הפסקה', 'doRemoveCalls');
+  if (S.overlay === 'share') return `<div class="scrim bottom" data-a="closeOverlay"><div class="sys" style="flex:none;width:100%;background:none" onclick="event.stopPropagation()"><div class="share" role="dialog" aria-label="שיתוף">
+      <div style="font-size:1rem;font-weight:500"><bdi class="ltr">הקלטה 013.txt</bdi></div><div style="font-size:.8125rem;color:var(--sys-text2)">קובץ טקסט</div>
+      <div class="apps">${['הודעות', 'Gmail', 'WhatsApp', 'Drive', 'Quick Share', 'עוד'].map(a => `<span><i></i><bdi>${a}</bdi></span>`).join('')}</div>
+      <div class="sysnote" style="position:static;margin-top:14px">חלון השיתוף של אנדרואיד · לא בשליטתנו</div></div></div></div>`;
+  return '';
+}
+function dialog(t, p, ok, a) {
+  return `<div class="scrim"><div class="dialog" role="alertdialog" aria-label="${t}"><h2>${t}</h2><p>${p}</p>
+    <div class="row2">${btn(ok, a, 'primary')}${btn('ביטול', 'closeOverlay', 'secondary')}</div></div></div>`;
+}
+
+// =====================================================================
+// Render
+// =====================================================================
+const app = document.getElementById('app');
+function render(resetScroll) {
+  document.documentElement.dataset.theme = S.theme;
+  document.documentElement.style.setProperty('--fs', S.fs);
+  const kind = SYS[S.screen] || 'app';
+  const view = V[S.screen];
+  const keep = !resetScroll && document.getElementById('content') ? document.getElementById('content').scrollTop : 0;
+  app.innerHTML = view() + overlayHTML() + (S.snack ? `<div class="snack" role="status">${ic('checkCircle')}<span>${S.snack}</span></div>` : '');
+  const c = document.getElementById('content');
+  const acts = app.querySelector('.actions');
+  if (c) {
+    c.scrollTop = keep;
+    if (acts) acts.classList.toggle('lift', c.scrollHeight > c.clientHeight + 2);
+  }
+  // Snackbar sits above the bottom action area, never on top of the buttons.
+  const sn = app.querySelector('.snack');
+  if (sn && acts) sn.style.bottom = (acts.offsetHeight + 8) + 'px';
+  // A new result message is always brought into view (large text pushes it below the fold).
+  const res = app.querySelector('[data-reveal]');
+  if (res && c && reveal) { reveal = false; res.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); }
+  drawWave();
+  const tag = document.getElementById('surfaceTag');
+  tag.className = 'surface-tag' + (kind === 'app' ? '' : ' sys');
+  tag.innerHTML = (kind === 'app' ? LOGO : ic('info')) + SURFACE_LABEL[kind];
+  renderNotes(); renderNav(); renderCtl();
+}
+let lastWave = null;
+let waveStart = 0, waveRaf = 0;
+let reveal = false;
+function drawWave() {
+  const w = app.querySelector('.wave');
+  if (!w) { lastWave = null; cancelAnimationFrame(waveRaf); waveRaf = 0; return; }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const sig = S.screen + S.home;
+  if (lastWave !== sig) { lastWave = sig; waveStart = performance.now(); }
+  if (waveRaf) return;
+  const frame = now => {
+    const cur = app.querySelector('.wave');
+    if (!cur) { waveRaf = 0; return; }
+    const el = (now - waveStart) / 1000;
+    const k = Math.min(1, el / 1.1), rev = 1 - Math.pow(1 - k, 3);  // draw in over ~1.1s, then keep flowing
+    cur.querySelectorAll('path').forEach((p, i) => p.setAttribute('d', waveD(WAVE_LINES[i], el, rev)));
+    waveRaf = requestAnimationFrame(frame);
+  };
+  waveRaf = requestAnimationFrame(frame);
+}
+function renderNotes() {
+  const n = notesFor(S.screen);
+  document.getElementById('nTitle').textContent = n.t;
+  document.getElementById('nGoal').textContent = n.g;
+  const labels = ['מה עושים עכשיו?', 'מה קורה אחרי הלחיצה?', 'איך יודעים שסיימנו?'];
+  document.getElementById('nQA').innerHTML = n.q.map((a, i) => a && a !== '—' ? `<div><b>${labels[i]}</b>${a}</div>` : '').join('');
+  document.getElementById('nItems').innerHTML = n.i.map(x => `<li>${x}</li>`).join('');
+}
+
+// ---------- Navigator (jump to any screen / state) ----------
+const NAV = [
+  ['התקנה · שלב 1: ספק תמלול', [
+    ['פתיחה', () => setup('welcome')],
+    ['בחירת ספק', () => setup('provider')],
+    ['מפתח · ריק', () => setup('key', { key: '', keyStatus: 'idle' })],
+    ['מפתח · עובד', () => setup('key', { key: 'demo', keyStatus: 'ok' })],
+    ['מפתח · לא עובד', () => setup('key', { key: 'demo', keyStatus: 'invalid' })],
+    ['מפתח · אין אינטרנט', () => setup('key', { key: 'demo', keyStatus: 'offline' })],
+    ['איך משיגים מפתח', () => setup('keyhelp')]
+  ]],
+  ['התקנה · שלב 2: מתן הרשאות', [
+    ['גישה להקלטות · נמצאה', () => setup('sources', { voice: 'none' }, { folder: 'found' })],
+    ['גישה להקלטות · לא נמצאה', () => setup('sources', { voice: 'none' }, { folder: 'notfound' })],
+    ['גישה להקלטות · לא אושרה', () => setup('sources', { voice: 'denied' })],
+    ['גישה להקלטות · אושרה', () => setup('sources', { voice: 'granted' })],
+    ['שיחות טלפון', () => setup('calls', { voice: 'granted', calls: 'none' }, { calls: 'found' })],
+    ['שיחות · לא נמצאו בטלפון', () => setup('calls', { voice: 'granted', calls: 'none' }, { calls: 'absent' })]
+  ]],
+  ['התקנה · שלב 3: שמירה', [
+    ['שמירה ו-Drive', () => setup('save', { voice: 'granted', drive: 'none' })],
+    ['מחברים את Drive', () => setup('drivebusy', { voice: 'granted' })],
+    ['Drive מחובר', () => setup('save', { voice: 'granted', drive: 'connected' })],
+    ['החיבור ל-Google בוטל', () => setup('save', { voice: 'granted', drive: 'cancelled' })],
+    ['שגיאה ביצירת התיקייה', () => setup('save', { voice: 'granted', drive: 'error' })],
+    ['הנחיות לעוזר ה-AI', () => setup('agent', { voice: 'granted', drive: 'connected', copied: false })],
+    ['הנחיות · אחרי העתקה', () => setup('agent', { voice: 'granted', drive: 'connected', copied: true })]
+  ]],
+  ['התקנה · שלב 4 וסיום', [
+    ['הקלטה בלחיצה כפולה', () => setup('quick', {}, { side: 'supported' })],
+    ['כך מגדירים', () => setup('quickguide', {}, { side: 'supported' })],
+    ['בדיקה אחרי ההגדרות', () => setup('quickcheck')],
+    ['טלפון בלי האפשרות', () => setup('quick', {}, { side: 'unsupported' })],
+    ['הכול מוכן · עם Drive', () => setup('done', { voice: 'granted', drive: 'connected' })],
+    ['הכול מוכן · רק בטלפון', () => setup('done', { voice: 'granted', drive: 'local' })]
+  ]],
+  ['שימוש שוטף', [
+    ['ראשי · עדיין אין תמלולים', () => home('empty')],
+    ['ראשי · רשימת תמלולים', () => home('list')],
+    ['ראשי · רק בטלפון', () => home('list', { drive: 'local' })],
+    ['תמלול · נשמר ב-Drive', () => { home('list'); S.transcript = 'j3'; S.stack = ['home']; S.screen = 'transcript'; render(true); }],
+    ['תמלול · מחכה להעלאה', () => { home('drivePending'); S.transcript = 'j3'; S.stack = ['home']; S.screen = 'transcript'; render(true); }],
+    ['הקלטה שעוד לא תומללה', () => { home('list'); S.overlay = 'job:j2'; render(); }]
+  ]],
+  ['מצבים מיוחדים', [
+    ['המתנה לעיבוד', () => home('queue')],
+    ['אין אינטרנט', () => home('offline')],
+    ['מפתח שגוי', () => home('key')],
+    ['מגבלת ספק', () => home('quota')],
+    ['מגבלת ספק · הסבר', () => { home('quota'); S.stack = ['home']; S.screen = 'fixquota'; render(true); }],
+    ['הרשאה חסרה', () => home('access')],
+    ['אחסון מלא', () => home('storage')],
+    ['אחסון מלא · הסבר', () => { home('storage'); S.stack = ['home']; S.screen = 'fixstorage'; render(true); }],
+    ['העלאה ממתינה ל-Drive', () => home('drivePending')],
+    ['Drive התנתק', () => home('driveRevoked')],
+    ['עיבוד מושהה', () => home('paused', { paused: true })]
+  ]],
+  ['הגדרות', [
+    ['הגדרות', () => settings('settings')],
+    ['ספק תמלול', () => settings('setprovider')],
+    ['הקלטות', () => settings('setsources', { calls: 'granted' })],
+    ['שמירה בטלפון', () => settings('setlocal')],
+    ['Google Drive', () => settings('setdrive')],
+    ['ניתוק Drive · אישור', () => { settings('setdrive'); S.overlay = 'disconnect'; render(); }],
+    ['הנחיות לעוזר ה-AI', () => { settings('agent', { copied: false }); S.ctx = 'settings'; render(); }],
+    ['הנחיות · בלי Drive', () => { settings('agent', { drive: 'local', copied: false }); S.ctx = 'settings'; render(); }]
+  ]],
+  ['מסכי מערכת (לא שלנו)', [
+    ['בורר תיקיות + אישור', () => { setup('sources', { voice: 'none' }); S.pickTarget = 'voice'; openSys('sysPicker'); S.overlay = 'sysAllow'; render(); }, 1],
+    ['בחירת חשבון Google', () => { setup('save', { voice: 'granted', drive: 'none' }); openSys('sysAccount'); }, 1],
+    ['הרשאות Google Drive', () => { setup('save', { voice: 'granted', drive: 'none' }); openSys('sysAccount'); go('sysConsent'); }, 1],
+    ['אתר הספק', () => { setup('keyhelp'); openSys('sysBrowser'); }, 1],
+    ['הגדרות סמסונג', () => { setup('quickguide'); A.openSettingsApp(); }, 1],
+    ['המקליט של סמסונג', () => { setup('done', { voice: 'granted', drive: 'connected' }); A.openRecorder(); }, 1],
+    ['ניהול אחסון', () => { home('storage'); S.stack = ['home']; S.screen = 'fixstorage'; openSys('sysStorage'); }, 1],
+    ['חלון שיתוף', () => { home('list'); S.transcript = 'j3'; S.stack = ['home']; S.screen = 'transcript'; S.overlay = 'share'; render(true); }, 1]
+  ]]
+];
+const SETUP_ORDER = ['welcome', 'provider', 'key', 'keyhelp', 'sources', 'calls', 'save', 'drivebusy', 'agent', 'quick', 'quickguide', 'quickcheck', 'done'];
+function base(patch = {}, sim = {}) {
+  Object.assign(S, { overlay: null, snack: null, prevProvider: null, ctx: 'setup', keyStatus: 'ok', key: 'demo', voice: 'granted', calls: 'none', drive: 'connected', copied: false, paused: false, home: 'list' }, patch);
+  Object.assign(S.sim, sim);
+}
+function setup(id, patch = {}, sim = {}) {
+  const defaults = { welcome: { keyStatus: 'idle', key: '', voice: 'none', drive: 'none' }, provider: { keyStatus: 'idle', key: '', voice: 'none', drive: 'none' }, key: { voice: 'none', drive: 'none' }, keyhelp: { voice: 'none', drive: 'none', keyStatus: 'idle', key: '' } };
+  base(Object.assign({}, defaults[id] || {}, patch), sim);
+  const i = SETUP_ORDER.indexOf(id);
+  S.stack = SETUP_ORDER.slice(0, Math.max(0, i)).filter(x => !['keyhelp', 'drivebusy', 'quickguide', 'quickcheck'].includes(x) || x === SETUP_ORDER[i - 1]);
+  S.screen = id; render(true);
+}
+function home(state, patch = {}) { base(Object.assign({ ctx: 'app', home: state }, patch)); S.stack = []; S.screen = 'home'; render(true); }
+function settings(id, patch = {}) { base(Object.assign({ ctx: 'app' }, patch)); S.stack = id === 'settings' ? ['home'] : ['home', 'settings']; S.screen = id; render(true); }
+
+let navBuilt = false;
+function renderNav() {
+  const nav = document.getElementById('nav');
+  if (!navBuilt) {
+    let html = '', k = 0;
+    NAV.forEach(([g, items]) => {
+      html += `<h3>${g}</h3>`;
+      items.forEach(([label, , sys]) => { html += `<button type="button" data-nav="${k++}">${sys ? '<i class="sysdot"></i>' : ''}${label}</button>`; });
+    });
+    nav.innerHTML = html; navBuilt = true;
+    nav.addEventListener('click', e => {
+      const b = e.target.closest('[data-nav]'); if (!b) return;
+      const flat = NAV.flatMap(([, items]) => items);
+      clearTimeout(snackTimer); S.snack = null;
+      flat[+b.dataset.nav][1]();
+      nav.querySelectorAll('[data-nav]').forEach(x => x.setAttribute('aria-current', x === b ? 'true' : 'false'));
+    });
+  }
+}
+
+// ---------- Controls ----------
+const CTL = {
+  theme: [['light', 'בהיר'], ['dark', 'כהה']],
+  fs: [[1, '100%'], [1.3, '130%'], [1.6, '160%'], [2, '200%']],
+  simKey: [['ok', 'עובד'], ['invalid', 'לא עובד'], ['offline', 'אין אינטרנט']],
+  simFolder: [['found', 'נמצאה'], ['notfound', 'לא נמצאה']],
+  simCalls: [['found', 'קיימות'], ['absent', 'אין']],
+  simDrive: [['ok', 'מצליחה'], ['error', 'נכשלת']],
+  simSide: [['supported', 'נתמך'], ['unsupported', 'לא נתמך']]
+};
+function ctlVal(k) { return k === 'theme' ? S.theme : k === 'fs' ? S.fs : S.sim[{ simKey: 'key', simFolder: 'folder', simCalls: 'calls', simDrive: 'drive', simSide: 'side' }[k]]; }
+function renderCtl() {
+  document.querySelectorAll('[data-ctl]').forEach(el => {
+    const k = el.dataset.ctl;
+    el.innerHTML = CTL[k].map(([v, l]) => `<button type="button" aria-pressed="${String(ctlVal(k)) === String(v)}" data-v="${v}">${l}</button>`).join('');
+  });
+}
+document.querySelector('.ctl').addEventListener('click', e => {
+  const b = e.target.closest('[data-v]'); if (!b) return;
+  const k = b.closest('[data-ctl]').dataset.ctl, v = b.dataset.v;
+  if (k === 'theme') S.theme = v;
+  else if (k === 'fs') S.fs = +v;
+  else S.sim[{ simKey: 'key', simFolder: 'folder', simCalls: 'calls', simDrive: 'drive', simSide: 'side' }[k]] = v;
+  render();
+});
+
+// ---------- Event delegation inside the phone ----------
+app.addEventListener('click', e => {
+  const el = e.target.closest('[data-a]');
+  if (!el || !app.contains(el)) return;
+  if (el.classList.contains('scrim') && e.target !== el) return;
+  const fn = A[el.dataset.a];
+  if (fn) fn(el.dataset.arg, el);
+});
+document.getElementById('sysBack').addEventListener('click', back);
+document.getElementById('restart').addEventListener('click', () => { S.sim = { key: 'ok', folder: 'found', calls: 'found', drive: 'ok', side: 'supported' }; setup('welcome'); });
+
+// ---------- Fit phone to small viewports ----------
+function fit() {
+  const w = document.getElementById('phoneWrap');
+  const avail = Math.min(window.innerWidth - 32, 372);
+  const s = Math.min(1, avail / 372);
+  w.style.transform = s < 1 ? `scale(${s})` : '';
+  w.style.height = s < 1 ? (800 * s) + 'px' : '';
+}
+window.addEventListener('resize', fit);
+if (matchMedia('(prefers-color-scheme: dark)').matches) S.theme = 'dark';
+fit(); render(true);
+</script>
+</body>
+</html>

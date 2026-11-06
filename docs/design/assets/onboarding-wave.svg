@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 150" width="720" height="150" role="img" aria-label="Flowing wave illustration">
+  <!-- Welcome / Demo-ready / Finish illustration. Anchor to the bottom edge of a 720pt-wide window; preserveAspectRatio none is acceptable.
+       Motion: stroke-dasharray = path length, animate dashoffset to 0 over 600ms (standard easing) once; reduced motion = no animation.
+       The path is a brand mark: do not mirror it for RTL. -->
+  <path d="M-20 100q45-120 90 0q45 100 90 0q35-70 70 0q35 50 70 0q25-28 50 0q25 18 50 0h360" fill="none" stroke="#25D366" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-20 116q45-85 90 0q45 72 90 0q35-50 70 0q35 36 70 0q25-20 50 0q25 12 50 0h360" fill="none" stroke="#25D366" stroke-opacity="0.35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

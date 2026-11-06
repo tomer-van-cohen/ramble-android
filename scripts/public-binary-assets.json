@@ -1,0 +1,15 @@
+{
+  "app/src/androidTest/assets/speech/short-en.wav": "51ee7e4bb1dd164f0ebaaba7e515c9f88c3b2840e2102d3660cac4f0f8109c23",
+  "app/src/androidTest/assets/speech/short-he.wav": "8ba88cb45a21c22d32cc2d43a8c24dbfdd21dba3539db420fb494812ea3facca",
+  "app/src/androidTest/assets/speech/silence.wav": "9ee7bb3b61a9674f042f4371b755ef30d49f63ad9df3d50d9e7c1f07f7a747e7",
+  "app/src/main/res/drawable-nodpi/agent_muse.png": "f63c36e78090fab8b7b03629f4e6b8ee91d3f6ace7a39d0c28e444ed00e8b2df",
+  "app/src/main/res/drawable/agent_gemini.png": "5e7cfecaa53f4f65a313fe89b0f389548126544a78fad8489510c70ae641a4a1",
+  "design/first-screen.png": "3d978f6e5d30c3afbd3f34fe81c80ca35ad208c48ef41c51417af62dcd761c87",
+  "docs/qa/providers-he-release.png": "19984c4cc920b9be0d565cbfb132eb591ad7a217a776e8df677dd6d974d4e9d7",
+  "docs/qa/sources-status-dark.png": "7789accb366ca170545163075d5fd036de8f0c35e98f795f70bae3e3b853e622",
+  "docs/qa/welcome-en-auto-release.png": "3d978f6e5d30c3afbd3f34fe81c80ca35ad208c48ef41c51417af62dcd761c87",
+  "docs/qa/welcome-he-dark-release.png": "bad36ca1ceadfb7fdc495f83c2237514ba35394e38af150fb970acc042b7c8d5",
+  "docs/qa/welcome-he-large-release.png": "d5f8d43cac361e3a6c8ad6e9de9ba516f0102adff9c3b2605fb2400c965bab56",
+  "docs/qa/welcome-he-release.png": "d5f8d43cac361e3a6c8ad6e9de9ba516f0102adff9c3b2605fb2400c965bab56",
+  "gradle/wrapper/gradle-wrapper.jar": "81a82aaea5abcc8ff68b3dfcb58b3c3c429378efd98e7433460610fecd7ae45f"
+}

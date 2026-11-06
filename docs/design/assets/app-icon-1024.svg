@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Ramble app icon">
+  <!-- macOS icon grid: 824pt body on a 1024 canvas, corner radius 184; green from docs/logo.svg, ink wave stroke -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2EDC6E"/><stop offset="1" stop-color="#1FC45C"/></linearGradient>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="184" fill="url(#bg)"/>
+  <path d="M212 512q58-290 116 0q58 250 116 0q45-170 90 0q45 100 90 0h188" fill="none" stroke="#121212" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

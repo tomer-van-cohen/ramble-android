@@ -1,0 +1,23 @@
+# Native Android implementation status
+
+The project now has a Kotlin/Compose Android application. The HTML prototype remains the design reference, not the runtime UI. Actual results are recorded in VALIDATION.md: Debug/Release builds, 27 JVM/HTTP tests and sixteen Android emulator tests pass. A signed installation APK is available under artifacts/.
+
+Implemented paths: Groq/OpenAI key validation and encrypted versioned credential storage; Samsung parent SAF grant with mapped child sources and new-only baseline; durable Room observations/jobs/chunks/attempts; finite WorkManager scans/processes; native streaming decode and bounded standalone WAV chunks; direct multipart provider API calls; uncertain-outcome confirmation; private canonical transcript and app-owned Downloads publication; direct Google Drive authorization/folder/text export with stable IDs and content reconciliation; bilingual agent prompt; settings, queue, transcript copy/share and native recorder/shortcut guidance. Ramble-hosted transcription is disabled Coming soon.
+
+Automatic completion: finalized single-audio-track AAC/M4A candidates are queued without user confirmation after repeated structural proof and date checks. Open/paused/incomplete/unsupported files wait. The emulator exercises an actual platform AAC encoder and MP4 muxer, checks the open file repeatedly, closes it and runs discovery/worker/export with no manual queue approval. Samsung hardware lifecycle/power validation is still outstanding. See AUTOMATIC-COMPLETION.md.
+
+External setup: Google Drive needs a publisher-owned Google Cloud project with Drive API/consent and an Android OAuth client matching the app package and installed signing certificate. The dedicated publisher project, Drive API and release Android OAuth client have been configured; GitHub Pages product/privacy/terms URLs have been published and saved in Branding. Public Audience is now In production; Google reports no data-access verification is required. Consent branding verification remains separate. One real release-app Google consent, Groq transcription and Drive export/readback run has passed on the Google Play emulator. No maintainer Google client secret or provider key is embedded. Without that setup, local-only transcription remains usable. Actual provider transcription requires a user's valid key and internet; synthetic tests do not prove it.
+
+Not yet physically verified: Samsung child storage, paused/held calls vs completed audio, Side-button variants, long-term Samsung power behavior, general provider accuracy/billing, additional-account OAuth behavior and other assistants’ connector behavior. There is no Samsung connected to this Mac. Emulator tests cannot establish those outcomes.
+
+The implementation deliberately uses synchronous app-private preferences for small settings and Keystore ciphertext, and Room for transactional queue state; it does not add DataStore. Default exports are Downloads plus optional Drive. A custom output SAF destination is implemented in settings (new jobs only). A global archive import, in-app search/chat and a hosted service are not introduced by this build. The approved standalone product is new recordings only.
+
+Version 0.2.1 fixes Drive reconnection to an already-known folder (re-enables export) and propagates folder-lookup authorization/network failures instead of treating every exception as a missing folder. Four native HTTP-interceptor tests cover these paths and idempotent text export; they are not live OAuth tests. The owner account is now listed as a permitted Google test account.
+
+Live pilot evidence (2026-11-02): new short synthetic AAC/M4A → automatic eligibility → real Groq transcription → Downloads → Google Drive → connector readback, exact text match and unchanged single file after another app startup. Periodic scans were accelerated by startup for this check; no Samsung timing or lifecycle claim is made. See DRIVE-END-TO-END.md.
+
+Version 0.2.2 simplifies recording settings: actual directory-read status, repair only when necessary, a separate call-transcription switch and a calm unavailable-folder state. Source grants, queue history and baselines are preserved; three added native UI tests pass.
+
+Version 0.2.3 adds a small secondary Change recording folder link below a connected voice source. It opens the existing Android folder grant/replacement flow; it does not request new access until selected or change baseline rules.
+
+Google OAuth is now In production (2026-11-02). Beta testers no longer need to send their Google emails or be allowlisted. The permission scope remains drive.file only. This changes no Railway service or application binary.

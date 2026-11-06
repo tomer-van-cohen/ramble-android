@@ -1,0 +1,8 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="ramble-record" android:enabled="true"
+        android:icon="@drawable/ic_record_tile" android:shortcutShortLabel="@string/record_shortcut">
+        <intent android:action="android.intent.action.MAIN"
+            android:targetPackage="io.github.tomervancohen.rambleflow"
+            android:targetClass="io.github.tomervancohen.rambleflow.QuickRecordActivity" />
+    </shortcut>
+</shortcuts>

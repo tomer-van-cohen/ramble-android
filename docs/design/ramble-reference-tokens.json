@@ -1,0 +1,167 @@
+{
+  "$schema": "ramble-design-tokens/1",
+  "name": "Ramble macOS design tokens",
+  "version": "1.0.0",
+  "generatedBy": "D0 design phase, 2026-10-22",
+  "notes": [
+    "Colors are sRGB hex. 'light' and 'dark' map to NSAppearance aqua / darkAqua.",
+    "Contrast ratios are WCAG 2.x against the surface named in 'on'.",
+    "brand.green is the logo fill. It is never used as text or as a background behind white text (1.98:1).",
+    "Primary buttons use brand.green fill with brand.ink text in BOTH appearances (9.45:1).",
+    "Text accents use color.accent (dark green in light mode, light green in dark mode).",
+    "Where a token says 'system', bind to the matching NSColor / SwiftUI semantic color instead of the hex; the hex is the design reference value."
+  ],
+  "color": {
+    "brand": {
+      "green": { "value": "#25D366", "usage": "logo fill, primary button fill, REC-ready wave, app icon" },
+      "ink": { "value": "#121212", "usage": "logo wave stroke, text on brand.green" }
+    },
+    "light": {
+      "bg": { "value": "#F4F6F4", "system": "windowBackgroundColor", "usage": "window background" },
+      "surface": { "value": "#FFFFFF", "system": "controlBackgroundColor", "usage": "cards, fields, menus, sheets" },
+      "surface2": { "value": "#EDF0EE", "usage": "inset groups, list alternate rows, segmented track" },
+      "border": { "value": "#D6DBD8", "system": "separatorColor", "usage": "hairlines, field borders" },
+      "text": { "value": "#151817", "system": "labelColor", "contrast": { "on": "surface", "ratio": 17.87 } },
+      "text2": { "value": "#5B625F", "system": "secondaryLabelColor", "contrast": { "on": "surface", "ratio": 6.26 } },
+      "text3": { "value": "#6F7774", "system": "tertiaryLabelColor", "contrast": { "on": "surface", "ratio": 4.6 }, "usage": "captions >= 11px only" },
+      "accent": { "value": "#0F7A3E", "contrast": { "on": "surface", "ratio": 5.42 }, "usage": "links, selected state, done icons, focus ring" },
+      "rec": { "value": "#C8231F", "contrast": { "on": "surface", "ratio": 5.65 }, "usage": "recording and failure text" },
+      "recDot": { "value": "#FF3B30", "usage": "REC dot and badge fill only (non-text, 3.55:1)" },
+      "warn": { "value": "#8A5200", "contrast": { "on": "surface", "ratio": 6.39 }, "usage": "attention / needs input / unknown text" },
+      "info": { "value": "#0B62C4", "contrast": { "on": "surface", "ratio": 5.9 }, "usage": "in-progress stage text" },
+      "fill": {
+        "ok": "#E2F7EA",
+        "info": "#E3EFFC",
+        "warn": "#FFF1D6",
+        "rec": "#FDE7E6",
+        "neutral": "#EDF0EE"
+      },
+      "focusRing": { "value": "#0F7A3E", "width": 2, "offset": 2 },
+      "hud": { "bg": "rgba(31,34,33,0.86)", "text": "#F1F3F2", "contrast": { "on": "#1F2221", "ratio": 14.39 } }
+    },
+    "dark": {
+      "bg": { "value": "#1C1E1D", "system": "windowBackgroundColor" },
+      "surface": { "value": "#262928", "system": "controlBackgroundColor" },
+      "surface2": { "value": "#303433" },
+      "border": { "value": "#3C413F", "system": "separatorColor" },
+      "text": { "value": "#F1F3F2", "system": "labelColor", "contrast": { "on": "surface", "ratio": 13.17 } },
+      "text2": { "value": "#ABB2AF", "system": "secondaryLabelColor", "contrast": { "on": "surface", "ratio": 6.8 } },
+      "text3": { "value": "#8E9693", "system": "tertiaryLabelColor", "contrast": { "on": "surface", "ratio": 4.85 } },
+      "accent": { "value": "#3DDC84", "contrast": { "on": "surface", "ratio": 8.23 } },
+      "rec": { "value": "#FF6B61", "contrast": { "on": "surface", "ratio": 5.26 } },
+      "recDot": { "value": "#FF453A" },
+      "warn": { "value": "#FFB340", "contrast": { "on": "surface", "ratio": 8.23 } },
+      "info": { "value": "#6CB4FF", "contrast": { "on": "surface", "ratio": 6.72 } },
+      "fill": {
+        "ok": "#173524",
+        "info": "#17304A",
+        "warn": "#3A2E12",
+        "rec": "#3E1D1B",
+        "neutral": "#303433"
+      },
+      "focusRing": { "value": "#3DDC84", "width": 2, "offset": 2 },
+      "hud": { "bg": "rgba(31,34,33,0.86)", "text": "#F1F3F2" }
+    },
+    "status": {
+      "comment": "Lifecycle state -> semantic group. Every chip also carries an SF Symbol so colour is never the only signal.",
+      "draft": { "group": "neutral", "symbol": "doc" },
+      "recording": { "group": "rec", "symbol": "record.circle.fill" },
+      "captured": { "group": "neutral", "symbol": "waveform" },
+      "transcribing": { "group": "progress", "symbol": "text.bubble" },
+      "ready": { "group": "neutral", "symbol": "checkmark.circle" },
+      "discovering": { "group": "progress", "symbol": "magnifyingglass" },
+      "needs_route": { "group": "attention", "symbol": "arrow.triangle.branch" },
+      "creating_session": { "group": "progress", "symbol": "plus.circle" },
+      "dispatching": { "group": "progress", "symbol": "paperplane" },
+      "accepted": { "group": "progress", "symbol": "tray.and.arrow.down" },
+      "running": { "group": "progress", "symbol": "circle.dotted" },
+      "needs_clarification": { "group": "attention", "symbol": "questionmark.circle" },
+      "needs_engine_approval": { "group": "attention", "symbol": "hand.raised" },
+      "completed": { "group": "ok", "symbol": "checkmark.circle.fill", "label": "Reported done" },
+      "blocked": { "group": "attention", "symbol": "exclamationmark.octagon" },
+      "failed": { "group": "rec", "symbol": "xmark.circle" },
+      "cancel_requested": { "group": "neutral", "symbol": "stop.circle" },
+      "canceled": { "group": "neutral", "symbol": "stop.circle.fill" },
+      "outcome_unknown": { "group": "attention", "symbol": "questionmark.diamond" }
+    }
+  },
+  "typography": {
+    "family": {
+      "ui": "SF Pro Text / system (NSFont.systemFont); Hebrew falls back to SF Hebrew automatically",
+      "display": "SF Pro Display / system, weight 600, tracking -0.01em (welcome, demo headline only)",
+      "mono": "SF Mono / NSFont.monospacedSystemFont (paths, commands, masked key)"
+    },
+    "scale": {
+      "display": { "size": 28, "lineHeight": 34, "weight": 600, "tracking": -0.3, "usage": "onboarding headline" },
+      "largeTitle": { "size": 26, "lineHeight": 32, "weight": 700 },
+      "title1": { "size": 22, "lineHeight": 26, "weight": 700 },
+      "title2": { "size": 17, "lineHeight": 22, "weight": 600 },
+      "title3": { "size": 15, "lineHeight": 20, "weight": 600 },
+      "headline": { "size": 13, "lineHeight": 16, "weight": 600 },
+      "body": { "size": 13, "lineHeight": 18, "weight": 400 },
+      "callout": { "size": 12, "lineHeight": 16, "weight": 400 },
+      "subheadline": { "size": 11, "lineHeight": 14, "weight": 400 },
+      "caption": { "size": 11, "lineHeight": 13, "weight": 500, "tracking": 0.2, "transform": "none" },
+      "menu": { "size": 13, "lineHeight": 16, "weight": 400 },
+      "hud": { "size": 13, "lineHeight": 16, "weight": 600, "numerics": "tabular" },
+      "mono": { "size": 12, "lineHeight": 16, "weight": 400 }
+    }
+  },
+  "spacing": {
+    "grid": 4,
+    "xxs": 4, "xs": 8, "s": 12, "m": 16, "l": 20, "xl": 24, "xxl": 32, "xxxl": 40, "huge": 48,
+    "windowInset": { "onboarding": 40, "settings": 20, "taskDetail": 20, "sheet": 20, "menu": 5 },
+    "rowHeight": { "list": 44, "menu": 24, "settingsRow": 36, "tab": 56 }
+  },
+  "radius": {
+    "chip": 4, "control": 6, "field": 6, "button": 6, "buttonLarge": 8, "card": 10, "window": 10, "sheet": 12, "notification": 14, "hud": 22, "appIcon": "macOS squircle mask"
+  },
+  "size": {
+    "onboardingWindow": [720, 600],
+    "settingsWindow": [640, 560],
+    "taskDetailWindow": [520, 640],
+    "menuDropdownWidth": 300,
+    "hudPill": [180, 44],
+    "notification": [360, 80],
+    "sheet": [480, 320],
+    "menuBarGlyph": [18, 18],
+    "controlHeight": { "regular": 22, "large": 32, "field": 24, "toggle": [26, 15] },
+    "minTouchTarget": 22
+  },
+  "elevation": {
+    "flat": "none",
+    "menu": "0 8px 24px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.08)",
+    "sheet": "0 16px 40px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.08)",
+    "hud": "0 6px 20px rgba(0,0,0,0.30)",
+    "dark": {
+      "menu": "0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08)",
+      "sheet": "0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08)"
+    },
+    "vibrancy": { "menu": "NSVisualEffectView.material = .menu", "hud": ".hudWindow", "sheet": "none (opaque surface)" }
+  },
+  "motion": {
+    "easing": {
+      "standard": "cubic-bezier(0.2, 0, 0, 1)",
+      "exit": "cubic-bezier(0.4, 0, 1, 1)",
+      "spring": "response 0.32, dampingFraction 0.82 (SwiftUI .spring)"
+    },
+    "duration": {
+      "micro": 120, "standard": 200, "sheet": 320, "hudAppear": 180, "hudDismiss": 140, "waveDraw": 600, "stageAdvance": 200, "recPulse": 1200
+    },
+    "rules": [
+      "Wave draw (600ms) only on welcome, demo-ready and finish screens; never on settings or task surfaces.",
+      "REC dot pulses at 1200ms period; the pulse is the only continuous animation and only while recording.",
+      "Working state uses a static glyph plus a one-shot stage change; no spinners longer than 30s without a text reason.",
+      "Reduced motion: wave draws instantly, REC dot is static with a 2px ring, HUD and sheets crossfade 120ms, stage timeline updates without slide."
+    ]
+  },
+  "iconography": {
+    "menuBar": {
+      "template": true,
+      "size": 18,
+      "states": ["idle", "preparing", "rec", "recLatched", "working", "attention", "updateReady", "historyPaused"],
+      "assets": "docs/design/assets/menubar-*.svg"
+    },
+    "appIcon": "docs/design/assets/app-icon-1024.svg (master); small-size rule: 2 crests + line below 32px"
+  }
+}

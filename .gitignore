@@ -1,0 +1,35 @@
+# Local build/development state
+.gradle/
+.kotlin/
+.tooling/
+local.properties
+**/build/
+.DS_Store
+.claude/
+.playwright-mcp/
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+
+# Credentials, private exports and operational evidence
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.pem
+*.p12
+*.pfx
+*.db
+*.sqlite
+*.sqlite3
+*.log
+*.zip
+*.apk
+*.aab
+artifacts/
+/VALIDATION.md
+
+# Independently versioned publisher website; do not import its Git history.
+/publisher-site/
